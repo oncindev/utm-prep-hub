@@ -2,8 +2,8 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UTM Prep Hub — Sains Data UT Bandung (Sem 3)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>UT Prep Hub Pro — Sains Data UT Bandung (Sem 3)</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -51,7 +51,7 @@
       color: var(--text);
       line-height: 1.55;
       font-size: 15px;
-      padding-bottom: 72px;
+      padding-bottom: 84px;
     }
     .header {
       position: sticky;
@@ -59,36 +59,22 @@
       z-index: 30;
       background: var(--bg-soft);
       border-bottom: 1px solid var(--border);
-      padding: 12px 14px 10px;
-      backdrop-filter: blur(10px);
+      padding: 10px 14px;
     }
     .header-top {
-      max-width: 900px;
+      max-width: 920px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-    }
-    .brand h1 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    .brand p {
-      margin: 2px 0 0;
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .header-actions {
-      display: flex;
-      align-items: center;
       gap: 8px;
     }
+    .brand h1 { margin: 0; font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
+    .brand p { margin: 1px 0 0; font-size: 11.5px; color: var(--muted); }
+    .header-actions { display: flex; align-items: center; gap: 6px; }
     .pill-badge {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       padding: 4px 9px;
       border-radius: 999px;
       background: var(--warning-bg);
@@ -100,14 +86,19 @@
       background: var(--card-2);
       color: var(--text);
       border-radius: 10px;
-      padding: 7px 10px;
-      font-size: 13px;
+      padding: 6px 10px;
+      font-size: 12.5px;
       cursor: pointer;
       font-weight: 600;
     }
+    .icon-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-bg);
+      color: var(--primary);
+    }
     .subject-bar {
-      max-width: 900px;
-      margin: 10px auto 0;
+      max-width: 920px;
+      margin: 9px auto 0;
       display: flex;
       gap: 8px;
       overflow-x: auto;
@@ -121,7 +112,7 @@
       background: var(--card);
       color: var(--muted);
       border-radius: 12px;
-      padding: 8px 12px;
+      padding: 7px 11px;
       cursor: pointer;
       text-align: left;
       transition: all 0.15s ease;
@@ -131,27 +122,17 @@
       background: var(--primary-bg);
       color: var(--text);
     }
-    .subj-btn .s-title {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .subj-btn .s-meta {
-      display: block;
-      font-size: 11px;
-      color: var(--muted);
-    }
+    .subj-btn .s-title { display: block; font-size: 13px; font-weight: 700; }
+    .subj-btn .s-meta { display: block; font-size: 10.5px; color: var(--muted); }
     .subj-btn.active .s-meta { color: var(--primary); }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 14px;
-    }
+    .container { max-width: 920px; margin: 0 auto; padding: 12px 14px; }
+
+    /* Desktop mode tabs */
     .mode-tabs {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
       margin-bottom: 14px;
       background: var(--card);
       padding: 5px;
@@ -168,39 +149,86 @@
       font-weight: 700;
       cursor: pointer;
     }
-    .mode-btn.active {
-      background: var(--primary);
-      color: #082f49;
-    }
+    .mode-btn.active { background: var(--primary); color: #082f49; }
     html.light .mode-btn.active { color: #ffffff; }
+
+    /* Mobile bottom nav */
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      background: var(--bg-soft);
+      border-top: 1px solid var(--border);
+      padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+    .bnav-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 6px 4px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .bnav-btn span.b-ico { font-size: 17px; line-height: 1; }
+    .bnav-btn.active { color: var(--primary); background: var(--primary-bg); }
+    @media (max-width: 768px) {
+      .mode-tabs { display: none; }
+      .bottom-nav { display: grid; }
+    }
 
     .overview-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 14px;
+      padding: 13px 14px;
+      margin-bottom: 12px;
       box-shadow: var(--shadow);
     }
-    .overview-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .overview-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
     .progress-bar-wrap {
       width: 100%;
-      height: 8px;
+      height: 7px;
       background: var(--card-2);
       border-radius: 999px;
       overflow: hidden;
-      margin-top: 10px;
+      margin-top: 9px;
     }
     .progress-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--primary), var(--accent));
       transition: width 0.25s ease;
+    }
+    .readiness-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .check-chip {
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .check-chip.done {
+      border-color: var(--success);
+      background: var(--success-bg);
+      color: var(--success);
     }
 
     /* Accordion */
@@ -216,7 +244,7 @@
       background: transparent;
       border: none;
       color: var(--text);
-      padding: 14px;
+      padding: 13px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -239,7 +267,7 @@
     .acc-body li { margin-bottom: 6px; }
     .tag {
       display: inline-block;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       padding: 2px 8px;
       border-radius: 999px;
@@ -247,22 +275,39 @@
       color: var(--primary);
       margin-right: 6px;
     }
-    .cheat-table-wrap {
-      overflow-x: auto;
-      margin-top: 10px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    th, td {
-      border: 1px solid var(--border);
-      padding: 8px 10px;
-      text-align: left;
-      vertical-align: top;
-    }
+    .cheat-table-wrap { overflow-x: auto; margin-top: 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
     th { background: var(--card-2); font-weight: 700; }
+
+    /* Cheat Sheet Grid */
+    .cheat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 10px;
+    }
+    .cheat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 14px;
+    }
+    .cheat-box h3 {
+      margin: 0 0 8px;
+      font-size: 13.5px;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    .cheat-box ul { margin: 0; padding-left: 17px; font-size: 13px; }
+    .cheat-box li { margin-bottom: 5px; }
+    code {
+      background: var(--card-2);
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-size: 0.9em;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
 
     /* Flashcard */
     .fc-controls {
@@ -270,14 +315,14 @@
       justify-content: space-between;
       align-items: center;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       flex-wrap: wrap;
     }
     .fc-card {
       background: var(--card);
       border: 2px solid var(--border);
       border-radius: 18px;
-      min-height: 220px;
+      min-height: 230px;
       padding: 22px 18px;
       display: flex;
       flex-direction: column;
@@ -286,11 +331,25 @@
       text-align: center;
       cursor: pointer;
       box-shadow: var(--shadow);
-      transition: border-color 0.2s ease, transform 0.12s ease;
+      transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease;
       user-select: none;
+      position: relative;
+      touch-action: pan-y;
     }
-    .fc-card:active { transform: scale(0.99); }
     .fc-card.flipped { border-color: var(--primary); background: var(--card-2); }
+    .fc-star {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .fc-star.marked { border-color: var(--warning); color: var(--warning); background: var(--warning-bg); }
     .fc-label {
       font-size: 11px;
       font-weight: 700;
@@ -299,31 +358,36 @@
       color: var(--primary);
       margin-bottom: 10px;
     }
-    .fc-text { font-size: 17px; font-weight: 600; max-width: 620px; }
+    .fc-text { font-size: 17px; font-weight: 600; max-width: 640px; }
     .fc-card.flipped .fc-text { font-size: 15px; font-weight: 500; }
-    .fc-hint { font-size: 12px; color: var(--muted); margin-top: 14px; }
-    .fc-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
+    .fc-hint { font-size: 11.5px; color: var(--muted); margin-top: 14px; }
+    .fc-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+
     .btn {
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text);
       border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 14px;
+      padding: 11px 13px;
+      font-size: 13.5px;
       font-weight: 700;
       cursor: pointer;
     }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
     .btn-primary { background: var(--primary); color: #082f49; border-color: transparent; }
     html.light .btn-primary { color: #ffffff; }
     .btn-success { background: var(--success-bg); color: var(--success); border-color: var(--success); }
     .btn-warn { background: var(--warning-bg); color: var(--warning); border-color: var(--warning); }
 
     /* Quiz */
+    .quiz-toolbar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
     .quiz-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -331,13 +395,13 @@
       padding: 16px;
       box-shadow: var(--shadow);
     }
-    .q-num { font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
-    .q-text { font-size: 16px; font-weight: 600; margin-bottom: 14px; }
+    .q-num { font-size: 12px; font-weight: 700; color: var(--primary); }
+    .q-text { font-size: 15.5px; font-weight: 600; margin: 8px 0 14px; }
     .opt-list { display: flex; flex-direction: column; gap: 9px; }
     .opt-btn {
       width: 100%;
       text-align: left;
-      padding: 12px 14px;
+      padding: 12px 13px;
       border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--card-2);
@@ -348,38 +412,20 @@
       gap: 10px;
       align-items: flex-start;
     }
-    .opt-btn.correct { background: var(--success-bg); border-color: var(--success); color: var(--text); }
-    .opt-btn.wrong { background: var(--danger-bg); border-color: var(--danger); color: var(--text); }
-    .opt-key {
-      font-weight: 800;
-      min-width: 22px;
-      color: var(--primary);
-    }
+    .opt-btn.correct { background: var(--success-bg); border-color: var(--success); }
+    .opt-btn.wrong { background: var(--danger-bg); border-color: var(--danger); }
+    .opt-key { font-weight: 800; min-width: 22px; color: var(--primary); }
     .explain-box {
-      margin-top: 14px;
+      margin-top: 13px;
       padding: 12px;
       border-radius: 12px;
       background: var(--primary-bg);
       border-left: 4px solid var(--primary);
       font-size: 13.5px;
     }
-    .quiz-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-top: 14px;
-    }
-    .score-banner {
-      text-align: center;
-      padding: 20px 14px;
-    }
-    .score-big {
-      font-size: 40px;
-      font-weight: 800;
-      color: var(--primary);
-      line-height: 1.1;
-    }
+    .quiz-nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 14px; }
+    .score-banner { text-align: center; padding: 20px 14px; }
+    .score-big { font-size: 42px; font-weight: 800; color: var(--primary); line-height: 1.1; }
     .search-input {
       width: 100%;
       padding: 10px 12px;
@@ -390,18 +436,27 @@
       font-size: 14px;
       margin-bottom: 12px;
     }
+    .timer-pill {
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
   </style>
 </head>
 <body>
   <header class="header">
     <div class="header-top">
       <div class="brand">
-        <h1>UT Prep Hub — Sains Data</h1>
+        <h1>UT Prep Hub Pro — Sains Data</h1>
         <p>UT Bandung • Sem 3 Lengkap (UTM &amp; UO)</p>
       </div>
       <div class="header-actions">
         <span class="pill-badge" id="countdownBadge">H-3 UTM</span>
-        <button class="icon-btn" id="themeBtn" title="Ganti Tema">☀️ / 🌙</button>
+        <button class="icon-btn" id="themeBtn" title="Ganti Tema">☀️/🌙</button>
       </div>
     </div>
     <nav class="subject-bar" id="subjectBar"></nav>
@@ -412,12 +467,20 @@
 
     <div class="mode-tabs">
       <button class="mode-btn active" data-mode="summary">📖 Ringkasan</button>
+      <button class="mode-btn" data-mode="cheatsheet">⚡ Cheat Sheet</button>
       <button class="mode-btn" data-mode="flashcard">🃏 Flashcard</button>
-      <button class="mode-btn" data-mode="quiz">📝 Kuis UTM</button>
+      <button class="mode-btn" data-mode="quiz">📝 Kuis</button>
     </div>
 
     <div id="contentArea"></div>
   </main>
+
+  <nav class="bottom-nav">
+    <button class="bnav-btn active" data-mode="summary"><span class="b-ico">📖</span><span>Materi</span></button>
+    <button class="bnav-btn" data-mode="cheatsheet"><span class="b-ico">⚡</span><span>Rumus</span></button>
+    <button class="bnav-btn" data-mode="flashcard"><span class="b-ico">🃏</span><span>Kartu</span></button>
+    <button class="bnav-btn" data-mode="quiz"><span class="b-ico">📝</span><span>Kuis</span></button>
+  </nav>
 
   <script>
     const DATA = [
@@ -428,7 +491,7 @@
         name: "Analitik Big Data",
         exam: "UTM 28 Nov",
         icon: "📊",
-        note: "Study Guide (BMP Sementara) • Fokus: 5V, Arsitektur, Hadoop/Spark, Clustering, Forecasting, Classification, Medsos.",
+        note: "Study Guide (BMP Sementara) • 5V, Arsitektur, Hadoop/Spark, Clustering, Forecasting, Classification, Medsos.",
         sections: [
           {
             title: "1. Konsep Dasar Big Data (5V & Jenis Data)",
@@ -454,7 +517,7 @@
               "<b>Hadoop</b>: <b>HDFS</b> (penyimpanan terdistribusi berbasis blok + replikasi fault-tolerant), <b>MapReduce</b> (tahap <i>Map</i>: ubah ke key-value; tahap <i>Reduce</i>: agregasi/gabung hasil), <b>YARN</b> (manajer sumber daya klaster).",
               "<b>Ekosistem Hadoop</b>: <b>Hive</b> (query SQL-like), <b>Pig</b> (pemrograman data flow), <b>HBase</b> (NoSQL), <b>Spark</b> (pemrosesan <i>in-memory</i> super cepat).",
               "<b>Arsitektur Spark</b>: <b>Driver</b> (mengelola eksekusi & membangun <b>DAG</b>) + <b>Cluster Manager</b> (YARN/Mesos/Kubernetes).",
-              "<b>RDD (Resilient Distributed Dataset)</b>: struktur data dasar Spark yang <i>immutable</i> & terpartisi. Operasi: <b>Transformations</b> (lazy, bikin RDD baru: <code>map</code>, <code>filter</code>, <code>reduceByKey</code>) vs <b>Actions</b> (eksekusi & kembalikan nilai: <code>count</code>, <code>collect</code>, <code>saveAsTextFile</code>).",
+              "<b>RDD (Resilient Distributed Dataset)</b>: struktur data dasar Spark yang <i>immutable</i> & terpartisi. <b>Transformations</b> (bikin RDD baru: <code>map</code>, <code>filter</code>, <code>reduceByKey</code>) vs <b>Actions</b> (eksekusi & kembalikan nilai: <code>count</code>, <code>collect</code>, <code>saveAsTextFile</code>).",
               "<b>Modul Spark</b>: Spark SQL, Spark Streaming, <b>MLlib</b> (machine learning), <b>GraphX</b> (analisis graf)."
             ]
           },
@@ -479,6 +542,12 @@
             ]
           }
         ],
+        cheatsheet: [
+          { title: "5V Big Data", items: ["<b>Volume</b>: ukuran raksasa", "<b>Velocity</b>: kecepatan real-time", "<b>Variety</b>: terstruktur, semi (JSON/XML), tak terstruktur", "<b>Veracity</b>: akurasi & keandalan", "<b>Value</b>: manfaat bisnis"] },
+          { title: "4 Jenis Analytics", items: ["<b>Descriptive</b>: Apa yang terjadi?", "<b>Diagnostic</b>: Mengapa terjadi?", "<b>Predictive</b>: Apa yang akan terjadi?", "<b>Prescriptive</b>: Tindakan apa yang diambil?"] },
+          { title: "Hadoop vs Spark", items: ["<b>HDFS</b>: storage blok terdistribusi + replikasi", "<b>MapReduce</b>: disk-based (Map → Reduce)", "<b>YARN</b>: pengatur resource klaster", "<b>Spark</b>: in-memory + DAG + RDD (immutable)", "<b>Spark Modules</b>: SQL, Streaming, MLlib, GraphX"] },
+          { title: "Metrik Evaluasi", items: ["<b>Clustering</b>: Silhouette Score, Davies-Bouldin", "<b>Forecasting</b>: MAE, MSE, RMSE", "<b>Classification</b>: Accuracy, Precision, Recall, F1"] }
+        ],
         flashcards: [
           { q: "Apa saja 5V karakteristik Big Data?", a: "Volume (jumlah besar), Velocity (kecepatan real-time), Variety (ragam format), Veracity (akurasi/keandalan), Value (nilai yang diekstrak)." },
           { q: "Bedanya Predictive vs Prescriptive Analytics?", a: "Predictive memprediksi apa yang mungkin terjadi di masa depan; Prescriptive memberi rekomendasi tindakan yang harus diambil." },
@@ -490,66 +559,26 @@
           { q: "Apa fungsi modul GraphX dan MLlib di Apache Spark?", a: "MLlib untuk algoritma Machine Learning; GraphX untuk pemrosesan dan analisis data graf (seperti jejaring sosial)." }
         ],
         quiz: [
-          {
-            q: "Karakteristik Big Data yang berkaitan dengan tingkat akurasi, keandalan, dan kebersihan data disebut...",
-            opts: ["Volume", "Velocity", "Veracity", "Value"],
-            ans: 2,
-            exp: "Veracity mengacu pada tingkat akurasi dan keandalan data (apakah data dapat dipercaya/bebas noise)."
-          },
-          {
-            q: "Sebuah perusahaan e-commerce ingin mengetahui alasan mengapa penjualan turun drastis bulan lalu. Jenis analitik yang tepat adalah...",
-            opts: ["Descriptive Analytics", "Diagnostic Analytics", "Predictive Analytics", "Prescriptive Analytics"],
-            ans: 1,
-            exp: "Diagnostic analytics bertujuan mencari tahu MENGAPA sesuatu terjadi dengan menganalisis data historis yang relevan."
-          },
-          {
-            q: "Pada arsitektur Big Data, Apache Kafka dan Apache Flume umumnya berperan di layer...",
-            opts: ["Data Ingestion Layer", "Data Storage Layer", "Data Visualization Layer", "Data Analytics Layer"],
-            ans: 0,
-            exp: "Kafka dan Flume adalah tools pada Data Ingestion Layer untuk mengumpulkan/mengalirkan data dari berbagai sumber."
-          },
-          {
-            q: "Pada model pemrograman MapReduce, tahap yang bertugas mengubah data input menjadi pasangan key-value adalah...",
-            opts: ["Reduce", "Shuffle", "Map", "Split"],
-            ans: 2,
-            exp: "Tahap Map membaca data dan memprosesnya menjadi pasangan kunci-nilai (key-value), lalu tahap Reduce menggabungkannya."
-          },
-          {
-            q: "Mengapa Apache Spark jauh lebih cepat dibanding Hadoop MapReduce tradisional?",
-            opts: ["Karena hanya berjalan di satu komputer", "Karena melakukan pemrosesan data di memori (in-memory)", "Karena tidak menggunakan klaster", "Karena hanya mendukung SQL"],
-            ans: 1,
-            exp: "Spark melakukan in-memory processing sehingga menghindari overhead I/O disk berulang seperti pada MapReduce."
-          },
-          {
-            q: "Manakah yang termasuk operasi Action pada Spark RDD?",
-            opts: ["map()", "filter()", "reduceByKey()", "collect()"],
-            ans: 3,
-            exp: "collect(), count(), dan saveAsTextFile() adalah Actions; sedangkan map(), filter(), dan reduceByKey() adalah Transformations."
-          },
-          {
-            q: "Algoritma clustering yang bersifat 'soft clustering' (satu data bisa masuk lebih dari satu klaster dengan probabilitas) adalah...",
-            opts: ["K-Means", "Gaussian Mixture Models (GMM)", "DBSCAN", "Agglomerative Hierarchical"],
-            ans: 1,
-            exp: "GMM adalah model probabilistik (soft clustering), sedangkan K-Means adalah hard clustering."
-          },
-          {
-            q: "Dalam forecasting, metode kualitatif yang mengandalkan konsensus pendapat para ahli saat data historis tidak tersedia adalah...",
-            opts: ["ARIMA", "Exponential Smoothing", "Metode Delphi", "Regresi Linier"],
-            ans: 2,
-            exp: "Metode Delphi dan focus group termasuk qualitative forecasting untuk kondisi minim data historis."
-          },
-          {
-            q: "Metrik evaluasi yang tepat untuk menilai kualitas model Regression/Forecasting adalah...",
-            opts: ["Silhouette Score & Davies-Bouldin", "Precision & Recall", "MAE, MSE, dan RMSE", "F1-Score & ROC"],
-            ans: 2,
-            exp: "MAE, MSE, dan RMSE mengukur error prediksi numerik pada forecasting/regresi. Silhouette untuk clustering; Precision/Recall/F1 untuk classification."
-          },
-          {
-            q: "Ketika model klasifikasi sangat akurat pada data training tetapi buruk pada data testing, kondisi ini disebut...",
-            opts: ["Underfitting", "Overfitting", "Imbalanced Classes", "Kernel Trick"],
-            ans: 1,
-            exp: "Overfitting terjadi saat model terlalu kompleks menghafal data latih sehingga gagal melakukan generalisasi pada data baru."
-          }
+          { q: "Karakteristik Big Data yang berkaitan dengan tingkat akurasi, keandalan, dan kebersihan data disebut...", opts: ["Volume", "Velocity", "Veracity", "Value"], ans: 2, exp: "Veracity mengacu pada tingkat akurasi dan keandalan data (apakah data dapat dipercaya/bebas noise)." },
+          { q: "Sebuah perusahaan e-commerce ingin mengetahui alasan mengapa penjualan turun drastis bulan lalu. Jenis analitik yang tepat adalah...", opts: ["Descriptive Analytics", "Diagnostic Analytics", "Predictive Analytics", "Prescriptive Analytics"], ans: 1, exp: "Diagnostic analytics bertujuan mencari tahu MENGAPA sesuatu terjadi dengan menganalisis data historis yang relevan." },
+          { q: "Pada arsitektur Big Data, Apache Kafka dan Apache Flume umumnya berperan di layer...", opts: ["Data Ingestion Layer", "Data Storage Layer", "Data Visualization Layer", "Data Analytics Layer"], ans: 0, exp: "Kafka dan Flume adalah tools pada Data Ingestion Layer untuk mengumpulkan/mengalirkan data dari berbagai sumber." },
+          { q: "Pada model pemrograman MapReduce, tahap yang bertugas mengubah data input menjadi pasangan key-value adalah...", opts: ["Reduce", "Shuffle", "Map", "Split"], ans: 2, exp: "Tahap Map membaca data dan memprosesnya menjadi pasangan kunci-nilai (key-value), lalu tahap Reduce menggabungkannya." },
+          { q: "Mengapa Apache Spark jauh lebih cepat dibanding Hadoop MapReduce tradisional?", opts: ["Karena hanya berjalan di satu komputer", "Karena melakukan pemrosesan data di memori (in-memory)", "Karena tidak menggunakan klaster", "Karena hanya mendukung SQL"], ans: 1, exp: "Spark melakukan in-memory processing sehingga menghindari overhead I/O disk berulang seperti pada MapReduce." },
+          { q: "Manakah yang termasuk operasi Action pada Spark RDD?", opts: ["map()", "filter()", "reduceByKey()", "collect()"], ans: 3, exp: "collect(), count(), dan saveAsTextFile() adalah Actions; sedangkan map(), filter(), dan reduceByKey() adalah Transformations." },
+          { q: "Algoritma clustering yang bersifat 'soft clustering' (satu data bisa masuk lebih dari satu klaster dengan probabilitas) adalah...", opts: ["K-Means", "Gaussian Mixture Models (GMM)", "DBSCAN", "Agglomerative Hierarchical"], ans: 1, exp: "GMM adalah model probabilistik (soft clustering), sedangkan K-Means adalah hard clustering." },
+          { q: "Dalam forecasting, metode kualitatif yang mengandalkan konsensus pendapat para ahli saat data historis tidak tersedia adalah...", opts: ["ARIMA", "Exponential Smoothing", "Metode Delphi", "Regresi Linier"], ans: 2, exp: "Metode Delphi dan focus group termasuk qualitative forecasting untuk kondisi minim data historis." },
+          { q: "Metrik evaluasi yang tepat untuk menilai kualitas model Regression/Forecasting adalah...", opts: ["Silhouette Score & Davies-Bouldin", "Precision & Recall", "MAE, MSE, dan RMSE", "F1-Score & ROC"], ans: 2, exp: "MAE, MSE, dan RMSE mengukur error prediksi numerik pada forecasting/regresi." },
+          { q: "Ketika model klasifikasi sangat akurat pada data training tetapi buruk pada data testing, kondisi ini disebut...", opts: ["Underfitting", "Overfitting", "Imbalanced Classes", "Kernel Trick"], ans: 1, exp: "Overfitting terjadi saat model terlalu kompleks menghafal data latih sehingga gagal melakukan generalisasi pada data baru." },
+          { q: "Format data seperti JSON dan XML dalam Big Data dikategorikan sebagai...", opts: ["Data terstruktur", "Data semiterstruktur", "Data tidak terstruktur", "Data biner murni"], ans: 1, exp: "JSON dan XML memiliki tag/struktur fleksibel tanpa skema tabel kaku, sehingga disebut semiterstruktur." },
+          { q: "Dalam ekosistem Hadoop, komponen yang memungkinkan pengguna menulis query mirip SQL di atas HDFS adalah...", opts: ["Apache Pig", "Apache Hive", "Apache Kafka", "GraphX"], ans: 1, exp: "Apache Hive menyediakan antarmuka query SQL-like (HiveQL) untuk data di Hadoop." },
+          { q: "Komponen pada arsitektur Apache Spark yang bertugas menyusun DAG (Directed Acyclic Graph) dan menjadwalkan tugas adalah...", opts: ["Executor", "Driver", "HDFS NameNode", "Tableau"], ans: 1, exp: "Driver mengelola konfigurasi aplikasi, membangun DAG dari operasi RDD, dan mengoordinasikan eksekusi dengan Cluster Manager." },
+          { q: "Jika dataset memiliki banyak outlier/noise dan bentuk klaster melengkung tidak beraturan, algoritma clustering yang paling sesuai adalah...", opts: ["K-Means", "DBSCAN", "Logistic Regression", "ARIMA"], ans: 1, exp: "DBSCAN berbasis kepadatan sehingga dapat menemukan klaster berbentuk arbitrer sekaligus memisahkan noise." },
+          { q: "Metode clustering hierarkis yang memulai dari satu klaster besar lalu memecahnya menjadi klaster kecil disebut...", opts: ["Agglomerative", "Divisive", "K-Means", "Mean Shift"], ans: 1, exp: "Divisive bekerja secara top-down (satu klaster besar dipecah), kebalikan dari Agglomerative (bottom-up)." },
+          { q: "Dalam analisis time series, pola fluktuasi yang berulang namun tidak teratur dan sering terkait kondisi ekonomi disebut...", opts: ["Trend", "Musiman", "Siklus", "Noise"], ans: 2, exp: "Siklus adalah pola berulang jangka panjang yang tidak terikat interval kalender tetap (berbeda dengan musiman)." },
+          { q: "Sebuah sistem rekomendasi memberikan saran produk mana yang harus ditawarkan ke pelanggan agar penjualan naik. Ini contoh...", opts: ["Descriptive Analytics", "Diagnostic Analytics", "Predictive Analytics", "Prescriptive Analytics"], ans: 3, exp: "Prescriptive analytics tidak hanya memprediksi, tetapi langsung merekomendasikan tindakan optimal." },
+          { q: "Salah satu alasan mengapa fitur perlu dinormalisasi sebelum menjalankan algoritma K-Means adalah...", opts: ["Agar semua fitur berupa teks", "Agar fitur berskala besar tidak mendominasi perhitungan jarak Euclidean", "Agar jumlah klaster K otomatis berubah", "Agar model menjadi supervised"], ans: 1, exp: "K-Means memakai jarak Euclidean; fitur dengan rentang angka besar akan mendominasi jarak jika tidak dinormalisasi." },
+          { q: "Pada klasifikasi dokumen di mana satu artikel berita dapat memiliki label 'Politik' dan 'Ekonomi' sekaligus, jenis klasifikasinya adalah...", opts: ["Binary classification", "Multiclass classification", "Multilabel classification", "Clustering"], ans: 2, exp: "Multilabel classification mengizinkan satu data memiliki lebih dari satu label kelas secara bersamaan." },
+          { q: "Regulasi privasi data yang wajib diperhatikan saat mengolah data pengguna media sosial skala global antara lain...", opts: ["GDPR dan CCPA", "HDFS dan YARN", "MAE dan RMSE", "ARIMA dan GMM"], ans: 0, exp: "GDPR (Eropa) dan CCPA (California) adalah regulasi perlindungan privasi data pengguna." }
         ]
       },
       {
@@ -559,7 +588,7 @@
         name: "Pendidikan Pancasila",
         exam: "UTM 28 Nov",
         icon: "🇮🇩",
-        note: "Modul 1–6 Lengkap • Fokus: Sejarah BPUPK/PPKI, Dasar Falsafah, Ideologi Negara, Sistem Filsafat, Paradigma IPTEK.",
+        note: "Modul 1–6 Lengkap • Sejarah BPUPK/PPKI, Dasar Falsafah, Ideologi Negara, Sistem Filsafat, Paradigma IPTEK.",
         sections: [
           {
             title: "Modul 1: Pengantar Pendidikan Pancasila",
@@ -575,10 +604,9 @@
             tag: "Sejarah",
             bullets: [
               "<b>Hakikat</b>: <i>Philosofische Grondslag</i> (dasar filsafat negara) dan <i>Weltanschauung</i> (pandangan hidup bangsa).",
-              "<b>Sidang BPUPK I</b>: Ketua <b>Dr. Radjiman Wediodiningrat</b> meminta gagasan dasar negara. <b>1 Juni 1945</b> diperingati sebagai Hari Lahir Pancasila (Kepres RI No. 23 Tahun 2016 / pidato Soekarno).",
+              "<b>Sidang BPUPK I</b>: Ketua <b>Dr. Radjiman Wediodiningrat</b> meminta gagasan dasar negara. <b>1 Juni 1945</b> diperingati sebagai Hari Lahir Pancasila (Kepres RI No. 23 Tahun 2016).",
               "<b>Panitia Sembilan</b>: Merumuskan Piagam Jakarta (rancangan Pembukaan UUD).",
-              "<b>Pengesahan</b>: <b>18 Agustus 1945</b> oleh <b>PPKI</b> (bersamaan dengan UUD 1945).",
-              "<b>Periode Penting</b>: Perintisan → Pengesahan → Orde Lama → Orde Baru → Reformasi & Pasca-Reformasi."
+              "<b>Pengesahan</b>: <b>18 Agustus 1945</b> oleh <b>PPKI</b> (bersamaan dengan UUD 1945)."
             ]
           },
           {
@@ -587,24 +615,24 @@
             bullets: [
               "<b>Kedudukan Konstitusional</b>: Tercantum dalam <b>Pembukaan UUD 1945 Alinea IV</b>.",
               "<b>Staatsfundamentalnorm</b>: Pancasila sebagai norma fundamental negara / <b>sumber dari segala sumber hukum</b> — semua peraturan perundang-undangan tidak boleh bertentangan dengan Pancasila.",
-              "<b>Perjanjian Luhur</b>: Kesepakatan final para pendiri bangsa (founding fathers) saat mendirikan NKRI."
+              "<b>Perjanjian Luhur</b>: Kesepakatan final para pendiri bangsa saat mendirikan NKRI."
             ]
           },
           {
             title: "Modul 4: Pancasila sebagai Ideologi Negara",
             tag: "Ideologi",
             bullets: [
-              "<b>Landasan Yuridis</b>: Ketetapan <b>MPRS No. XX/MPRS/1966</b> tentang sumber tertib hukum RI dan tata urutan peraturan perundangan.",
+              "<b>Landasan Yuridis</b>: Ketetapan <b>MPRS No. XX/MPRS/1966</b> tentang sumber tertib hukum RI.",
               "<b>Ideologi Terbuka</b>: Nilai dasarnya tetap, tetapi nilai instrumental dan praksisnya dapat berkembang mengikuti dinamika zaman.",
-              "<b>3 Dimensi Nilai</b>: <b>Nilai Dasar</b> (hakikat kelima sila), <b>Nilai Instrumental</b> (penjabaran dlm UUD, UU, kebijakan), <b>Nilai Praksis</b> (implementasi nyata sehari-hari)."
+              "<b>3 Dimensi Nilai</b>: <b>Nilai Dasar</b> (hakikat kelima sila), <b>Nilai Instrumental</b> (UUD, UU, kebijakan), <b>Nilai Praksis</b> (implementasi nyata sehari-hari)."
             ]
           },
           {
             title: "Modul 5: Pancasila sebagai Sistem Filsafat",
             tag: "Filsafat",
             bullets: [
-              "<b>Kesatuan Organis</b>: Kelima sila merupakan satu kesatuan utuh yang saling berkaitan, saling menjiwai dan dijiwai (tidak bisa dipisah-pisahkan).",
-              "<b>3 Landasan Filsafat</b>: <b>Ontologis</b> (hakikat manusia sbg makhluk Tuhan, individu & sosial), <b>Epistemologis</b> (sumber pengetahuan & kebenaran Pancasila), <b>Aksiologis</b> (nilai etis, estetis, religius yang terkandung di dalamnya)."
+              "<b>Kesatuan Organis</b>: Kelima sila merupakan satu kesatuan utuh yang saling berkaitan, saling menjiwai dan dijiwai.",
+              "<b>3 Landasan Filsafat</b>: <b>Ontologis</b> (hakikat manusia sbg makhluk Tuhan, individu & sosial), <b>Epistemologis</b> (sumber pengetahuan & kebenaran), <b>Aksiologis</b> (nilai etis, estetis, religius)."
             ]
           },
           {
@@ -612,10 +640,15 @@
             tag: "IPTEK",
             bullets: [
               "<b>Paradigma</b>: Kerangka pikir, sudut pandang, tolok ukur, dan arah dalam pengembangan IPTEK dan pembangunan nasional.",
-              "<b>Tridarma Perguruan Tinggi</b>: Pendidikan, Penelitian, dan Pengabdian kepada Masyarakat — mahasiswa dituntut mengembangkan IPTEK dengan <b>moralitas keilmuan</b>.",
-              "<b>Arah IPTEK</b>: Pengembangan ilmu dan teknologi harus bermuara pada kesejahteraan manusia dan selaras dengan nilai ketuhanan, kemanusiaan, persatuan, kerakyatan, dan keadilan."
+              "<b>Tridarma Perguruan Tinggi</b>: Pendidikan, Penelitian, dan Pengabdian kepada Masyarakat dengan <b>moralitas keilmuan</b>."
             ]
           }
+        ],
+        cheatsheet: [
+          { title: "Tanggal & Tokoh Kunci", items: ["<b>1 Juni 1945</b>: Hari Lahir Pancasila (Pidato Soekarno di BPUPK; Kepres 23/2016)", "<b>Dr. Radjiman Wediodiningrat</b>: Ketua BPUPK", "<b>Panitia Sembilan</b>: Rumuskan rancangan Pembukaan UUD", "<b>18 Agustus 1945</b>: Pengesahan Pancasila oleh PPKI"] },
+          { title: "Istilah Konstitusi & Hukum", items: ["<b>Philosofische Grondslag</b>: Dasar filsafat negara", "<b>Weltanschauung</b>: Pandangan hidup bangsa", "<b>Staatsfundamentalnorm</b>: Norma dasar / sumber segala sumber hukum", "<b>Pembukaan UUD 1945 Alinea IV</b>: Lokasi rumusan resmi", "<b>Tap MPRS XX/MPRS/1966</b>: Sumber tertib hukum RI"] },
+          { title: "3 Dimensi Ideologi Terbuka", items: ["<b>Nilai Dasar</b>: Esensi tetap kelima sila", "<b>Nilai Instrumental</b>: Penjabaran dlm UUD/UU/peraturan", "<b>Nilai Praksis</b>: Tindakan nyata sehari-hari"] },
+          { title: "3 Landasan Filsafat & IPTEK", items: ["<b>Ontologis</b>: Hakikat keberadaan manusia", "<b>Epistemologis</b>: Sumber & cara memperoleh ilmu", "<b>Aksiologis</b>: Nilai etika, manfaat, kesejahteraan"] }
         ],
         flashcards: [
           { q: "Dari bahasa apa kata Pancasila berasal, dan apa artinya?", a: "Bahasa Sanskerta: Panca = lima, Sila = asas / dasar / batu sendi." },
@@ -628,66 +661,26 @@
           { q: "Apa 3 dimensi landasan filsafat Pancasila dalam pengembangan IPTEK?", a: "Ontologis (hakikat objek/manusia), Epistemologis (cara/sumber pengetahuan), dan Aksiologis (nilai guna/etika bagi manusia)." }
         ],
         quiz: [
-          {
-            q: "Secara etimologis, istilah 'Pancasila' berasal dari bahasa...",
-            opts: ["Jawa Kuno", "Sanskerta", "Melayu Kuno", "Arab"],
-            ans: 1,
-            exp: "Pancasila berasal dari bahasa Sanskerta: 'panca' berarti lima dan 'sila' berarti asas atau dasar."
-          },
-          {
-            q: "Ketua BPUPK yang mengajukan pertanyaan fundamental tentang 'dasar negara Indonesia merdeka' pada sidang pertama adalah...",
-            opts: ["Ir. Soekarno", "Moh. Hatta", "Dr. Radjiman Wediodiningrat", "Soepomo"],
-            ans: 2,
-            exp: "Dr. Radjiman Wediodiningrat selaku ketua BPUPK meminta para anggota merumuskan dasar falsafah negara."
-          },
-          {
-            q: "Rumusan resmi Pancasila sebagai dasar negara Republik Indonesia disahkan pada tanggal...",
-            opts: ["1 Juni 1945", "22 Juni 1945", "17 Agustus 1945", "18 Agustus 1945"],
-            ans: 3,
-            exp: "1 Juni 1945 adalah Hari Lahir Pancasila (pidato Soekarno), sedangkan pengesahan resmi oleh PPKI terjadi pada 18 Agustus 1945."
-          },
-          {
-            q: "Di dalam konstitusi Indonesia, rumusan Pancasila sebagai dasar negara tercantum secara sah pada...",
-            opts: ["Batang Tubuh UUD 1945 Pasal 1", "Pembukaan UUD 1945 Alinea I", "Pembukaan UUD 1945 Alinea IV", "Penjelasan UUD 1945"],
-            ans: 2,
-            exp: "Rumusan sila-sila Pancasila tercantum pada Pembukaan UUD 1945 Alinea IV."
-          },
-          {
-            q: "Konsekuensi dari kedudukan Pancasila sebagai Staatsfundamentalnorm (sumber dari segala sumber hukum) adalah...",
-            opts: ["Pancasila hanya berlaku bagi pejabat", "Semua peraturan perundang-undangan tidak boleh bertentangan dengan Pancasila", "UUD 1945 lebih tinggi dari Pancasila", "Pancasila dapat diubah dengan Perpres"],
-            ans: 1,
-            exp: "Sebagai Staatsfundamentalnorm, seluruh hukum dan peraturan di Indonesia harus bersumber dan tidak boleh bertentangan dengan Pancasila."
-          },
-          {
-            q: "Penjabaran nilai-nilai Pancasila ke dalam bentuk Undang-Undang, peraturan pemerintah, dan kebijakan publik termasuk dalam...",
-            opts: ["Nilai Dasar", "Nilai Instrumental", "Nilai Praksis", "Nilai Estetika"],
-            ans: 1,
-            exp: "Nilai Dasar bersifat abstrak/tetap; Nilai Instrumental adalah penjabaran dalam norma hukum/kebijakan; Nilai Praksis adalah wujud tindakan nyata."
-          },
-          {
-            q: "Dalam Pancasila sebagai sistem filsafat, hubungan antarsila bersifat organis, artinya...",
-            opts: ["Sila ke-1 paling penting dan sila lain opsional", "Setiap sila berdiri sendiri secara terpisah", "Sila-sila merupakan satu kesatuan yang saling menjiwai dan dijiwai", "Urutan sila dapat ditukar sesuai kebutuhan"],
-            ans: 2,
-            exp: "Sebagai sistem filsafat, sila-sila Pancasila merupakan satu kesatuan utuh yang saling berkaitan, menjiwai, dan dijiwai."
-          },
-          {
-            q: "Dimensi filsafat yang membahas apakah pengembangan IPTEK bermanfaat, etis, dan menyejahterakan manusia disebut dimensi...",
-            opts: ["Ontologis", "Epistemologis", "Aksiologis", "Historis"],
-            ans: 2,
-            exp: "Ontologis = hakikat keberadaan; Epistemologis = cara memperoleh pengetahuan; Aksiologis = nilai guna, etika, dan manfaat."
-          },
-          {
-            q: "Ketetapan yang menegaskan Pancasila sebagai sumber dari segala sumber hukum dan tata urutan peraturan perundangan di Indonesia (Modul 4) adalah...",
-            opts: ["Kepres No. 23 Tahun 2016", "Ketetapan MPRS No. XX/MPRS/1966", "UU No. 12 Tahun 2011", "Dekrit Presiden 5 Juli 1959"],
-            ans: 1,
-            exp: "Ketetapan MPRS No. XX/MPRS/1966 menjadi rujukan penting dalam modul 4 terkait sumber tertib hukum RI."
-          },
-          {
-            q: "Perwujudan mahasiswa dalam mengamalkan Pancasila sebagai paradigma pengembangan ilmu di perguruan tinggi adalah melalui...",
-            opts: ["Menolak seluruh teknologi asing", "Menjalankan Tridarma Perguruan Tinggi dengan moralitas keilmuan", "Mengutamakan nilai IPK tanpa etika", "Menghindari diskusi publik"],
-            ans: 1,
-            exp: "Perguruan tinggi mengemban Tridarma (pendidikan, penelitian, pengabdian) yang harus dilandasi moralitas keilmuan sesuai Pancasila."
-          }
+          { q: "Secara etimologis, istilah 'Pancasila' berasal dari bahasa...", opts: ["Jawa Kuno", "Sanskerta", "Melayu Kuno", "Arab"], ans: 1, exp: "Pancasila berasal dari bahasa Sanskerta: 'panca' berarti lima dan 'sila' berarti asas atau dasar." },
+          { q: "Ketua BPUPK yang mengajukan pertanyaan fundamental tentang 'dasar negara Indonesia merdeka' pada sidang pertama adalah...", opts: ["Ir. Soekarno", "Moh. Hatta", "Dr. Radjiman Wediodiningrat", "Soepomo"], ans: 2, exp: "Dr. Radjiman Wediodiningrat selaku ketua BPUPK meminta para anggota merumuskan dasar falsafah negara." },
+          { q: "Rumusan resmi Pancasila sebagai dasar negara Republik Indonesia disahkan pada tanggal...", opts: ["1 Juni 1945", "22 Juni 1945", "17 Agustus 1945", "18 Agustus 1945"], ans: 3, exp: "Pengesahan resmi oleh PPKI terjadi pada 18 Agustus 1945." },
+          { q: "Di dalam konstitusi Indonesia, rumusan Pancasila sebagai dasar negara tercantum secara sah pada...", opts: ["Batang Tubuh UUD 1945 Pasal 1", "Pembukaan UUD 1945 Alinea I", "Pembukaan UUD 1945 Alinea IV", "Penjelasan UUD 1945"], ans: 2, exp: "Rumusan sila-sila Pancasila tercantum pada Pembukaan UUD 1945 Alinea IV." },
+          { q: "Konsekuensi dari kedudukan Pancasila sebagai Staatsfundamentalnorm adalah...", opts: ["Pancasila hanya berlaku bagi pejabat", "Semua peraturan perundang-undangan tidak boleh bertentangan dengan Pancasila", "UUD 1945 lebih tinggi dari Pancasila", "Pancasila dapat diubah dengan Perpres"], ans: 1, exp: "Sebagai Staatsfundamentalnorm, seluruh hukum di Indonesia harus bersumber dan tidak boleh bertentangan dengan Pancasila." },
+          { q: "Penjabaran nilai-nilai Pancasila ke dalam bentuk Undang-Undang dan kebijakan publik termasuk dalam...", opts: ["Nilai Dasar", "Nilai Instrumental", "Nilai Praksis", "Nilai Estetika"], ans: 1, exp: "Nilai Instrumental adalah penjabaran nilai dasar ke dalam norma hukum dan kebijakan." },
+          { q: "Dalam Pancasila sebagai sistem filsafat, hubungan antarsila bersifat organis, artinya...", opts: ["Sila ke-1 paling penting dan sila lain opsional", "Setiap sila berdiri sendiri secara terpisah", "Sila-sila merupakan satu kesatuan yang saling menjiwai dan dijiwai", "Urutan sila dapat ditukar sesuai kebutuhan"], ans: 2, exp: "Sila-sila Pancasila merupakan satu kesatuan utuh yang saling berkaitan, menjiwai, dan dijiwai." },
+          { q: "Dimensi filsafat yang membahas apakah pengembangan IPTEK bermanfaat, etis, dan menyejahterakan manusia disebut dimensi...", opts: ["Ontologis", "Epistemologis", "Aksiologis", "Historis"], ans: 2, exp: "Aksiologis membahas nilai guna, etika, dan manfaat ilmu bagi kesejahteraan manusia." },
+          { q: "Ketetapan yang menegaskan Pancasila sebagai sumber tertib hukum dan tata urutan peraturan perundangan (Modul 4) adalah...", opts: ["Kepres No. 23 Tahun 2016", "Ketetapan MPRS No. XX/MPRS/1966", "UU No. 12 Tahun 2011", "Dekrit Presiden 5 Juli 1959"], ans: 1, exp: "Ketetapan MPRS No. XX/MPRS/1966 menjadi rujukan penting dalam modul 4 terkait sumber tertib hukum RI." },
+          { q: "Perwujudan mahasiswa dalam mengamalkan Pancasila sebagai paradigma pengembangan ilmu di perguruan tinggi adalah melalui...", opts: ["Menolak seluruh teknologi asing", "Menjalankan Tridarma Perguruan Tinggi dengan moralitas keilmuan", "Mengutamakan nilai IPK tanpa etika", "Menghindari diskusi publik"], ans: 1, exp: "Perguruan tinggi mengemban Tridarma yang dilandasi moralitas keilmuan sesuai Pancasila." },
+          { q: "Pancasila disebut sebagai 'perjanjian luhur' bangsa Indonesia karena...", opts: ["Dibuat oleh pemerintah kolonial", "Merupakan kesepakatan final para pendiri bangsa saat mendirikan negara", "Hanya berlaku selama masa Orde Baru", "Ditetapkan oleh PBB"], ans: 1, exp: "Perjanjian luhur bermakna kesepakatan bersama para pendiri bangsa (PPKI) yang mewakili seluruh rakyat Indonesia." },
+          { q: "Tokoh yang menyatakan bahwa Pancasila sebagai ideologi terbuka dan filsafat bangsa berakar dari kepribadian Indonesia (Modul 4) di antaranya...", opts: ["Ruslan Abdulgani", "Karl Marx", "Adam Smith", "Niccolo Machiavelli"], ans: 0, exp: "Dalam Tes Formatif Modul 4, Ruslan Abdulgani dibahas terkait pemikiran ideologi Pancasila." },
+          { q: "Contoh penerapan Nilai Praksis Pancasila di lingkungan kampus adalah...", opts: ["Mengikuti tes masuk UKM sesuai prosedur dan menghormati keberagaman", "Menghafalkan pasal UUD tanpa mengamalkannya", "Menolak kerja bakti karena alasan pribadi", "Memaksakan kehendak saat musyawarah"], ans: 0, exp: "Nilai praksis adalah implementasi nyata dalam perbuatan sehari-hari sesuai aturan dan nilai Pancasila." },
+          { q: "Secara historis, dokumen otentik yang merekam perdebatan perumusan dasar negara pada Mei–Juni 1945 adalah...", opts: ["Risalah Sidang BPUPK", "Naskah Supersemar", "Deklarasi Djuanda", "Traktat London"], ans: 0, exp: "Risalah sidang BPUPK merupakan sumber primer sejarah perumusan Pancasila." },
+          { q: "Pancasila sebagai ideologi terbuka memiliki sifat fleksibel pada...", opts: ["Nilai dasar yang dapat dihapus sewaktu-waktu", "Nilai instrumental dan praksis dalam menjawab tantangan zaman", "Penggantian sila pertama", "Penghapusan Pembukaan UUD 1945"], ans: 1, exp: "Ideologi terbuka mempertahankan nilai dasarnya secara tetap, namun adaptif pada nilai instrumental dan praksisnya." },
+          { q: "Asal-usul Pancasila secara kultural (Modul 5) berarti nilai-nilai Pancasila digali dari...", opts: ["Ideologi negara asing", "Realitas budaya, adat, dan kehidupan religius masyarakat Indonesia sendiri", "Teori ekonomi kapitalis", "Peraturan perdagangan internasional"], ans: 1, exp: "Pancasila berakar secara kultural dari realitas nilai luhur yang hidup dalam masyarakat Indonesia." },
+          { q: "Kepres RI No. 23 Tahun 2016 (Modul 2) berkaitan dengan...", opts: ["Pembubaran BPUPK", "Penetapan 1 Juni sebagai Hari Lahir Pancasila", "Amandemen UUD 1945", "Pembentukan Mahkamah Konstitusi"], ans: 1, exp: "Keputusan Presiden tersebut berkaitan dengan penetapan Hari Lahir Pancasila 1 Juni." },
+          { q: "Dalam menghadapi tantangan globalisasi, ekstremisme, dan radikalisme, mahasiswa diharapkan memiliki sikap...", opts: ["Apatis terhadap isu kebangsaan", "Kritis, toleran, dan berpegang pada nilai-nilai Pancasila", "Menutup diri dari seluruh perkembangan teknologi", "Mengikuti ideologi transnasional tanpa filter"], ans: 1, exp: "Pendidikan Pancasila di PT membangun kesadaran kritis, toleransi dalam pluralitas, dan komitmen kebangsaan." },
+          { q: "Landasan ontologis Pancasila sebagai sistem filsafat memandang manusia Indonesia sebagai...", opts: ["Individu terisolasi tanpa Tuhan", "Makhluk monopluralis: individu, sosial, dan makhluk Tuhan YME", "Sekadar faktor produksi ekonomi", "Subjek hukum tanpa moral"], ans: 1, exp: "Ontologi Pancasila berpusat pada hakikat manusia yang utuh (individu, sosial, sekaligus berketuhanan)." },
+          { q: "Panitia kecil beranggotakan sembilan tokoh yang merumuskan rancangan Pembukaan UUD pada 22 Juni 1945 disebut...", opts: ["Panitia Delapan", "Panitia Sembilan", "PPKI", "Kabinet Hatta"], ans: 1, exp: "Panitia Sembilan merumuskan rancangan Pembukaan UUD (Piagam Jakarta)." }
         ]
       },
       {
@@ -697,15 +690,15 @@
         name: "Pengantar Kecerdasan Artifisial",
         exam: "UTM 29 Nov",
         icon: "🤖",
-        note: "Study Guide (BMP Sementara) • Fokus: 5 Pendekatan AI, Hardware, Expert System & Fuzzy, Bio-Inspired, ML/DL, Vision/Speech.",
+        note: "Study Guide (BMP Sementara) • 5 Pendekatan AI, Hardware, Expert System & Fuzzy, Bio-Inspired, ML/DL, Vision/Speech.",
         sections: [
           {
             title: "1. Konsep Dasar, Data & Realita vs Hype AI",
             tag: "Fondasi",
             bullets: [
-              "<b>Realita vs Hype</b>: AI saat ini masih jauh dari kecerdasan manusia di fiksi ilmiah. AI unggul di pola/komputasi, tapi lemah di <b>kreativitas, empati, dan pengambilan keputusan etis</b>.",
-              "<b>Peran Data</b>: Data berkualitas tinggi adalah 'bahan bakar' algoritma AI. Kualitas & kuantitas data sangat menentukan performa sistem.",
-              "<b>Aplikasi Nonstarter & Kegagalan AI</b>: Penerapan AI yang tidak tepat sasaran, bias data, atau tugas yang sebenarnya lebih baik dikerjakan manusia."
+              "<b>Realita vs Hype</b>: AI unggul di pola/komputasi, tapi lemah di <b>kreativitas, empati, dan pengambilan keputusan etis</b>.",
+              "<b>Peran Data</b>: Data berkualitas tinggi adalah 'bahan bakar' algoritma AI.",
+              "<b>Aplikasi Nonstarter</b>: Penerapan AI yang tidak tepat sasaran atau tugas yang lebih baik dikerjakan manusia."
             ]
           },
           {
@@ -713,41 +706,47 @@
             tag: "Wajib Hafal",
             bullets: [
               "<b>1) Penalaran Simbolik</b> (aturan logika & simbol).",
-              "<b>2) Koneksi / Connectionist</b> (dimodelkan pada neuron otak → Jaringan Saraf Tiruan).",
-              "<b>3) Algoritma Evolusioner</b> (terinspirasi evolusi biologis → Algoritma Genetika).",
-              "<b>4) Inferensi Bayesian</b> (probabilitas & ketidakpastian → <b>Naïve Bayes</b>, <b>Jaringan Bayesian</b>).",
-              "<b>5) Belajar dengan Analogi</b> (membandingkan kemiripan kasus/pola, misal KNN/SVM)."
+              "<b>2) Koneksi / Connectionist</b> (neuron otak → Jaringan Saraf Tiruan).",
+              "<b>3) Algoritma Evolusioner</b> (evolusi biologis → Algoritma Genetika).",
+              "<b>4) Inferensi Bayesian</b> (probabilitas → <b>Naïve Bayes</b>, <b>Jaringan Bayesian</b>).",
+              "<b>5) Belajar dengan Analogi</b> (kemiripan kasus/pola)."
             ]
           },
           {
             title: "3. Hardware AI, Rule-Based, Expert System & Fuzzy",
             tag: "Sistem AI",
             bullets: [
-              "<b>Perangkat Keras Khusus</b>: <b>GPU</b> (pemrosesan paralel matriks/tensor) dan arsitektur <b>non-von Neumann</b> untuk komputasi AI kompleks.",
-              "<b>Expert System (Sistem Pakar)</b>: Sistem berbasis aturan (<i>rule-based</i>) yang meniru keahlian pakar manusia (basis pengetahuan + mesin inferensi).",
-              "<b>Fuzzy Logic (Logika Kabur)</b>: Berbeda dengan logika klasik (0 atau 1 / benar-salah mutlak), <i>fuzzy logic</i> menangani <b>ketidakpastian dan ambiguitas</b> melalui derajat keanggotaan."
+              "<b>Perangkat Keras Khusus</b>: <b>GPU</b> dan arsitektur <b>non-von Neumann</b> untuk komputasi paralel AI.",
+              "<b>Expert System</b>: Sistem berbasis aturan (<i>rule-based</i>) meniru pakar manusia.",
+              "<b>Fuzzy Logic</b>: Menangani <b>ketidakpastian dan ambiguitas</b> dengan derajat keanggotaan (vs logika klasik 0/1)."
             ]
           },
           {
             title: "4. Bio-Inspired, Machine Learning & Deep Learning",
             tag: "ML & DL",
             bullets: [
-              "<b>Bio-Inspired Computing</b>: Jaringan Saraf Tiruan (ANN), Algoritma Genetika (optimasi berbasis evolusi), dan <i>Swarm Intelligence</i>.",
-              "<b>3 Paradigma ML</b>: <b>Supervised</b> (data berlabel), <b>Unsupervised</b> (tanpa label/cari pola), <b>Reinforcement Learning</b> (belajar lewat reward & penalty).",
-              "<b>Deep Learning</b>: Augmentasi ML memakai arsitektur saraf berlapis dengan <b>backpropagation</b>. Teknik: <i>Online learning</i>, <i>Transfer learning</i>, <i>End-to-end learning</i>.",
-              "<b>Arsitektur DL</b>: <b>CNN</b> (Convolutional Neural Networks — unggul untuk gambar/Computer Vision) dan <b>RNN</b> (Recurrent Neural Networks — unggul untuk data sekuensial/teks/audio)."
+              "<b>Bio-Inspired</b>: Jaringan Saraf Tiruan (ANN), Algoritma Genetika, dan <i>Swarm Intelligence</i>.",
+              "<b>3 Paradigma ML</b>: <b>Supervised</b> (berlabel), <b>Unsupervised</b> (tanpa label), <b>Reinforcement Learning</b> (reward & penalty).",
+              "<b>Deep Learning</b>: Arsitektur berlapis dengan <b>backpropagation</b>; teknik <i>Online learning</i>, <i>Transfer learning</i>, <i>End-to-end learning</i>.",
+              "<b>CNN vs RNN</b>: <b>CNN</b> unggul untuk citra/Computer Vision; <b>RNN</b> unggul untuk data sekuensial (teks/suara)."
             ]
           },
           {
             title: "5. NLP, Computer Vision, Speech & Etika",
             tag: "Implementasi",
             bullets: [
-              "<b>Computer Vision</b>: Diagnosis medis (citra medis) dan mobil otonom (deteksi objek/jalur).",
-              "<b>Speech Recognition</b>: Interaksi manusia-komputer yang lebih alami via suara.",
-              "<b>NLP (Natural Language Processing)</b>: Pemahaman bahasa alami (NLU), pembentukan bahasa (NLG), dan penerjemahan mesin.",
-              "<b>Mobil Otonom & Etika</b>: Memiliki <b>6 tingkat otonomi</b> (Level 0–5) dan memunculkan dilema etis seperti <b>masalah trolley (trolley problem)</b>."
+              "<b>Computer Vision</b>: Diagnosis medis & mobil otonom.",
+              "<b>Speech Recognition</b>: Interaksi manusia-komputer via suara.",
+              "<b>NLP</b>: NLU (pemahaman), NLG (pembentukan teks), penerjemahan mesin.",
+              "<b>Mobil Otonom</b>: <b>6 tingkat otonomi</b> & dilema etis <b>masalah trolley (trolley problem)</b>."
             ]
           }
+        ],
+        cheatsheet: [
+          { title: "5 Pendekatan AI", items: ["1. Penalaran Simbolik", "2. Koneksi (Neural Network)", "3. Evolusioner (Genetika)", "4. Inferensi Bayesian (Naïve Bayes)", "5. Analogi (kemiripan kasus)"] },
+          { title: "Logika & Hardware", items: ["<b>Expert System</b>: Rule-based (IF-THEN)", "<b>Fuzzy Logic</b>: Tangani ambiguitas/ketidakpastian", "<b>GPU & Non-Von Neumann</b>: Komputasi paralel DL"] },
+          { title: "ML & Deep Learning", items: ["<b>Supervised</b>: Data berlabel", "<b>Unsupervised</b>: Tanpa label", "<b>Reinforcement</b>: Reward & penalty", "<b>CNN</b>: Gambar/Vision • <b>RNN</b>: Sekuensial/Teks", "<b>Backpropagation</b>: Update bobot jaringan"] },
+          { title: "Etika & Batasan AI", items: ["<b>Nonstarter</b>: AI gagal/salah sasaran", "<b>Mobil Otonom</b>: 6 level otonomi", "<b>Trolley Problem</b>: Dilema etis kecelakaan", "<b>Unggul Manusia</b>: Kreativitas, empati, etika"] }
         ],
         flashcards: [
           { q: "Sebutkan 5 pendekatan utama dalam pembelajaran AI menurut modul!", a: "1) Penalaran simbolik, 2) Koneksi (neuron otak), 3) Algoritma evolusioner, 4) Inferensi Bayesian, 5) Sistem yang belajar dengan analogi." },
@@ -760,66 +759,26 @@
           { q: "Apa contoh dilema etis pada mobil otonom?", a: "Masalah trolley (trolley problem): bagaimana algoritma mengambil keputusan saat menghadapi situasi kecelakaan yang tak terhindarkan." }
         ],
         quiz: [
-          {
-            q: "Berikut ini yang BUKAN termasuk lima pendekatan utama pembelajaran AI dalam panduan belajar STDA4203 adalah...",
-            opts: ["Penalaran simbolik", "Inferensi Bayesian", "Algoritma evolusioner", "Komputasi kuantum deterministik"],
-            ans: 3,
-            exp: "Lima pendekatan utama adalah: simbolik, koneksi (neuron), evolusioner, Bayesian, dan analogi."
-          },
-          {
-            q: "Untuk menangani ketidakpastian dan ambiguitas pada sistem berbasis aturan (rule-based), pendekatan yang digunakan adalah...",
-            opts: ["Logika Boolean klasik", "Fuzzy Logic", "Arsitektur Von Neumann", "Sorting Algorithm"],
-            ans: 1,
-            exp: "Fuzzy logic memungkinkan sistem pakar/AI menangani nilai yang samar atau tidak pasti (ambiguitas)."
-          },
-          {
-            q: "Algoritma yang terinspirasi oleh prinsip-prinsip evolusi biologis untuk menyelesaikan masalah optimasi disebut...",
-            opts: ["Naïve Bayes", "Algoritma Genetika / Evolusioner", "Decision Tree", "K-Means"],
-            ans: 1,
-            exp: "Algoritma genetika/evolusioner meniru proses seleksi alam dan evolusi untuk mencari solusi optimal."
-          },
-          {
-            q: "Dalam Deep Learning, algoritma utama yang digunakan untuk memperbarui bobot jaringan saraf berdasarkan error prediksi adalah...",
-            opts: ["Backpropagation", "MapReduce", "Trolley Problem", "Fuzzy Inference"],
-            ans: 0,
-            exp: "Backpropagation menghitung gradien error dari output ke lapisan sebelumnya untuk memperbarui bobot jaringan saraf."
-          },
-          {
-            q: "Arsitektur Deep Learning yang paling umum dan efektif untuk mengolah data citra pada Computer Vision (seperti deteksi objek mobil otonom) adalah...",
-            opts: ["Naïve Bayes", "Convolutional Neural Networks (CNN)", "Expert System", "Linear Regression"],
-            ans: 1,
-            exp: "CNN dirancang khusus untuk mengekstrak fitur spasial dari gambar/visual."
-          },
-          {
-            q: "Jenis Machine Learning di mana agen belajar melalui interaksi dengan lingkungan menggunakan mekanisme reward dan penalty disebut...",
-            opts: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Rule-Based AI"],
-            ans: 2,
-            exp: "Reinforcement learning melatih agen mengambil keputusan optimal berdasarkan umpan balik reward/hukuman."
-          },
-          {
-            q: "Manakah pernyataan yang tepat mengenai batasan kecerdasan artifisial (AI)?",
-            opts: ["AI selalu lebih baik dari manusia di semua tugas", "AI tidak bergantung pada kualitas data", "AI masih terbatas dalam hal kreativitas, empati, dan keputusan etis", "AI sudah menyamai kecerdasan manusia seutuhnya"],
-            ans: 2,
-            exp: "Modul menekankan pentingnya menghindari hype: AI tidak bisa menggantikan kreativitas, empati, dan pertimbangan etis manusia."
-          },
-          {
-            q: "Dilema etis klasik yang sering dibahas dalam pengembangan mobil otonom (self-driving car) dikenal dengan istilah...",
-            opts: ["Overfitting problem", "Trolley problem", "Cold start problem", "Vanishing gradient"],
-            ans: 1,
-            exp: "Trolley problem membahas dilema moral keputusan otomatis saat menghadapi potensi bahaya jiwa."
-          },
-          {
-            q: "Cabang AI yang berfokus pada pemahaman bahasa alami, pembentukan teks, dan penerjemahan mesin adalah...",
-            opts: ["Computer Vision", "Swarm Intelligence", "Natural Language Processing (NLP)", "Expert System"],
-            ans: 2,
-            exp: "NLP mencakup pemahaman bahasa alami (NLU), pembentukan bahasa alami (NLG), dan machine translation."
-          },
-          {
-            q: "Perangkat keras yang dirancang khusus untuk mempercepat komputasi paralel matriks pada pelatihan Deep Learning adalah...",
-            opts: ["Floppy Disk", "GPU (Graphics Processing Unit)", "HDD Mekanik", "Modem"],
-            ans: 1,
-            exp: "GPU (serta arsitektur non-von Neumann) sangat krusial untuk menjalankan komputasi paralel AI/DL."
-          }
+          { q: "Berikut ini yang BUKAN termasuk lima pendekatan utama pembelajaran AI dalam panduan belajar STDA4203 adalah...", opts: ["Penalaran simbolik", "Inferensi Bayesian", "Algoritma evolusioner", "Komputasi kuantum deterministik"], ans: 3, exp: "Lima pendekatan utama adalah: simbolik, koneksi (neuron), evolusioner, Bayesian, dan analogi." },
+          { q: "Untuk menangani ketidakpastian dan ambiguitas pada sistem berbasis aturan (rule-based), pendekatan yang digunakan adalah...", opts: ["Logika Boolean klasik", "Fuzzy Logic", "Arsitektur Von Neumann", "Sorting Algorithm"], ans: 1, exp: "Fuzzy logic memungkinkan sistem pakar/AI menangani nilai yang samar atau tidak pasti (ambiguitas)." },
+          { q: "Algoritma yang terinspirasi oleh prinsip-prinsip evolusi biologis untuk menyelesaikan masalah optimasi disebut...", opts: ["Naïve Bayes", "Algoritma Genetika / Evolusioner", "Decision Tree", "K-Means"], ans: 1, exp: "Algoritma genetika/evolusioner meniru proses seleksi alam dan evolusi untuk mencari solusi optimal." },
+          { q: "Dalam Deep Learning, algoritma utama yang digunakan untuk memperbarui bobot jaringan saraf berdasarkan error prediksi adalah...", opts: ["Backpropagation", "MapReduce", "Trolley Problem", "Fuzzy Inference"], ans: 0, exp: "Backpropagation menghitung gradien error dari output ke lapisan sebelumnya untuk memperbarui bobot jaringan saraf." },
+          { q: "Arsitektur Deep Learning yang paling efektif untuk mengolah data citra pada Computer Vision adalah...", opts: ["Naïve Bayes", "Convolutional Neural Networks (CNN)", "Expert System", "Linear Regression"], ans: 1, exp: "CNN dirancang khusus untuk mengekstrak fitur spasial dari gambar/visual." },
+          { q: "Jenis Machine Learning di mana agen belajar melalui interaksi dengan lingkungan menggunakan reward dan penalty disebut...", opts: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Rule-Based AI"], ans: 2, exp: "Reinforcement learning melatih agen mengambil keputusan optimal berdasarkan umpan balik reward/hukuman." },
+          { q: "Manakah pernyataan yang tepat mengenai batasan kecerdasan artifisial (AI)?", opts: ["AI selalu lebih baik dari manusia di semua tugas", "AI tidak bergantung pada kualitas data", "AI masih terbatas dalam hal kreativitas, empati, dan keputusan etis", "AI sudah menyamai kecerdasan manusia seutuhnya"], ans: 2, exp: "AI tidak bisa menggantikan kreativitas, empati, dan pertimbangan etis manusia." },
+          { q: "Dilema etis klasik yang sering dibahas dalam pengembangan mobil otonom dikenal dengan istilah...", opts: ["Overfitting problem", "Trolley problem", "Cold start problem", "Vanishing gradient"], ans: 1, exp: "Trolley problem membahas dilema moral keputusan otomatis saat menghadapi potensi bahaya jiwa." },
+          { q: "Cabang AI yang berfokus pada pemahaman bahasa alami, pembentukan teks, dan penerjemahan mesin adalah...", opts: ["Computer Vision", "Swarm Intelligence", "Natural Language Processing (NLP)", "Expert System"], ans: 2, exp: "NLP mencakup NLU, NLG, dan machine translation." },
+          { q: "Perangkat keras yang dirancang khusus untuk mempercepat komputasi paralel matriks pada pelatihan Deep Learning adalah...", opts: ["Floppy Disk", "GPU (Graphics Processing Unit)", "HDD Mekanik", "Modem"], ans: 1, exp: "GPU dan arsitektur non-von Neumann sangat krusial untuk komputasi paralel AI/DL." },
+          { q: "Tiga pendekatan pembelajaran AI yang disoroti sebagai pendekatan yang paling menjanjikan dalam panduan belajar adalah...", opts: ["Naïve Bayes, Jaringan Bayesian, dan Pohon Keputusan", "Bubble Sort, Binary Search, dan Hashing", "SQL, NoSQL, dan MapReduce", "HTML, CSS, dan JavaScript"], ans: 0, exp: "Konsep esensial menyebut Naïve Bayes, jaringan Bayesian, dan pohon keputusan dibahas lebih mendalam." },
+          { q: "Teknik Deep Learning yang memanfaatkan model terlatih sebelumnya agar tidak perlu melatih dari nol pada dataset kecil disebut...", opts: ["Transfer Learning", "Hard Clustering", "Rule Pruning", "Von Neumann Bottleneck"], ans: 0, exp: "Transfer learning mentransfer bobot/pengetahuan dari tugas sumber ke tugas target yang baru." },
+          { q: "Model Deep Learning yang paling sesuai untuk memproses data sekuensial seperti deret kata dalam kalimat atau sinyal audio adalah...", opts: ["RNN (Recurrent Neural Networks)", "K-Means", "Expert System", "Apriori"], ans: 0, exp: "RNN memiliki memori berulang (recurrent) sehingga cocok untuk urutan waktu/teks." },
+          { q: "Istilah 'nonstarter' dalam buku panduan AI merujuk pada...", opts: ["Aplikasi AI yang sukses besar di pasar", "Aplikasi AI yang gagal atau tidak layak diterapkan dibanding kemampuan manusia", "Hardware GPU generasi terbaru", "Algoritma genetika"], ans: 1, exp: "Aplikasi nonstarter adalah penerapan AI yang kurang berhasil atau tidak tepat guna." },
+          { q: "Dalam klasifikasi otonomi kendaraan (mobil otonom), terdapat berapa tingkat otonomi menurut panduan belajar?", opts: ["2 tingkat", "4 tingkat", "6 tingkat", "10 tingkat"], ans: 2, exp: "Buku membahas enam tingkat otonomi kendaraan (Level 0 hingga Level 5)." },
+          { q: "Mengapa kualitas dan kuantitas data disebut sebagai 'bahan bakar' sistem AI?", opts: ["Karena algoritma AI belajar pola langsung dari data tersebut", "Karena data menggantikan kebutuhan listrik", "Karena tanpa data, GPU tidak bisa menyala", "Karena semua AI hanya berupa rule-based statis"], ans: 0, exp: "Performa sistem Machine Learning sangat bergantung pada kebersihan, akurasi, dan kecukupan data latih." },
+          { q: "Pendekatan Bio-Inspired Computing yang terinspirasi oleh perilaku kolektif koloni semut atau kawanan burung adalah...", opts: ["Swarm Intelligence", "Logistic Regression", "Fuzzy Logic", "Bayesian Network"], ans: 0, exp: "Swarm intelligence meniru kecerdasan kolektif kawanan makhluk hidup untuk optimasi." },
+          { q: "Sistem pakar (Expert System) memiliki keterbatasan utama dibanding Machine Learning modern, yaitu...", opts: ["Aturan harus disusun manual oleh pakar dan sulit beradaptasi otomatis pada pola baru", "Tidak bisa berjalan di komputer", "Selalu memakai gambar", "Tidak menggunakan logika"], ans: 0, exp: "Rule-based expert system bergantung pada aturan eksplisit yang ditulis manusia." },
+          { q: "Penggunaan AI di bidang medis untuk menganalisis hasil rontgen atau MRI termasuk implementasi dari...", opts: ["Computer Vision", "Swarm Intelligence", "Speech Recognition", "Trolley Problem"], ans: 0, exp: "Analisis citra medis memanfaatkan Computer Vision dan Deep Learning (CNN)." },
+          { q: "Dalam konteks masa depan pekerjaan akibat AI, buku panduan menekankan bahwa AI juga berpotensi...", opts: ["Menghapus seluruh profesi tanpa sisa", "Menciptakan lapangan pekerjaan baru dan menuntut AI yang selaras nilai manusia", "Menggantikan empati dokter sepenuhnya", "Beroperasi tanpa pengawasan etika"], ans: 1, exp: "AI berpotensi menciptakan peran baru dan harus dikembangkan selaras dengan nilai kemanusiaan." }
         ]
       },
       {
@@ -829,26 +788,26 @@
         name: "Basis Data NoSQL",
         exam: "UTM 29 Nov",
         icon: "🗄️",
-        note: "Study Guide (BMP Sementara) • Fokus: 4 Tipe NoSQL (Key-Value, Document, Column-Family, Graph) & Operasional MongoDB.",
+        note: "Study Guide (BMP Sementara) • 4 Tipe NoSQL (Key-Value, Document, Column-Family, Graph) & Operasional MongoDB.",
         sections: [
           {
             title: "1. Gambaran Umum NoSQL vs SQL (RDBMS)",
             tag: "Konsep Dasar",
             bullets: [
-              "<b>NoSQL (Non-Relational)</b>: Dirancang untuk data tidak terstruktur/semiterstruktur, skema fleksibel, komputasi terdistribusi (MapReduce), dan <b>kecepatan akses lebih tinggi</b> pada skala besar dibanding SQL tradisional.",
-              "<b>4 Model Utama NoSQL</b>: Key-Value, Document-Oriented, Column-Family (Wide Column), dan Graph Database."
+              "<b>NoSQL (Non-Relational)</b>: Untuk data tidak terstruktur/semiterstruktur, skema fleksibel, komputasi terdistribusi (MapReduce), dan <b>kecepatan lebih tinggi</b> dibanding SQL tradisional.",
+              "<b>4 Model Utama</b>: Key-Value, Document-Oriented, Column-Family (Wide Column), dan Graph Database."
             ]
           },
           {
             title: "2. Perbandingan 4 Tipe Basis Data NoSQL",
             tag: "Wajib Hafal",
             table: {
-              headers: ["Tipe NoSQL", "Cara Kerja / Struktur", "Contoh Software", "Cocok Untuk"],
+              headers: ["Tipe NoSQL", "Struktur Data", "Contoh Software", "Use Case Ideal"],
               rows: [
-                ["<b>Key-Value</b>", "Pasangan key unik & value (JSON, BLOB, string) dlm tabel hash simpel", "Redis, DynamoDB, Riak", "Caching, session, lookup cepat tanpa query rumit"],
-                ["<b>Document-Oriented</b>", "Data disimpan sbg dokumen (.json, .xml, .bson); mirip row di SQL", "MongoDB (Shell & Compass)", "Katalog produk, profil user, konten dinamis"],
-                ["<b>Column-Family</b>", "Kolom sebagai indeks; nama & format kolom bisa beda tiap baris", "Apache Cassandra, HBase, ScyllaDB", "Data time-series, log, write-heavy skala raksasa"],
-                ["<b>Graph Database</b>", "Simpan entitas (node/simpul), relasi (edge/ruas), & properti (berarah/tak berarah)", "Neo4j, Memgraph", "Jejaring sosial, rekomendasi, deteksi fraud"]
+                ["<b>Key-Value</b>", "Tabel hash: key unik + value (JSON/BLOB/string)", "Redis, DynamoDB, Riak", "Caching, session, lookup cepat"],
+                ["<b>Document-Oriented</b>", "Dokumen (.json, .xml, .bson); mirip row SQL", "MongoDB (Shell & Compass)", "Katalog, profil user, konten dinamis"],
+                ["<b>Column-Family</b>", "Kolom sebagai indeks; kolom bisa beda tiap baris", "Apache Cassandra, HBase, ScyllaDB", "Time-series, log, write-heavy raksasa"],
+                ["<b>Graph Database</b>", "Node (simpul), Edge (ruas/relasi), & properti", "Neo4j, Memgraph", "Jejaring sosial, rekomendasi, fraud"]
               ]
             }
           },
@@ -856,21 +815,25 @@
             title: "3. MongoDB: Aggregation Pipeline & Relasi Dokumen",
             tag: "MongoDB",
             bullets: [
-              "<b>Relasi Dokumen</b>: <b>Embedded Document</b> (dokumen bersarang di dalam dokumen induk) vs <b>Referenced Document</b> (menyimpan ID referensi ke dokumen lain).",
-              "<b>Aggregation Pipeline</b>: Tahapan berantai memproses dokumen. Operator penting: <code>$match</code> (filter), <code>$project</code> (pilih/ubah field), <code>$sort</code> (urutkan), <code>$limit</code> (batasi jumlah), <code>$skip</code> (lewati dokumen), <code>$unwind</code> (pecah elemen array menjadi dokumen terpisah)."
+              "<b>Relasi Dokumen</b>: <b>Embedded Document</b> (bersarang di dokumen induk) vs <b>Referenced Document</b> (simpan ID referensi).",
+              "<b>Aggregation Pipeline</b>: <code>$match</code> (filter), <code>$project</code> (pilih/ubah field), <code>$sort</code> (urutkan), <code>$limit</code> (batasi), <code>$skip</code> (lewati), <code>$unwind</code> (pecah array menjadi dokumen terpisah)."
             ]
           },
           {
             title: "4. Validasi Schema, Backup & Cluster di MongoDB",
             tag: "Admin & Ops",
             bullets: [
-              "<b>Validasi Data</b>: Menggunakan JSON Schema dengan dua pengaturan utama:",
-              "• <code>validationLevel</code>: mengatur aturan validasi pada dokumen yang <b>sudah ada dan akan di-update</b>.",
-              "• <code>validationAction</code>: mengatur aksi saat validasi gagal — <code>error</code> (tolak/hentikan operasi) atau <code>warn</code> (tetap simpan sambil beri peringatan).",
-              "<b>Backup & Maintenance</b>: Melalui <b>MongoDB Atlas</b>, <b>MongoDB Cloud Manager</b>, perintah OS <code>cp</code> / <code>rsync</code>, serta utilitas <code>mongodump</code> (dan restore).",
-              "<b>Cluster & Replication</b>: Sekumpulan server independen yang mereplikasi data yang sama untuk <b>high availability</b>, kecepatan akses, <i>load balancing</i>, dan toleransi kegagalan."
+              "<b>Validasi Data</b>: <code>validationLevel</code> (aturan untuk dokumen lama saat di-update) vs <code>validationAction</code> (<code>error</code> = tolak, <code>warn</code> = simpan + peringatan).",
+              "<b>Backup</b>: MongoDB Atlas, Cloud Manager, <code>cp</code>/<code>rsync</code>, dan <code>mongodump</code>.",
+              "<b>Cluster & Replication</b>: Replika server untuk <b>high availability</b>, kecepatan akses, dan <i>load balancing</i>."
             ]
           }
+        ],
+        cheatsheet: [
+          { title: "4 Tipe NoSQL & Contohnya", items: ["<b>Key-Value</b>: Redis, DynamoDB, Riak", "<b>Document</b>: MongoDB (.json, .xml, .bson)", "<b>Column-Family</b>: Cassandra, HBase, ScyllaDB", "<b>Graph</b>: Neo4j, Memgraph"] },
+          { title: "Pipeline MongoDB", items: ["<code>$match</code>: filter dokumen", "<code>$project</code>: pilih/reshape field", "<code>$sort</code> / <code>$limit</code> / <code>$skip</code>: urut & paginasi", "<code>$unwind</code>: pecah array jadi baris dokumen"] },
+          { title: "Validasi & Relasi MongoDB", items: ["<b>Embedded</b>: sub-dokumen di dalam induk", "<b>Referenced</b>: simpan ID dokumen lain", "<b>validationLevel</b>: cek dokumen lama saat update", "<b>validationAction</b>: <code>error</code> (tolak) vs <code>warn</code> (lanjut)"] },
+          { title: "Backup & Cluster", items: ["<b>Backup</b>: Atlas, Cloud Manager, cp/rsync, <code>mongodump</code>", "<b>Cluster</b>: High availability + load balancing"] }
         ],
         flashcards: [
           { q: "Sebutkan 4 tipe utama basis data NoSQL beserta masing-masing 1 contoh software!", a: "1) Key-Value (Redis/DynamoDB), 2) Document (MongoDB), 3) Column-Family (Cassandra/HBase), 4) Graph (Neo4j/Memgraph)." },
@@ -883,66 +846,26 @@
           { q: "Apa keuntungan utama Cluster & Replication pada MongoDB?", a: "Ketersediaan data tinggi (high availability), kecepatan akses lebih baik, load balancing, dan tahan terhadap kegagalan sistem." }
         ],
         quiz: [
-          {
-            q: "Jenis basis data NoSQL yang menyimpan data dalam bentuk tabel hash sederhana berupa pasangan kunci unik dan nilai adalah...",
-            opts: ["Graph Database", "Column-Family", "Key-Value Store", "Document-Oriented"],
-            ans: 2,
-            exp: "Key-Value store (seperti Redis, DynamoDB, Riak) menyimpan pasangan key unik dan value dalam struktur tabel hash."
-          },
-          {
-            q: "Apache Cassandra, Apache HBase, dan ScyllaDB merupakan contoh basis data NoSQL bertipe...",
-            opts: ["Key-Value", "Column-Family (Wide Column)", "Document-Based", "Graph-Based"],
-            ans: 1,
-            exp: "Cassandra, HBase, dan ScyllaDB adalah column-family / wide-column databases di mana kolom dapat bervariasi tiap baris."
-          },
-          {
-            q: "Aplikasi media sosial yang sangat menekankan relasi pertemanan antar-pengguna dan interaksi like paling cocok menggunakan...",
-            opts: ["Graph Database (Neo4j)", "Key-Value (Redis)", "RDBMS Konvensional", "Flat File CSV"],
-            ans: 0,
-            exp: "Graph database (seperti Neo4j, Memgraph) menyimpan node dan edge/relasi sehingga optimal untuk data yang saling terhubung."
-          },
-          {
-            q: "Tool resmi MongoDB yang menyediakan antarmuka pengguna grafis (GUI) untuk mengelola data dan membangun query pipeline adalah...",
-            opts: ["MongoDB Shell", "MongoDB Compass", "mongodump", "Neo4j Browser"],
-            ans: 1,
-            exp: "MongoDB Shell berbasis CLI, sedangkan MongoDB Compass berbasis GUI."
-          },
-          {
-            q: "Dalam Aggregation Pipeline MongoDB, operator yang berfungsi menyaring dokumen sesuai kriteria tertentu (mirip WHERE di SQL) adalah...",
-            opts: ["$project", "$unwind", "$match", "$skip"],
-            ans: 2,
-            exp: "$match menyaring dokumen sesuai kondisi; $project memilih/membentuk ulang field; $unwind memecah array."
-          },
-          {
-            q: "Pada validasi schema MongoDB, jika kita ingin dokumen baru yang melanggar aturan TETAP disimpan tetapi memunculkan peringatan, maka validationAction diatur ke...",
-            opts: ["error", "warn", "bypass", "strict"],
-            ans: 1,
-            exp: "validationAction memiliki dua opsi: 'error' (menghentikan operasi) dan 'warn' (tetap menyimpan dengan catatan peringatan)."
-          },
-          {
-            q: "Sedangkan opsi pada MongoDB untuk menerapkan aturan validasi terhadap dokumen yang SUDAH ADA dan akan di-update adalah...",
-            opts: ["validationAction", "validationLevel", "embeddedDocument", "loadBalancing"],
-            ans: 1,
-            exp: "validationLevel mengatur bagaimana aturan validasi diterapkan pada dokumen yang sudah ada saat di-update."
-          },
-          {
-            q: "Perintah bawaan MongoDB untuk melakukan backup data dalam format biner yang dapat di-restore kembali adalah...",
-            opts: ["mongodump", "mongomatch", "rsync -u", "git dump"],
-            ans: 0,
-            exp: "mongodump adalah utilitas resmi MongoDB untuk membuat cadangan (backup) database."
-          },
-          {
-            q: "Menyimpan data alamat pengguna langsung di dalam dokumen pengguna (bersarang) pada MongoDB disebut pendekatan...",
-            opts: ["Referenced Document", "Embedded Document", "Normalized Table", "Column-Family"],
-            ans: 1,
-            exp: "Embedded document menanamkan sub-dokumen langsung di dalam dokumen induk, sedangkan referenced document menyimpan ID rujukan."
-          },
-          {
-            q: "Tujuan utama penerapan Cluster dan Database Replication pada MongoDB adalah...",
-            opts: ["Menghapus seluruh indeks agar hemat RAM", "Meningkatkan ketersediaan data (high availability), kecepatan akses, dan toleransi kegagalan", "Mengubah MongoDB menjadi database SQL", "Membatasi akses hanya untuk satu klien"],
-            ans: 1,
-            exp: "Replication menyalin data ke beberapa server agar sistem tetap berjalan bila ada node gagal dan mendukung load balancing."
-          }
+          { q: "Jenis basis data NoSQL yang menyimpan data dalam bentuk tabel hash sederhana berupa pasangan kunci unik dan nilai adalah...", opts: ["Graph Database", "Column-Family", "Key-Value Store", "Document-Oriented"], ans: 2, exp: "Key-Value store (Redis, DynamoDB, Riak) menyimpan pasangan key unik dan value dalam struktur tabel hash." },
+          { q: "Apache Cassandra, Apache HBase, dan ScyllaDB merupakan contoh basis data NoSQL bertipe...", opts: ["Key-Value", "Column-Family (Wide Column)", "Document-Based", "Graph-Based"], ans: 1, exp: "Cassandra, HBase, dan ScyllaDB adalah column-family / wide-column databases." },
+          { q: "Aplikasi media sosial yang sangat menekankan relasi pertemanan antar-pengguna paling cocok menggunakan...", opts: ["Graph Database (Neo4j)", "Key-Value (Redis)", "RDBMS Konvensional", "Flat File CSV"], ans: 0, exp: "Graph database (Neo4j, Memgraph) menyimpan node dan edge/relasi secara native." },
+          { q: "Tool resmi MongoDB yang menyediakan antarmuka pengguna grafis (GUI) untuk membangun query pipeline adalah...", opts: ["MongoDB Shell", "MongoDB Compass", "mongodump", "Neo4j Browser"], ans: 1, exp: "MongoDB Shell berbasis CLI, sedangkan MongoDB Compass berbasis GUI." },
+          { q: "Dalam Aggregation Pipeline MongoDB, operator yang berfungsi menyaring dokumen sesuai kriteria tertentu adalah...", opts: ["$project", "$unwind", "$match", "$skip"], ans: 2, exp: "$match menyaring dokumen sesuai kondisi (mirip klausa WHERE di SQL)." },
+          { q: "Jika kita ingin dokumen baru yang melanggar aturan schema TETAP disimpan dengan peringatan, maka validationAction diatur ke...", opts: ["error", "warn", "bypass", "strict"], ans: 1, exp: "validationAction 'warn' tetap menyimpan dokumen dengan peringatan, sedangkan 'error' menolaknya." },
+          { q: "Opsi pada MongoDB untuk menerapkan aturan validasi terhadap dokumen yang SUDAH ADA dan akan di-update adalah...", opts: ["validationAction", "validationLevel", "embeddedDocument", "loadBalancing"], ans: 1, exp: "validationLevel mengatur validasi untuk dokumen yang sudah ada saat di-update." },
+          { q: "Perintah bawaan MongoDB untuk melakukan backup data yang dapat di-restore kembali adalah...", opts: ["mongodump", "mongomatch", "rsync -u", "git dump"], ans: 0, exp: "mongodump adalah utilitas resmi MongoDB untuk membuat cadangan (backup) database." },
+          { q: "Menyimpan data alamat pengguna langsung di dalam dokumen pengguna (bersarang) pada MongoDB disebut pendekatan...", opts: ["Referenced Document", "Embedded Document", "Normalized Table", "Column-Family"], ans: 1, exp: "Embedded document menanamkan sub-dokumen langsung di dalam dokumen induk." },
+          { q: "Tujuan utama penerapan Cluster dan Database Replication pada MongoDB adalah...", opts: ["Menghapus indeks", "Meningkatkan ketersediaan data (high availability), kecepatan akses, dan toleransi kegagalan", "Mengubah MongoDB ke SQL", "Membatasi akses satu klien"], ans: 1, exp: "Replication menyalin data ke beberapa server agar sistem tahan kegagalan dan mendukung load balancing." },
+          { q: "Dalam database berbasis dokumen (MongoDB), kedudukan sekumpulan data dalam sebuah 'document' menyerupai apa pada database SQL?", opts: ["Database", "Row (baris)", "Foreign Key", "Index"], ans: 1, exp: "Satu document di MongoDB menyerupai satu row pada tabel SQL, sedangkan collection menyerupai tabel." },
+          { q: "Operator Aggregation Pipeline MongoDB yang berfungsi memecah elemen dalam array menjadi dokumen-dokumen terpisah adalah...", opts: ["$match", "$sort", "$unwind", "$limit"], ans: 2, exp: "$unwind mendekomposisi field array sehingga menghasilkan satu dokumen per elemen array." },
+          { q: "Jika urutan pipeline di MongoDB adalah [$match, $sort, $skip(5), $limit(10)], maka hasilnya adalah...", opts: ["Mengambil 10 dokumen pertama lalu melewati 5", "Melewati 5 dokumen teratas setelah filter & urut, lalu mengambil maksimal 10 dokumen berikutnya", "Menghapus 5 dokumen dari database", "Mengurutkan 5 dokumen saja"], ans: 1, exp: "$skip(5) melewati 5 dokumen pertama, lalu $limit(10) membatasi output maksimal 10 dokumen (cocok untuk pagination)." },
+          { q: "Pada Column-Family database (seperti Cassandra), keistimewaan struktur barisnya dibandingkan tabel SQL adalah...", opts: ["Semua baris wajib punya jumlah kolom identik", "Nama dan format kolom dapat bervariasi di setiap baris bahkan dalam tabel yang sama", "Hanya boleh punya 1 kolom", "Tidak memiliki indeks"], ans: 1, exp: "Pada wide-column/column-family, kolom dapat bervariasi antarbaris dalam satu tabel/column-family." },
+          { q: "Pada Key-Value Store (seperti Redis), tipe data apa yang dapat disimpan sebagai 'value'?", opts: ["Hanya angka bulat", "JSON, BLOB (binary large objects), string, dan sebagainya", "Hanya tabel SQL", "Hanya grafik berarah"], ans: 1, exp: "Key harus unik, sementara value pada Key-Value store fleksibel (string, JSON, BLOB, dll)." },
+          { q: "Dalam Graph Database, dua komponen utama penyusun graf selain properti adalah...", opts: ["Row dan Column", "Simpul (Node) dan Ruas/Relasi (Edge)", "Key dan Bucket", "Collection dan BSON"], ans: 1, exp: "Graph database merepresentasikan entitas sebagai simpul (node) dan hubungan sebagai ruas (edge)." },
+          { q: "Kapan sebaiknya memilih Referenced Document dibanding Embedded Document di MongoDB?", opts: ["Saat data sub-dokumen sangat besar/tumbuh tak terbatas dan sering diakses terpisah", "Saat ingin semua data disalin berulang-ulang", "Saat menggunakan Redis", "Saat tidak ada relasi data"], ans: 0, exp: "Referenced document menyimpan ID rujukan sehingga menghindari dokumen induk membengkak atau duplikasi berlebih." },
+          { q: "Selain mongodump dan MongoDB Atlas, mekanisme backup level sistem berkas yang disebut dalam modul adalah...", opts: ["cp atau rsync", "pip install", "npm build", "docker pull"], ans: 0, exp: "Modul menyebut backup via MongoDB Atlas, Cloud Manager, command cp atau rsync, dan mongodump." },
+          { q: "Dalam validasi dokumen MongoDB, opsi 'bypassDocumentValidation' berguna ketika...", opts: ["Ingin memaksa semua query error", "Ingin melewati sementara aturan validasi saat melakukan operasi tulis/impor tertentu", "Ingin menghapus seluruh collection", "Ingin mengubah JSON menjadi XML"], ans: 1, exp: "Bypass document validation mengizinkan operasi tertentu melewati pemeriksaan validasi schema." },
+          { q: "Mengapa sistem terdistribusi dan NoSQL sering dikaitkan dengan MapReduce?", opts: ["Karena MapReduce memproses data besar secara paralel di banyak node klaster", "Karena MapReduce hanya jalan di 1 CPU", "Karena MapReduce adalah bahasa markup", "Karena SQL tidak butuh jaringan"], ans: 0, exp: "Komputasi terdistribusi (MapReduce) mendukung pemrosesan paralel data NoSQL berskala besar." }
         ]
       },
       {
@@ -952,60 +875,63 @@
         name: "Data Mining",
         exam: "UO 12 Des",
         icon: "⛏️",
-        note: "Modul 1–9 Lengkap (MSIM4403) • Fokus: CRISP-DM, Atribut, Preprocessing, Regresi, Klasifikasi, Asosiasi, Klasterisasi, Evaluasi & WEKA.",
+        note: "Modul 1–9 Lengkap (MSIM4403) • CRISP-DM, Atribut, Preprocessing, Regresi, Klasifikasi, Asosiasi, Klasterisasi, Evaluasi & WEKA.",
         sections: [
           {
             title: "Modul 1: Konsep Dasar, CRISP-DM & Tipe Atribut",
             tag: "Fondasi",
             bullets: [
               "<b>CRISP-DM (6 Fase)</b>: <i>Business Understanding</i> → <i>Data Understanding</i> → <i>Data Preparation</i> → <i>Modeling</i> → <i>Evaluation</i> → <i>Deployment</i>.",
-              "<b>Arsitektur & EDA</b>: Data Warehouse (basis data multidimensional / OLAP) & Exploratory Data Analysis (EDA) untuk memahami pola awal data.",
-              "<b>Tipe Atribut Data</b>: <b>Nominal</b> (kategori tanpa urutan, misal warna), <b>Biner</b> (2 nilai: simetris/asimetris), <b>Ordinal</b> (berurutan tanpa jarak pasti, misal S/M/L), <b>Interval</b> (jarak terukur tanpa nol mutlak, misal suhu °C), <b>Rasio</b> (punya nol mutlak, misal berat/harga)."
+              "<b>Arsitektur & EDA</b>: Data Warehouse (basis data multidimensional / OLAP) & Exploratory Data Analysis (EDA).",
+              "<b>Tipe Atribut Data</b>: <b>Nominal</b> (kategori tanpa urutan), <b>Biner</b> (2 nilai), <b>Ordinal</b> (berurutan tanpa jarak pasti), <b>Interval</b> (jarak terukur tanpa nol mutlak), <b>Rasio</b> (punya nol mutlak)."
             ]
           },
           {
             title: "Modul 2–3: Persiapan Data & Konsep Teknik Data Mining",
             tag: "Preprocessing",
             bullets: [
-              "<b>Kualitas Data</b>: Akurasi, kelengkapan, konsistensi, ketepatan waktu, <i>believability</i> (kepercayaan), dan interpretabilitas.",
-              "<b>Data Preprocessing</b>: <i>Data Cleaning</i> (tangani missing value & noise), <i>Integration</i> (gabung sumber), <i>Reduction</i> (seleksi fitur/PCA), <i>Transformation</i> (normalisasi/diskritisasi).",
-              "<b>2 Kategori Teknik Data Mining</b>: <b>Predictive</b> (memprediksi nilai/label masa depan: <i>Estimasi</i>, <i>Klasifikasi</i>, <i>Prediksi</i>) vs <b>Descriptive</b> (menemukan pola dalam data: <i>Asosiasi</i>, <i>Klasterisasi</i>)."
+              "<b>Kualitas Data</b>: Akurasi, kelengkapan, konsistensi, ketepatan waktu, <i>believability</i>, dan interpretabilitas.",
+              "<b>Data Preprocessing</b>: <i>Cleaning</i>, <i>Integration</i>, <i>Reduction</i>, <i>Transformation</i>.",
+              "<b>2 Kategori Teknik</b>: <b>Predictive</b> (<i>Estimasi</i>, <i>Klasifikasi</i>, <i>Prediksi</i>) vs <b>Descriptive</b> (<i>Asosiasi</i>, <i>Klasterisasi</i>)."
             ]
           },
           {
             title: "Modul 4–5: Estimasi (Regresi) & Klasifikasi",
             tag: "Predictive",
             bullets: [
-              "<b>Estimasi (Regresi Linier)</b>: Memprediksi nilai kontinu. <b>Sederhana</b>: <code>Y = a + bX</code> (1 variabel bebas). <b>Berganda</b>: <code>Y = a + b<sub>1</sub>X<sub>1</sub> + ... + b<sub>k</sub>X<sub>k</sub></code>.",
-              "<b>Klasifikasi (Decision Tree)</b>: <b>ID3</b> menggunakan <i>Information Gain</i> (berbasis Entropy); <b>C4.5</b> menyempurnakan ID3 dengan <i>Gain Ratio</i> (bisa tangani atribut kontinu & missing value).",
-              "<b>Nearest Neighbor (KNN)</b>: Klasifikasi berdasarkan mayoritas kelas dari <i>K</i> tetangga terdekat (jarak Euclidean/Manhattan).",
-              "<b>Bayesian (Naïve Bayes)</b>: Berbasis Teorema Bayes dengan asumsi independensi bersyarat antarfitur."
+              "<b>Estimasi (Regresi Linier)</b>: Sederhana <code>Y = a + bX</code> & Berganda <code>Y = a + b<sub>1</sub>X<sub>1</sub> + ...</code>.",
+              "<b>Decision Tree</b>: <b>ID3</b> (<i>Information Gain</i>) vs <b>C4.5</b> (<i>Gain Ratio</i>, dukung atribut kontinu & missing value).",
+              "<b>KNN & Naïve Bayes</b>: KNN berbasis jarak <i>K</i> tetangga terdekat; Naïve Bayes berbasis probabilitas Bayes."
             ]
           },
           {
             title: "Modul 6–7: Analisis Asosiasi & Klasterisasi",
             tag: "Descriptive",
             bullets: [
-              "<b>Analisis Asosiasi (Market Basket)</b>: Menemukan aturan <code>IF X THEN Y</code>.",
-              "• <b>Support(X→Y)</b> = proporsi transaksi yang memuat X dan Y sekaligus.",
-              "• <b>Confidence(X→Y)</b> = <code>P(Y|X) = Support(X∪Y) / Support(X)</code>.",
-              "• <b>Apriori</b> (pakai candidate generation & pruning berbasis <i>minimum support</i>) vs <b>FP-Growth</b> (lebih cepat, pakai struktur pohon <i>FP-Tree</i> tanpa generate kandidat berulang).",
-              "<b>Klasterisasi</b>: <b>K-Means</b> (partisi menjadi K klaster berbasis centroid & jarak) vs <b>HAC (Hierarchical Agglomerative Clustering)</b> (bottom-up: tiap data dimulai sbg klaster lalu digabung bertahap memakai <i>single/complete/average linkage</i>)."
+              "<b>Asosiasi</b>: <b>Support(X→Y)</b> = proporsi transaksi memuat X & Y; <b>Confidence(X→Y)</b> = <code>Support(X∪Y) / Support(X)</code>.",
+              "<b>Apriori</b> (generate kandidat + pruning) vs <b>FP-Growth</b> (pohon <i>FP-Tree</i> tanpa generate kandidat).",
+              "<b>Klasterisasi</b>: <b>K-Means</b> (centroid) vs <b>HAC</b> (bottom-up dendrogram)."
             ]
           },
           {
             title: "Modul 8–9: Evaluasi Kinerja & Aplikasi WEKA",
             tag: "Evaluasi",
             table: {
-              headers: ["Jenis Teknik", "Alat / Metrik Evaluasi", "Catatan Penting"],
+              headers: ["Teknik", "Metrik / Tool", "Rumus / Catatan"],
               rows: [
-                ["<b>Klasifikasi</b>", "Confusion Matrix (TP, TN, FP, FN) → Accuracy, Precision, Recall, F1-Score, ROC/AUC", "Precision = TP/(TP+FP); Recall = TP/(TP+FN)"],
-                ["<b>Estimasi / Regresi</b>", "MAE, MSE, RMSE, R<sup>2</sup> (Koefisien Determinasi)", "Makin kecil error (MAE/RMSE), makin baik model"],
-                ["<b>Klasterisasi</b>", "SSE (Sum of Squared Errors), Silhouette Coefficient, Davies-Bouldin", "Internal evaluation tanpa label kelas"],
-                ["<b>WEKA</b>", "Format file <code>.arff</code> / <code>.csv</code>; Tab Preprocess, Classify, Associate, Cluster", "Tool GUI open-source berbasis Java untuk eksperimen data mining"]
+                ["<b>Klasifikasi</b>", "Confusion Matrix, ROC/AUC", "<code>Precision = TP/(TP+FP)</code>; <code>Recall = TP/(TP+FN)</code>"],
+                ["<b>Estimasi</b>", "MAE, MSE, RMSE, R<sup>2</sup>", "Makin kecil error, makin baik"],
+                ["<b>Klasterisasi</b>", "SSE, Silhouette, Davies-Bouldin", "Evaluasi internal tanpa label"],
+                ["<b>WEKA</b>", "File <code>.arff</code> / <code>.csv</code>", "Tab Preprocess, Classify, Associate, Cluster"]
               ]
             }
           }
+        ],
+        cheatsheet: [
+          { title: "6 Fase CRISP-DM", items: ["1. Business Understanding", "2. Data Understanding", "3. Data Preparation", "4. Modeling", "5. Evaluation", "6. Deployment"] },
+          { title: "Rumus Asosiasi", items: ["<code>Support(X→Y) = P(X ∩ Y)</code>", "<code>Confidence(X→Y) = P(Y|X) = Sup(X∪Y)/Sup(X)</code>", "<b>Apriori</b>: Candidate gen + min_sup", "<b>FP-Growth</b>: FP-Tree (lebih cepat)"] },
+          { title: "Rumus Confusion Matrix", items: ["<code>Accuracy = (TP+TN)/(TP+TN+FP+FN)</code>", "<code>Precision = TP/(TP+FP)</code>", "<code>Recall = TP/(TP+FN)</code>", "<code>F1 = 2·(Prec·Rec)/(Prec+Rec)</code>"] },
+          { title: "Algoritma Inti", items: ["<b>ID3</b>: Info Gain • <b>C4.5</b>: Gain Ratio", "<b>K-Means</b>: Partisi K centroid", "<b>HAC</b>: Bottom-up (Single/Complete/Avg linkage)", "<b>WEKA</b>: Format <code>.arff</code>"] }
         ],
         flashcards: [
           { q: "Sebutkan 6 fase CRISP-DM secara berurutan!", a: "1) Business Understanding, 2) Data Understanding, 3) Data Preparation, 4) Modeling, 5) Evaluation, 6) Deployment." },
@@ -1018,66 +944,26 @@
           { q: "Format file standar yang digunakan pada aplikasi WEKA adalah?", a: "ARFF (Attribute-Relation File Format), selain juga mendukung CSV." }
         ],
         quiz: [
-          {
-            q: "Pada metodologi CRISP-DM, fase yang berfokus pada pembersihan missing value, normalisasi, dan seleksi fitur berada pada tahap...",
-            opts: ["Business Understanding", "Data Preparation", "Modeling", "Deployment"],
-            ans: 1,
-            exp: "Data Preparation mencakup seluruh aktivitas preprocessing (cleaning, transformation, reduction) sebelum masuk tahap Modeling."
-          },
-          {
-            q: "Atribut 'Tingkat Kepuasan' dengan nilai (Sangat Puas, Puas, Cukup, Kurang) termasuk jenis atribut...",
-            opts: ["Nominal", "Biner Simetris", "Ordinal", "Rasio"],
-            ans: 2,
-            exp: "Atribut Ordinal memiliki urutan/tingkatan yang jelas namun jarak antar-tingkatannya tidak terukur secara numerik."
-          },
-          {
-            q: "Manakah pasangan teknik yang termasuk ke dalam kategori Descriptive Data Mining?",
-            opts: ["Klasifikasi dan Estimasi", "Regresi Linier dan C4.5", "Analisis Asosiasi dan Klasterisasi", "Naïve Bayes dan KNN"],
-            ans: 2,
-            exp: "Descriptive data mining bertujuan menemukan pola dari data tanpa variabel target, yaitu Asosiasi dan Klasterisasi."
-          },
-          {
-            q: "Algoritma pohon keputusan yang menyempurnakan ID3 dengan menggunakan kriteria Gain Ratio adalah...",
-            opts: ["Apriori", "C4.5", "K-Means", "FP-Growth"],
-            ans: 1,
-            exp: "C4.5 adalah pengembangan dari ID3 yang mengganti Information Gain dengan Gain Ratio untuk mengatasi bias atribut bernilai banyak."
-          },
-          {
-            q: "Dalam analisis asosiasi, jika dari 100 transaksi terdapat 40 transaksi membeli Roti, dan 30 transaksi membeli Roti sekaligus Selai, maka nilai Confidence(Roti → Selai) adalah...",
-            opts: ["30%", "40%", "75%", "133%"],
-            ans: 2,
-            exp: "Confidence(Roti → Selai) = Support(Roti ∪ Selai) / Support(Roti) = 30 / 40 = 0.75 atau 75%."
-          },
-          {
-            q: "Keunggulan utama algoritma FP-Growth dibandingkan Apriori dalam mencari frequent itemset adalah...",
-            opts: ["Tidak memerlukan minimum support", "Menghindari proses candidate generation berulang dengan memakai FP-Tree", "Hanya bisa dipakai untuk data numerik", "Menghasilkan dendrogram klaster"],
-            ans: 1,
-            exp: "FP-Growth memampatkan database ke dalam FP-Tree sehingga tidak perlu membuat kandidat itemset berulang seperti Apriori."
-          },
-          {
-            q: "Pendekatan klasterisasi yang memulai dengan menganggap setiap titik data sebagai klaster tunggal lalu menggabungkannya secara bertahap adalah...",
-            opts: ["K-Means", "Hierarchical Agglomerative Clustering (HAC)", "Divisive Clustering", "Linear Regression"],
-            ans: 1,
-            exp: "HAC bekerja secara bottom-up (agglomerative): mulai dari N klaster tunggal lalu digabung hingga terbentuk hierarki."
-          },
-          {
-            q: "Dalam evaluasi model deteksi penipuan (fraud), kita ingin meminimalkan kasus transaksi penipuan yang lolos tidak terdeteksi (False Negative). Metrik yang paling perlu dioptimalkan adalah...",
-            opts: ["Recall (Sensitivity)", "Specificity", "RMSE", "Support"],
-            ans: 0,
-            exp: "Recall = TP / (TP + FN). Semakin kecil False Negative (FN), semakin tinggi nilai Recall."
-          },
-          {
-            q: "Untuk memprediksi harga rumah (nilai numerik kontinu) berdasarkan luas tanah dan jumlah kamar, teknik Data Mining yang tepat adalah...",
-            opts: ["Asosiasi Apriori", "Estimasi (Regresi Linier Berganda)", "Klasterisasi K-Means", "Klasifikasi ID3"],
-            ans: 1,
-            exp: "Estimasi dengan Regresi Linier Berganda digunakan untuk memprediksi variabel target numerik kontinu dari beberapa fitur."
-          },
-          {
-            q: "Pada aplikasi WEKA, tab yang digunakan untuk melakukan cleaning, seleksi atribut, atau normalisasi data sebelum pemodelan adalah...",
-            opts: ["Classify", "Associate", "Preprocess", "Visualize"],
-            ans: 2,
-            exp: "Tab Preprocess di WEKA berfungsi memuat dataset (.arff/.csv) serta menerapkan filter prapemprosesan data."
-          }
+          { q: "Pada metodologi CRISP-DM, fase pembersihan missing value, normalisasi, dan seleksi fitur berada pada tahap...", opts: ["Business Understanding", "Data Preparation", "Modeling", "Deployment"], ans: 1, exp: "Data Preparation mencakup seluruh aktivitas preprocessing sebelum Modeling." },
+          { q: "Atribut 'Tingkat Kepuasan' dengan nilai (Sangat Puas, Puas, Cukup, Kurang) termasuk jenis atribut...", opts: ["Nominal", "Biner Simetris", "Ordinal", "Rasio"], ans: 2, exp: "Atribut Ordinal memiliki urutan/tingkatan yang jelas tanpa jarak numerik pasti." },
+          { q: "Manakah pasangan teknik yang termasuk ke dalam kategori Descriptive Data Mining?", opts: ["Klasifikasi dan Estimasi", "Regresi Linier dan C4.5", "Analisis Asosiasi dan Klasterisasi", "Naïve Bayes dan KNN"], ans: 2, exp: "Asosiasi dan Klasterisasi termasuk Descriptive Data Mining." },
+          { q: "Algoritma pohon keputusan yang menyempurnakan ID3 dengan menggunakan kriteria Gain Ratio adalah...", opts: ["Apriori", "C4.5", "K-Means", "FP-Growth"], ans: 1, exp: "C4.5 memakai Gain Ratio untuk mengatasi bias Information Gain pada ID3." },
+          { q: "Dari 100 transaksi, 40 transaksi membeli Roti, dan 30 transaksi membeli Roti sekaligus Selai. Nilai Confidence(Roti → Selai) adalah...", opts: ["30%", "40%", "75%", "133%"], ans: 2, exp: "Confidence = 30 / 40 = 0.75 = 75%." },
+          { q: "Keunggulan utama algoritma FP-Growth dibandingkan Apriori adalah...", opts: ["Tidak memerlukan minimum support", "Menghindari candidate generation berulang dengan memakai FP-Tree", "Hanya untuk data numerik", "Menghasilkan dendrogram"], ans: 1, exp: "FP-Growth memampatkan database ke dalam FP-Tree sehingga lebih cepat." },
+          { q: "Pendekatan klasterisasi bottom-up yang menggabungkan klaster tunggal secara bertahap adalah...", opts: ["K-Means", "Hierarchical Agglomerative Clustering (HAC)", "Divisive Clustering", "Linear Regression"], ans: 1, exp: "HAC bekerja secara bottom-up hingga membentuk hierarki klaster." },
+          { q: "Dalam deteksi penipuan, untuk meminimalkan transaksi penipuan yang lolos tidak terdeteksi (False Negative), metrik yang diutamakan adalah...", opts: ["Recall (Sensitivity)", "Specificity", "RMSE", "Support"], ans: 0, exp: "Recall = TP / (TP + FN); meminimalkan FN akan meningkatkan Recall." },
+          { q: "Untuk memprediksi harga rumah (numerik kontinu) berdasarkan luas tanah dan jumlah kamar, teknik yang tepat adalah...", opts: ["Asosiasi Apriori", "Estimasi (Regresi Linier Berganda)", "Klasterisasi K-Means", "Klasifikasi ID3"], ans: 1, exp: "Regresi Linier Berganda digunakan untuk estimasi nilai kontinu dari banyak fitur." },
+          { q: "Pada aplikasi WEKA, tab yang digunakan untuk memuat data dan melakukan filter preprocessing adalah...", opts: ["Classify", "Associate", "Preprocess", "Visualize"], ans: 2, exp: "Tab Preprocess di WEKA digunakan untuk memuat .arff/.csv dan menerapkan filter." },
+          { q: "Diketahui Confusion Matrix: TP = 40, FP = 10, FN = 20, TN = 30. Berapakah nilai Accuracy model tersebut?", opts: ["60%", "70%", "80%", "90%"], ans: 1, exp: "Accuracy = (TP + TN) / Total = (40 + 30) / (40 + 10 + 20 + 30) = 70 / 100 = 70%." },
+          { q: "Dari Confusion Matrix yang sama (TP = 40, FP = 10), berapakah nilai Precision-nya?", opts: ["66,7%", "75%", "80%", "90%"], ans: 2, exp: "Precision = TP / (TP + FP) = 40 / (40 + 10) = 40 / 50 = 80%." },
+          { q: "Atribut 'Kode Pos' atau 'Nomor Induk Mahasiswa (NIM)' meskipun berupa angka, secara tipe data mining termasuk atribut...", opts: ["Rasio", "Interval", "Nominal", "Kontinu"], ans: 2, exp: "NIM/Kode Pos hanya berfungsi sebagai label identitas tanpa makna urutan atau operasi aritmetika (Nominal)." },
+          { q: "Teknik Data Reduction yang bertujuan meringkas dimensi fitur yang sangat banyak menjadi komponen utama baru yang saling orthogonal adalah...", opts: ["PCA (Principal Component Analysis)", "Apriori", "Oversampling", "One-Hot Encoding"], ans: 0, exp: "PCA adalah teknik reduksi dimensi yang umum dipakai pada tahap Data Preparation." },
+          { q: "Dalam algoritma K-Nearest Neighbor (KNN), jika nilai K dipilih terlalu kecil (misalnya K=1), risiko yang muncul adalah...", opts: ["Model menjadi sangat sensitif terhadap noise (overfitting)", "Waktu training menjadi berjam-jam", "Tidak bisa dipakai untuk klasifikasi", "Semua data masuk satu klaster"], ans: 0, exp: "K=1 membuat batas keputusan sangat bergantung pada titik noise terdekat." },
+          { q: "Asumsi utama yang membuat algoritma Naïve Bayes disebut 'naïve' (naif) adalah...", opts: ["Semua fitur saling independen secara bersyarat terhadap kelas", "Semua data harus berdistribusi seragam", "Tidak memerlukan data latih", "Hanya bekerja untuk regresi"], ans: 0, exp: "Naïve Bayes mengasumsikan setiap fitur independen satu sama lain jika kelasnya diketahui." },
+          { q: "Jika suatu itemset {A, B} memiliki Support = 0,25 dan minimum support yang ditetapkan adalah 0,30, maka dalam algoritma Apriori itemset tersebut akan...", opts: ["Dipangkas (pruned) dan tidak dilanjutkan ke kandidat berikutnya", "Dijadikan aturan asosiasi utama", "Digandakan", "Diubah menjadi klaster"], ans: 0, exp: "Prinsip Apriori (anti-monotone): jika suatu itemset tidak frequent, superset-nya juga tidak mungkin frequent sehingga dipangkas." },
+          { q: "Pada Hierarchical Clustering (HAC), metode pengukuran jarak antar-klaster yang mengambil jarak TERDEKAT antara dua anggota dari klaster berbeda disebut...", opts: ["Single Linkage", "Complete Linkage", "Average Linkage", "Ward Method"], ans: 0, exp: "Single linkage memakai jarak minimum; Complete linkage memakai jarak maksimum." },
+          { q: "Untuk mengevaluasi apakah jumlah klaster K pada K-Means sudah optimal secara internal (seberapa padat klaster & seberapa jauh antar-klaster), metrik yang digunakan adalah...", opts: ["Silhouette Coefficient", "Cross-Entropy", "F1-Score", "R-Squared"], ans: 0, exp: "Silhouette Coefficient mengukur kohesi dalam klaster dan separasi antar-klaster (rentang -1 hingga +1)." },
+          { q: "Pada file format .arff milik WEKA, bagian yang mendefinisikan nama kolom dan tipe datanya diawali dengan kata kunci...", opts: ["@ATTRIBUTE", "@SELECT", "@TABLE", "@CLASSIFY"], ans: 0, exp: "Struktur ARFF terdiri dari @RELATION, daftar @ATTRIBUTE, dan blok @DATA." }
         ]
       },
       {
@@ -1087,15 +973,15 @@
         name: "Statistika Matematis",
         exam: "UO 12 Des",
         icon: "📐",
-        note: "Modul 1–9 Lengkap (SATS4410) • Fokus: Teknik Menghitung, Bayes, PDF/CDF, Joint/Marginal, Ekspektasi/MGF, Distribusi Khusus, Transformasi & CLT.",
+        note: "Modul 1–9 Lengkap (SATS4410) • Menghitung, Bayes, PDF/CDF, Joint/Marginal, Ekspektasi/MGF, Distribusi Khusus, Transformasi & CLT.",
         sections: [
           {
             title: "Modul 1–2: Himpunan, Teknik Menghitung & Probabilitas",
             tag: "Dasar Peluang",
             bullets: [
-              "<b>Teknik Menghitung</b>: Prinsip perkalian, <b>Permutasi</b> (urutan penting): <code>P(n,r) = n! / (n−r)!</code>, <b>Kombinasi</b> (urutan tidak penting): <code>C(n,r) = n! / (r!(n−r)!)</code>.",
-              "<b>Aksioma Probabilitas</b>: <code>0 ≤ P(A) ≤ 1</code>, <code>P(S) = 1</code>, <code>P(A∪B) = P(A) + P(B) − P(A∩B)</code>.",
-              "<b>Probabilitas Bersyarat & Independensi</b>: <code>P(A|B) = P(A∩B) / P(B)</code>. A dan B independen jika <code>P(A∩B) = P(A)·P(B)</code>.",
+              "<b>Teknik Menghitung</b>: <b>Permutasi</b> (urutan penting): <code>P(n,r) = n! / (n−r)!</code>; <b>Kombinasi</b> (urutan tak penting): <code>C(n,r) = n! / (r!(n−r)!)</code>.",
+              "<b>Aksioma</b>: <code>0 ≤ P(A) ≤ 1</code>, <code>P(S) = 1</code>, <code>P(A∪B) = P(A) + P(B) − P(A∩B)</code>.",
+              "<b>Bersyarat & Independensi</b>: <code>P(A|B) = P(A∩B) / P(B)</code>. Independen jika <code>P(A∩B) = P(A)·P(B)</code>.",
               "<b>Teorema Bayes</b>: <code>P(B<sub>i</sub>|A) = [P(A|B<sub>i</sub>)·P(B<sub>i</sub>)] / ∑ P(A|B<sub>j</sub>)·P(B<sub>j</sub>)</code>."
             ]
           },
@@ -1103,47 +989,52 @@
             title: "Modul 3–4: Variabel Random, CDF & Vektor Random",
             tag: "Distribusi",
             bullets: [
-              "<b>Variabel Random Diskrit (PMF)</b>: <code>p(x) ≥ 0</code> dan <code>∑ p(x) = 1</code>. <b>Kontinu (PDF)</b>: <code>f(x) ≥ 0</code> dan <code>∫<sub>−∞</sub><sup>∞</sup> f(x) dx = 1</code>.",
-              "<b>Fungsi Distribusi Kumulatif (CDF)</b>: <code>F<sub>X</sub>(x) = P(X ≤ x)</code>. Sifat: monoton tak turun, kontinu dari kanan, <code>lim<sub>x→−∞</sub> F(x)=0</code>, <code>lim<sub>x→∞</sub> F(x)=1</code>. Pada kontinu: <code>f(x) = F'(x)</code>.",
-              "<b>Vektor Random (Distribusi Bersama)</b>: <code>f<sub>X,Y</sub>(x,y)</code>. <b>Distribusi Marginal</b>: <code>f<sub>X</sub>(x) = ∑<sub>y</sub> f(x,y)</code> (diskrit) atau <code>∫ f(x,y) dy</code> (kontinu).",
-              "<b>Independensi</b>: X dan Y independen jika dan hanya jika <code>f(x,y) = f<sub>X</sub>(x)·f<sub>Y</sub>(y)</code> untuk semua x, y."
+              "<b>PMF vs PDF</b>: Diskrit <code>∑ p(x) = 1</code>; Kontinu <code>∫<sub>−∞</sub><sup>∞</sup> f(x) dx = 1</code>.",
+              "<b>CDF</b>: <code>F<sub>X</sub>(x) = P(X ≤ x)</code>; kontinu dari kanan, monoton tak turun. Pada kontinu: <code>f(x) = F'(x)</code>.",
+              "<b>Marginal</b>: <code>f<sub>X</sub>(x) = ∑<sub>y</sub> f(x,y)</code> (diskrit) atau <code>∫ f(x,y) dy</code> (kontinu).",
+              "<b>Independensi</b>: X, Y independen ⇔ <code>f(x,y) = f<sub>X</sub>(x)·f<sub>Y</sub>(y)</code>."
             ]
           },
           {
             title: "Modul 5 & 7: Ekspektasi, Variansi, MGF & Kuantil",
             tag: "Momen",
             bullets: [
-              "<b>Harga Harapan (Ekspektasi)</b>: <code>E[X] = ∑ x·p(x)</code> (diskrit) atau <code>∫ x·f(x) dx</code> (kontinu). Sifat linear: <code>E[aX + b] = aE[X] + b</code>.",
-              "<b>Variansi</b>: <code>Var(X) = E[(X − μ)<sup>2</sup>] = E[X<sup>2</sup>] − (E[X])<sup>2</sup></code>. Sifat: <code>Var(aX + b) = a<sup>2</sup>·Var(X)</code>.",
-              "<b>Kovariansi</b>: <code>Cov(X,Y) = E[XY] − E[X]E[Y]</code>. Jika X, Y independen maka <code>Cov(X,Y) = 0</code>.",
-              "<b>Fungsi Pembangkit Momen (MGF)</b>: <code>M<sub>X</sub>(t) = E[e<sup>tX</sup>]</code>. Momen ke-k: <code>E[X<sup>k</sup>] = M<sub>X</sub><sup>(k)</sup>(0)</code>.",
-              "<b>Kuantil ke-p</b>: nilai <code>x<sub>p</sub></code> sehingga <code>P(X ≤ x<sub>p</sub>) ≥ p</code> dan <code>P(X ≥ x<sub>p</sub>) ≥ 1−p</code> (Median = kuantil ke-0,5)."
+              "<b>Ekspektasi</b>: <code>E[aX + b] = aE[X] + b</code>.",
+              "<b>Variansi</b>: <code>Var(X) = E[X<sup>2</sup>] − (E[X])<sup>2</sup></code>; <code>Var(aX + b) = a<sup>2</sup>·Var(X)</code>.",
+              "<b>Kovariansi</b>: <code>Cov(X,Y) = E[XY] − E[X]E[Y]</code>.",
+              "<b>MGF</b>: <code>M<sub>X</sub>(t) = E[e<sup>tX</sup>]</code>; Momen ke-k: <code>E[X<sup>k</sup>] = M<sub>X</sub><sup>(k)</sup>(0)</code>."
             ]
           },
           {
             title: "Modul 6: Distribusi Probabilitas Khusus",
             tag: "Wajib Hafal",
             table: {
-              headers: ["Distribusi", "Tipe", "E[X] (Mean)", "Var(X) & Ciri Khas"],
+              headers: ["Distribusi", "Tipe", "E[X]", "Var(X) & Ciri Khas"],
               rows: [
-                ["<b>Binomial(n, p)</b>", "Diskrit", "<code>np</code>", "<code>np(1−p)</code> • n percobaan independen"],
-                ["<b>Hipergeometrik(n,M,N)</b>", "Diskrit", "<code>n(M/N)</code>", "Pengambilan <i>tanpa pengembalian</i>"],
-                ["<b>Geometrik(p)</b>", "Diskrit", "<code>1/p</code> (atau <code>(1−p)/p</code>)", "Menunggu sukses pertama"],
-                ["<b>Poisson(λ)</b>", "Diskrit", "<code>λ</code>", "<code>λ</code> • Kejadian langka dalam interval"],
-                ["<b>Eksponensial(θ / λ)</b>", "Kontinu", "<code>1/λ</code> (atau <code>θ</code>)", "<code>1/λ<sup>2</sup></code> • Punya sifat <b>memoryless</b>: <code>P(X>a+t|X>a)=P(X>t)</code>"],
-                ["<b>Normal(μ, σ<sup>2</sup>)</b>", "Kontinu", "<code>μ</code>", "<code>σ<sup>2</sup></code> • Simetris berbentuk lonceng"]
+                ["<b>Binomial(n, p)</b>", "Diskrit", "<code>np</code>", "<code>np(1−p)</code> • dengan pengembalian"],
+                ["<b>Hipergeometrik(n,M,N)</b>", "Diskrit", "<code>n(M/N)</code>", "Tanpa pengembalian"],
+                ["<b>Geometrik(p)</b>", "Diskrit", "<code>1/p</code>", "Menunggu sukses ke-1"],
+                ["<b>Poisson(λ)</b>", "Diskrit", "<code>λ</code>", "<code>λ</code> • Kejadian langka"],
+                ["<b>Eksponensial(λ)</b>", "Kontinu", "<code>1/λ</code>", "<code>1/λ<sup>2</sup></code> • Sifat <b>memoryless</b>"],
+                ["<b>Normal(μ, σ<sup>2</sup>)</b>", "Kontinu", "<code>μ</code>", "<code>σ<sup>2</sup></code> • Simetris lonceng"]
               ]
             }
           },
           {
-            title: "Modul 8–9: Transformasi Variabel Random & Distribusi Pendekatan",
+            title: "Modul 8–9: Transformasi Variabel Random & CLT",
             tag: "Lanjutan",
             bullets: [
-              "<b>Transformasi Variabel Random</b>: Jika <code>Y = g(X)</code> monoton, metode CDF: <code>F<sub>Y</sub>(y) = P(g(X) ≤ y)</code>; metode Jacobian: <code>f<sub>Y</sub>(y) = f<sub>X</sub>(g<sup>−1</sup>(y)) · |dx/dy|</code>.",
-              "<b>Konvergensi & Hukum Bilangan Besar</b>: Rata-rata sampel <code>X̄<sub>n</sub></code> konvergen dalam probabilitas ke μ (didukung Ketaksamaan Chebyshev).",
-              "<b>Teorema Limit Pusat (CLT)</b>: Untuk sampel acak berukuran <i>n</i> besar dengan mean μ dan variansi σ<sup>2</sup>, distribusi dari <code>Z<sub>n</sub> = (X̄<sub>n</sub> − μ) / (σ/√n)</code> mendekati <b>Normal Standar N(0, 1)</b>."
+              "<b>Metode Jacobian</b>: <code>f<sub>Y</sub>(y) = f<sub>X</sub>(g<sup>−1</sup>(y)) · |dx/dy|</code>.",
+              "<b>Hukum Bilangan Besar</b>: <code>X̄<sub>n</sub> → μ</code> dalam probabilitas.",
+              "<b>Teorema Limit Pusat (CLT)</b>: Untuk <i>n</i> besar, <code>Z<sub>n</sub> = (X̄<sub>n</sub> − μ)/(σ/√n)</code> mendekati <b>Normal Standar N(0, 1)</b>."
             ]
           }
+        ],
+        cheatsheet: [
+          { title: "Peluang & Bayes", items: ["<code>P(A∪B) = P(A)+P(B)−P(A∩B)</code>", "<code>P(A|B) = P(A∩B)/P(B)</code>", "Independen: <code>P(A∩B) = P(A)P(B)</code>", "<code>P(n,r)=n!/(n−r)!</code> • <code>C(n,r)=n!/r!(n−r)!</code>"] },
+          { title: "Ekspektasi, Var & MGF", items: ["<code>Var(X) = E[X²] − (E[X])²</code>", "<code>Var(aX+b) = a²Var(X)</code>", "<code>Cov(X,Y) = E[XY] − E[X]E[Y]</code>", "<code>M_X(t) = E[e^(tX)]</code>; <code>E[X^k] = M^(k)(0)</code>"] },
+          { title: "Distribusi Khusus", items: ["<b>Bin(n,p)</b>: μ=np, σ²=np(1−p)", "<b>Pois(λ)</b>: μ=λ, σ²=λ", "<b>Exp(λ)</b>: μ=1/λ, σ²=1/λ² (Memoryless)", "<b>Norm(μ,σ²)</b>: simetris"] },
+          { title: "Transformasi & CLT", items: ["<b>CDF</b>: <code>f(x) = F'(x)</code>", "<b>Jacobian</b>: <code>f_Y(y) = f_X(x(y))·|dx/dy|</code>", "<b>CLT</b>: <code>(X̄−μ)/(σ/√n) ~ N(0,1)</code>"] }
         ],
         flashcards: [
           { q: "Apa syarat dua kejadian A dan B disebut independen?", a: "P(A ∩ B) = P(A) · P(B), atau setara dengan P(A|B) = P(A) jika P(B) > 0." },
@@ -1153,128 +1044,116 @@
           { q: "Distribusi kontinu apa yang memiliki sifat 'memoryless' (tanpa ingatan)?", a: "Distribusi Eksponensial: P(X > a + t | X > a) = P(X > t)." },
           { q: "Apa perbedaan utama distribusi Binomial dan Hipergeometrik?", a: "Binomial untuk pengambilan DENGAN pengembalian (probabilitas p tetap), sedangkan Hipergeometrik untuk pengambilan TANPA pengembalian." },
           { q: "Apa rumus transformasi densitas (metode Jacobian) untuk Y = g(X) monoton?", a: "f_Y(y) = f_X(g⁻¹(y)) · |dx/dy|." },
-          { q: "Apa inti dari Teorema Limit Pusat (Central Limit Theorem)?", a: "Untuk ukuran sampel n yang cukup besar, distribusi rata-rata sampel (atau jumlah sampel) yang distandardisasi akan mendekati Normal Standar N(0, 1)." }
+          { q: "Apa inti dari Teorema Limit Pusat (Central Limit Theorem)?", a: "Untuk ukuran sampel n yang cukup besar, distribusi rata-rata sampel yang distandardisasi akan mendekati Normal Standar N(0, 1)." }
         ],
         quiz: [
-          {
-            q: "Dari 5 orang calon, akan dipilih 3 orang untuk menduduki jabatan Ketua, Sekretaris, dan Bendahara. Banyaknya susunan pengurus yang mungkin adalah...",
-            opts: ["10", "15", "60", "125"],
-            ans: 2,
-            exp: "Karena jabatan berbeda (urutan penting), gunakan Permutasi P(5,3) = 5! / (5-3)! = 5 × 4 × 3 = 60."
-          },
-          {
-            q: "Jika A dan B adalah dua kejadian independen dengan P(A) = 0,4 dan P(B) = 0,5, maka nilai P(A ∪ B) adalah...",
-            opts: ["0,20", "0,70", "0,90", "0,10"],
-            ans: 1,
-            exp: "Independen → P(A∩B) = 0,4 × 0,5 = 0,20. Maka P(A∪B) = P(A) + P(B) − P(A∩B) = 0,4 + 0,5 − 0,2 = 0,70."
-          },
-          {
-            q: "Diketahui variabel random X mempunyai E[X] = 5 dan E[X²] = 29. Nilai dari Var(2X − 3) adalah...",
-            opts: ["4", "8", "16", "13"],
-            ans: 2,
-            exp: "Var(X) = E[X²] − (E[X])² = 29 − 25 = 4. Lalu Var(2X − 3) = 2² · Var(X) = 4 × 4 = 16."
-          },
-          {
-            q: "Suatu fungsi distribusi kumulatif (CDF) F(x) dari variabel random kontinu X memenuhi hubungan dengan fungsi densitas f(x) yaitu...",
-            opts: ["f(x) = ∫ F(x) dx", "f(x) = F'(x)", "F(x) = f'(x)", "F(x) = 1 − f(x)"],
-            ans: 1,
-            exp: "Untuk variabel random kontinu, fungsi densitas f(x) adalah turunan pertama dari CDF F(x), yaitu f(x) = dF(x)/dx."
-          },
-          {
-            q: "Variabel random X dan Y dikatakan independen secara statistik jika fungsi densitas bersamanya memenuhi...",
-            opts: ["f(x,y) = f_X(x) + f_Y(y)", "f(x,y) = f_X(x) · f_Y(y)", "Cov(X,Y) = 1", "E[X+Y] = E[X] + E[Y]"],
-            ans: 1,
-            exp: "Syarat perlu dan cukup independensi dua variabel random adalah f(x,y) = f_X(x) · f_Y(y) untuk setiap (x,y)."
-          },
-          {
-            q: "Jika diketahui MGF dari variabel random X adalah M_X(t) = e^(3t + 2t²), maka nilai E[X] adalah...",
-            opts: ["2", "3", "4", "6"],
-            ans: 1,
-            exp: "E[X] = M'_X(0). Turunan pertama M'_X(t) = (3 + 4t)·e^(3t + 2t²). Saat t = 0, hasilnya adalah 3."
-          },
-          {
-            q: "Distribusi diskrit yang memiliki nilai rata-rata (mean) dan variansi yang sama besar, yaitu E[X] = Var(X) = λ, adalah...",
-            opts: ["Binomial", "Geometrik", "Poisson", "Hipergeometrik"],
-            ans: 2,
-            exp: "Pada distribusi Poisson(λ), baik nilai harapan maupun variansinya bernilai sama yaitu λ."
-          },
-          {
-            q: "Sifat 'memoryless' P(X > a + t | X > a) = P(X > t) pada variabel random kontinu dimiliki oleh distribusi...",
-            opts: ["Normal", "Beta", "Eksponensial", "Uniform"],
-            ans: 2,
-            exp: "Teorema 6.2 menyatakan variabel random kontinu X berdistribusi Eksponensial bila dan hanya bila memenuhi sifat memoryless."
-          },
-          {
-            q: "Misalkan X ~ Uniform(0, 1) dengan f(x) = 1 untuk 0 < x < 1, dan Y = 2X + 1. Fungsi densitas dari Y untuk 1 < y < 3 adalah...",
-            opts: ["h(y) = 2", "h(y) = 1/2", "h(y) = 1", "h(y) = y/2"],
-            ans: 1,
-            exp: "Invers x = (y−1)/2, sehingga |dx/dy| = 1/2. Dengan metode Jacobian: h(y) = f(x)·|dx/dy| = 1 · (1/2) = 1/2."
-          },
-          {
-            q: "Berdasarkan Teorema Limit Pusat (Central Limit Theorem), jika diambil sampel acak berukuran besar (n → ∞) dari populasi berdistribusi apa pun dengan mean μ dan variansi σ² berhingga, maka distribusi (X̄ − μ)/(σ/√n) mendekati...",
-            opts: ["Distribusi Poisson(1)", "Distribusi Eksponensial(1)", "Distribusi Normal Standar N(0, 1)", "Distribusi Uniform(0, 1)"],
-            ans: 2,
-            exp: "Teorema Limit Pusat menjamin rata-rata sampel yang distandardisasi konvergen dalam distribusi ke Normal Standar N(0,1)."
-          }
+          { q: "Dari 5 orang calon, akan dipilih 3 orang untuk jabatan Ketua, Sekretaris, dan Bendahara. Banyaknya susunan yang mungkin adalah...", opts: ["10", "15", "60", "125"], ans: 2, exp: "Urutan jabatan penting → Permutasi P(5,3) = 5 × 4 × 3 = 60." },
+          { q: "Jika A dan B independen dengan P(A) = 0,4 dan P(B) = 0,5, maka P(A ∪ B) adalah...", opts: ["0,20", "0,70", "0,90", "0,10"], ans: 1, exp: "P(A∩B) = 0,4 × 0,5 = 0,20. P(A∪B) = 0,4 + 0,5 − 0,2 = 0,70." },
+          { q: "Diketahui E[X] = 5 dan E[X²] = 29. Nilai dari Var(2X − 3) adalah...", opts: ["4", "8", "16", "13"], ans: 2, exp: "Var(X) = 29 − 25 = 4. Var(2X − 3) = 2² × 4 = 16." },
+          { q: "Fungsi distribusi kumulatif (CDF) F(x) dari variabel random kontinu X memenuhi hubungan...", opts: ["f(x) = ∫ F(x) dx", "f(x) = F'(x)", "F(x) = f'(x)", "F(x) = 1 − f(x)"], ans: 1, exp: "Fungsi densitas f(x) adalah turunan pertama dari CDF F(x)." },
+          { q: "Variabel random X dan Y independen jika fungsi densitas bersamanya memenuhi...", opts: ["f(x,y) = f_X(x) + f_Y(y)", "f(x,y) = f_X(x) · f_Y(y)", "Cov(X,Y) = 1", "E[X+Y] = E[X] + E[Y]"], ans: 1, exp: "Syarat perlu dan cukup independensi: f(x,y) = f_X(x) · f_Y(y)." },
+          { q: "Jika MGF variabel random X adalah M_X(t) = e^(3t + 2t²), maka nilai E[X] adalah...", opts: ["2", "3", "4", "6"], ans: 1, exp: "E[X] = M'_X(0) = (3 + 4t)e^(3t+2t²) pada t=0, hasilnya 3." },
+          { q: "Distribusi diskrit yang memiliki nilai rata-rata dan variansi sama besar (E[X] = Var(X) = λ) adalah...", opts: ["Binomial", "Geometrik", "Poisson", "Hipergeometrik"], ans: 2, exp: "Pada distribusi Poisson(λ), mean dan variansi sama-sama bernilai λ." },
+          { q: "Sifat 'memoryless' P(X > a + t | X > a) = P(X > t) dimiliki oleh distribusi kontinu...", opts: ["Normal", "Beta", "Eksponensial", "Uniform"], ans: 2, exp: "Distribusi Eksponensial adalah satu-satunya distribusi kontinu dengan sifat memoryless." },
+          { q: "Misalkan X ~ Uniform(0, 1) dan Y = 2X + 1. Fungsi densitas dari Y untuk 1 < y < 3 adalah...", opts: ["h(y) = 2", "h(y) = 1/2", "h(y) = 1", "h(y) = y/2"], ans: 1, exp: "x = (y−1)/2 → |dx/dy| = 1/2 → h(y) = 1 · (1/2) = 1/2." },
+          { q: "Berdasarkan Teorema Limit Pusat (CLT), untuk n → ∞, distribusi (X̄ − μ)/(σ/√n) mendekati...", opts: ["Poisson(1)", "Eksponensial(1)", "Normal Standar N(0, 1)", "Uniform(0, 1)"], ans: 2, exp: "CLT menjamin rata-rata sampel terstandardisasi konvergen ke Normal Standar N(0,1)." },
+          { q: "Diketahui f(x) = cx untuk 0 < x < 2 (dan 0 selainnya). Agar f(x) merupakan fungsi densitas (PDF) yang sah, nilai c adalah...", opts: ["1/4", "1/2", "1", "2"], ans: 1, exp: "∫₀² cx dx = c·[x²/2]₀² = 2c = 1 → c = 1/2." },
+          { q: "Jika X ~ Binomial(n = 10, p = 0,3), maka nilai E[X] dan Var(X) berturut-turut adalah...", opts: ["3 dan 2,1", "3 dan 3", "7 dan 2,1", "0,3 dan 0,21"], ans: 0, exp: "E[X] = np = 10 × 0,3 = 3; Var(X) = np(1−p) = 3 × 0,7 = 2,1." },
+          { q: "Dari 10 bola (4 merah, 6 biru), diambil 3 bola sekaligus TANPA pengembalian. Banyaknya bola merah yang terambil mengikuti distribusi...", opts: ["Binomial", "Hipergeometrik", "Poisson", "Geometrik"], ans: 1, exp: "Pengambilan sampel tanpa pengembalian dari populasi terbatas mengikuti distribusi Hipergeometrik." },
+          { q: "Jika X dan Y adalah dua variabel random independen dengan Var(X) = 4 dan Var(Y) = 9, maka nilai Var(X − Y) adalah...", opts: ["−5", "5", "13", "36"], ans: 2, exp: "Karena independen, Cov(X,Y)=0 dan Var(X − Y) = Var(X) + (−1)²Var(Y) = 4 + 9 = 13." },
+          { q: "Nilai kuantil ke-0,5 (p = 0,5) dari suatu distribusi probabilitas juga dikenal sebagai...", opts: ["Modus", "Median", "Variansi", "Skewness"], ans: 1, exp: "Kuantil ke-0,5 membagi distribusi menjadi dua bagian sama besar (50% di bawah, 50% di atas), yaitu Median." },
+          { q: "Jika diketahui P(A) = 0,6, P(B|A) = 0,5, maka nilai P(A ∩ B) adalah...", opts: ["0,1", "0,3", "0,55", "0,83"], ans: 1, exp: "P(A ∩ B) = P(B|A) · P(A) = 0,5 × 0,6 = 0,3." },
+          { q: "Diketahui MGF M_X(t) = (1 − 2t)⁻¹ untuk t < 1/2. Ini merupakan MGF dari distribusi Eksponensial dengan parameter λ = ...", opts: ["1/2", "1", "2", "4"], ans: 0, exp: "MGF Exp(λ) adalah λ / (λ − t) = 1 / (1 − t/λ). Jika 1/(1 − 2t), maka 1/λ = 2 → λ = 1/2." },
+          { q: "Jika dua variabel random memiliki Cov(X, Y) = 0, apakah keduanya PASTI independen?", opts: ["Ya, selalu pasti independen", "Tidak selalu (independen → Cov=0, namun kebalikannya tidak selalu berlaku)", "Hanya jika diskrit", "Hanya jika variansi nol"], ans: 1, exp: "Independensi menjamin Cov(X,Y)=0, tetapi Cov(X,Y)=0 hanya berarti tidak ada hubungan linear (bisa tetap dependen non-linear)." },
+          { q: "Pada distribusi Uniform diskrit X pada {1, 2, ..., n}, nilai ekspektasi E[X] adalah...", opts: ["n / 2", "(n + 1) / 2", "(n − 1) / 2", "n² / 12"], ans: 1, exp: "E[X] = (1 + 2 + ... + n)/n = [n(n+1)/2]/n = (n + 1)/2." },
+          { q: "Dalam Teorema Bayes, probabilitas awal sebelum memperoleh bukti/informasi baru P(B_i) disebut probabilitas...", opts: ["Posterior", "Likelihood", "Prior", "Marginal"], ans: 2, exp: "P(B_i) adalah probabilitas prior, sedangkan P(B_i|A) adalah probabilitas posterior setelah melihat kejadian A." }
         ]
       }
     ];
 
-    // State
     let state = {
-      subjectIdx: 0,
+      subjectIdx: 0, // 0..5 or 'mixed_utm'
       mode: "summary",
       search: "",
       fcIdx: 0,
       fcFlipped: false,
-      fcOnlyUnlearned: false,
+      fcFilter: "all", // 'all' | 'unlearned' | 'starred'
       learned: JSON.parse(localStorage.getItem("ut_learned") || "{}"),
+      starredFC: JSON.parse(localStorage.getItem("ut_starred_fc") || "{}"),
+      starredQ: JSON.parse(localStorage.getItem("ut_starred_q") || "{}"),
+      readiness: JSON.parse(localStorage.getItem("ut_readiness") || "{}"),
       quizAnswers: JSON.parse(localStorage.getItem("ut_quiz") || "{}"),
       quizIdx: 0,
-      quizFinished: false
+      quizFinished: false,
+      shuffleQuiz: false,
+      onlyWrongQuiz: false,
+      onlyStarredQuiz: false,
+      quizSession: null, // array of { subjId, qIdx, origQ, shuffledOpts, mappedAns }
+      timerActive: false,
+      timerSec: 0,
+      timerHandle: null
     };
 
     const saveState = () => {
       localStorage.setItem("ut_learned", JSON.stringify(state.learned));
+      localStorage.setItem("ut_starred_fc", JSON.stringify(state.starredFC));
+      localStorage.setItem("ut_starred_q", JSON.stringify(state.starredQ));
+      localStorage.setItem("ut_readiness", JSON.stringify(state.readiness));
       localStorage.setItem("ut_quiz", JSON.stringify(state.quizAnswers));
     };
 
-    // Theme
     const initTheme = () => {
-      const saved = localStorage.getItem("ut_theme");
-      if (saved === "light") document.documentElement.classList.add("light");
+      if (localStorage.getItem("ut_theme") === "light") document.documentElement.classList.add("light");
       document.getElementById("themeBtn").onclick = () => {
         document.documentElement.classList.toggle("light");
         localStorage.setItem("ut_theme", document.documentElement.classList.contains("light") ? "light" : "dark");
       };
     };
 
-    // Countdown
+    const isMixedUTM = () => state.subjectIdx === "mixed_utm";
+    const currentSubject = () => isMixedUTM() ? null : DATA[state.subjectIdx];
+
     const updateCountdown = () => {
       const s = currentSubject();
       const now = new Date();
       let targetStr = "2026-11-28T00:00:00+07:00";
       let label = "UTM";
-      if (s.exam.includes("29 Nov")) { targetStr = "2026-11-29T00:00:00+07:00"; label = "UTM"; }
-      else if (s.exam.includes("12 Des")) { targetStr = "2026-12-12T00:00:00+07:00"; label = "UO"; }
+      if (s && s.exam.includes("29 Nov")) targetStr = "2026-11-29T00:00:00+07:00";
+      else if (s && s.exam.includes("12 Des")) { targetStr = "2026-12-12T00:00:00+07:00"; label = "UO"; }
       const diffDays = Math.ceil((new Date(targetStr) - now) / (1000 * 60 * 60 * 24));
-      const badge = document.getElementById("countdownBadge");
-      badge.textContent = diffDays > 0 ? `H-${diffDays} ${label}` : (diffDays === 0 ? `Hari-H ${label}!` : `${label} Berjalan`);
+      document.getElementById("countdownBadge").textContent = diffDays > 0 ? `H-${diffDays} ${label}` : (diffDays === 0 ? `Hari-H ${label}!` : `${label} Berjalan`);
     };
-
-    const currentSubject = () => DATA[state.subjectIdx];
 
     function renderSubjectBar() {
       const bar = document.getElementById("subjectBar");
-      bar.innerHTML = DATA.map((s, i) => `
-        <button class="subj-btn ${i === state.subjectIdx ? "active" : ""}" onclick="selectSubject(${i})">
+      const subjBtns = DATA.map((s, i) => `
+        <button class="subj-btn ${state.subjectIdx === i ? "active" : ""}" onclick="selectSubject(${i})">
           <span class="s-title">${s.icon} ${s.short}</span>
           <span class="s-meta">${s.code} • ${s.exam}</span>
         </button>
       `).join("");
+      const mixedBtn = `
+        <button class="subj-btn ${isMixedUTM() ? "active" : ""}" onclick="selectSubject('mixed_utm')">
+          <span class="s-title">🎯 Simulasi UTM</span>
+          <span class="s-meta">Campur 4 Matkul</span>
+        </button>
+      `;
+      bar.innerHTML = subjBtns + mixedBtn;
     }
 
     function renderOverview() {
+      if (isMixedUTM()) {
+        document.getElementById("overviewCard").innerHTML = `
+          <div class="overview-row">
+            <div>
+              <div style="font-size:15px;font-weight:800;">🎯 Simulasi Campuran UTM (28–29 Nov)</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px;">Gabungan acak soal dari Big Data, Pancasila, Pengantar AI, dan NoSQL. Cocok untuk uji kesiapan sebelum hari-H!</div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
       const s = currentSubject();
       const totalFC = s.flashcards.length;
       const learnedCount = s.flashcards.filter((_, idx) => state.learned[`${s.id}_${idx}`]).length;
@@ -1282,31 +1161,40 @@
       const qCorrect = s.quiz.filter((q, idx) => state.quizAnswers[`${s.id}_${idx}`] === q.ans).length;
       const pct = Math.round(((learnedCount + qAns.length) / (totalFC + s.quiz.length)) * 100);
 
+      const fcReady = learnedCount >= Math.ceil(totalFC * 0.8);
+      const quizReady = qCorrect >= Math.ceil(s.quiz.length * 0.8);
+      const readDone = !!state.readiness[`${s.id}_read`];
+      const formulaDone = !!state.readiness[`${s.id}_formula`];
+
       document.getElementById("overviewCard").innerHTML = `
         <div class="overview-row">
           <div>
             <div style="font-size:15px;font-weight:800;">${s.icon} ${s.code} — ${s.name}</div>
             <div style="font-size:12px;color:var(--muted);margin-top:2px;">${s.note}</div>
           </div>
-          <div style="text-align:right;font-size:12px;font-weight:700;color:var(--primary);">
-            Progres: ${pct}%
-          </div>
+          <div style="text-align:right;font-size:12px;font-weight:700;color:var(--primary);white-space:nowrap;">${pct}%</div>
         </div>
         <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
-        <div style="display:flex;gap:14px;margin-top:8px;font-size:12px;color:var(--muted);flex-wrap:wrap;">
+        <div style="display:flex;gap:12px;margin-top:8px;font-size:12px;color:var(--muted);flex-wrap:wrap;">
           <span>🃏 Hafal: <b>${learnedCount}/${totalFC}</b></span>
           <span>📝 Kuis: <b>${qCorrect}/${s.quiz.length}</b> benar (${qAns.length} terjawab)</span>
+        </div>
+        <div class="readiness-row">
+          <button class="check-chip ${readDone ? "done" : ""}" onclick="toggleReadiness('${s.id}_read')">${readDone ? "✓" : "○"} Ringkasan</button>
+          <button class="check-chip ${formulaDone ? "done" : ""}" onclick="toggleReadiness('${s.id}_formula')">${formulaDone ? "✓" : "○"} Cheat Sheet</button>
+          <span class="check-chip ${fcReady ? "done" : ""}">${fcReady ? "✓" : "○"} Kartu ≥80%</span>
+          <span class="check-chip ${quizReady ? "done" : ""}">${quizReady ? "✓" : "○"} Kuis ≥80%</span>
         </div>
       `;
     }
 
     function renderSummary() {
+      if (isMixedUTM()) return `<div class="overview-card" style="text-align:center;">Pilih salah satu mata kuliah di atas untuk membaca ringkasannya, atau langsung buka tab <b>📝 Kuis</b> untuk mulai Simulasi UTM!</div>`;
       const s = currentSubject();
       const q = state.search.trim().toLowerCase();
       const filtered = s.sections.filter(sec => {
         if (!q) return true;
-        const text = (sec.title + " " + (sec.bullets || []).join(" ") + JSON.stringify(sec.table || "")).toLowerCase();
-        return text.includes(q);
+        return (sec.title + " " + (sec.bullets || []).join(" ") + JSON.stringify(sec.table || "")).toLowerCase().includes(q);
       });
 
       return `
@@ -1334,32 +1222,59 @@
       `;
     }
 
+    function renderCheatSheet() {
+      if (isMixedUTM()) return `<div class="overview-card" style="text-align:center;">Pilih mata kuliah spesifik di atas untuk melihat Cheat Sheet rumus & istilahnya.</div>`;
+      const s = currentSubject();
+      return `
+        <div class="cheat-grid">
+          ${s.cheatsheet.map(box => `
+            <div class="cheat-box">
+              <h3>⚡ ${box.title}</h3>
+              <ul>${box.items.map(it => `<li>${it}</li>`).join("")}</ul>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
     function getDeck() {
+      if (isMixedUTM()) return [];
       const s = currentSubject();
       const items = s.flashcards.map((c, idx) => ({ ...c, origIdx: idx }));
-      if (!state.fcOnlyUnlearned) return items;
-      const unlearned = items.filter(c => !state.learned[`${s.id}_${c.origIdx}`]);
-      return unlearned.length ? unlearned : items;
+      if (state.fcFilter === "unlearned") {
+        const res = items.filter(c => !state.learned[`${s.id}_${c.origIdx}`]);
+        return res.length ? res : items;
+      }
+      if (state.fcFilter === "starred") {
+        const res = items.filter(c => state.starredFC[`${s.id}_${c.origIdx}`]);
+        return res.length ? res : items;
+      }
+      return items;
     }
 
     function renderFlashcard() {
+      if (isMixedUTM()) return `<div class="overview-card" style="text-align:center;">Pilih mata kuliah spesifik di atas untuk latihan Flashcard.</div>`;
       const s = currentSubject();
       const deck = getDeck();
       if (state.fcIdx >= deck.length) state.fcIdx = 0;
       const card = deck[state.fcIdx];
       const isLearned = !!state.learned[`${s.id}_${card.origIdx}`];
+      const isStarred = !!state.starredFC[`${s.id}_${card.origIdx}`];
 
       return `
         <div class="fc-controls">
-          <span style="font-size:13px;font-weight:700;color:var(--muted);">Kartu ${state.fcIdx + 1} dari ${deck.length} ${isLearned ? "• ✅ Sudah Paham" : ""}</span>
-          <button class="icon-btn" onclick="toggleUnlearned()">
-            ${state.fcOnlyUnlearned ? "Tampilkan Semua" : "Filter Belum Hafal"}
-          </button>
+          <span style="font-size:12.5px;font-weight:700;color:var(--muted);">Kartu ${state.fcIdx + 1}/${deck.length} ${isLearned ? "• ✅ Paham" : ""}</span>
+          <div style="display:flex;gap:6px;">
+            <button class="icon-btn ${state.fcFilter === 'all' ? 'active' : ''}" onclick="setFCFilter('all')">Semua</button>
+            <button class="icon-btn ${state.fcFilter === 'unlearned' ? 'active' : ''}" onclick="setFCFilter('unlearned')">Belum Hafal</button>
+            <button class="icon-btn ${state.fcFilter === 'starred' ? 'active' : ''}" onclick="setFCFilter('starred')">⭐</button>
+          </div>
         </div>
-        <div class="fc-card ${state.fcFlipped ? "flipped" : ""}" onclick="flipCard()">
+        <div class="fc-card ${state.fcFlipped ? "flipped" : ""}" id="fcCardEl" onclick="flipCard()">
+          <button class="fc-star ${isStarred ? "marked" : ""}" onclick="event.stopPropagation(); toggleStarFC(${card.origIdx})">${isStarred ? "★ Ditandai" : "☆ Tandai"}</button>
           <div class="fc-label">${state.fcFlipped ? "Jawaban" : "Pertanyaan / Konsep"}</div>
           <div class="fc-text">${state.fcFlipped ? card.a : card.q}</div>
-          <div class="fc-hint">${state.fcFlipped ? "Tap untuk balik ke pertanyaan" : "Tap kartu untuk lihat jawaban"}</div>
+          <div class="fc-hint">${state.fcFlipped ? "Tap untuk balik • Geser kiri/kanan" : "Tap untuk lihat jawaban • Geser kiri/kanan"}</div>
         </div>
         <div class="fc-actions">
           <button class="btn btn-warn" onclick="markCard(${card.origIdx}, false)">↺ Ulangi Nanti</button>
@@ -1372,78 +1287,168 @@
       `;
     }
 
+    function shuffleArr(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function buildQuizSession() {
+      let pool = [];
+      if (isMixedUTM()) {
+        DATA.slice(0, 4).forEach(s => {
+          s.quiz.forEach((q, idx) => pool.push({ subjId: s.id, subjShort: s.short, qIdx: idx, origQ: q }));
+        });
+        pool = shuffleArr(pool).slice(0, 20);
+      } else {
+        const s = currentSubject();
+        pool = s.quiz.map((q, idx) => ({ subjId: s.id, subjShort: s.short, qIdx: idx, origQ: q }));
+      }
+
+      if (state.onlyWrongQuiz) {
+        const wrong = pool.filter(item => {
+          const ans = state.quizAnswers[`${item.subjId}_${item.qIdx}`];
+          return ans !== undefined && ans !== item.origQ.ans;
+        });
+        if (wrong.length) pool = wrong;
+      } else if (state.onlyStarredQuiz) {
+        const starred = pool.filter(item => state.starredQ[`${item.subjId}_${item.qIdx}`]);
+        if (starred.length) pool = starred;
+      }
+
+      if (state.shuffleQuiz && !isMixedUTM()) {
+        pool = shuffleArr(pool);
+      }
+
+      state.quizSession = pool.map(item => {
+        const optsWithFlag = item.origQ.opts.map((text, idx) => ({ text, isAns: idx === item.origQ.ans, origIdx: idx }));
+        const finalOpts = (state.shuffleQuiz || isMixedUTM()) ? shuffleArr(optsWithFlag) : optsWithFlag;
+        const mappedAns = finalOpts.findIndex(o => o.isAns);
+        return { ...item, displayOpts: finalOpts, mappedAns };
+      });
+      state.quizIdx = 0;
+      state.quizFinished = false;
+    }
+
+    function formatTimer(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+
     function renderQuiz() {
-      const s = currentSubject();
+      if (!state.quizSession) buildQuizSession();
+      const session = state.quizSession;
+
+      const toolbar = `
+        <div class="quiz-toolbar">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="icon-btn ${state.shuffleQuiz ? "active" : ""}" onclick="toggleShuffleQuiz()">🔀 Acak</button>
+            <button class="icon-btn ${state.onlyStarredQuiz ? "active" : ""}" onclick="toggleStarredQuiz()">⭐ Ditandai</button>
+            <button class="icon-btn ${state.timerActive ? "active" : ""}" onclick="toggleTimer()">⏱️ ${state.timerActive ? formatTimer(state.timerSec) : "Timer"}</button>
+          </div>
+          <button class="icon-btn" onclick="resetQuiz()">🔄 Reset</button>
+        </div>
+      `;
+
       if (state.quizFinished) {
-        const correct = s.quiz.filter((q, i) => state.quizAnswers[`${s.id}_${i}`] === q.ans).length;
-        const score = Math.round((correct / s.quiz.length) * 100);
+        const correct = session.filter(item => state.quizAnswers[`${item.subjId}_${item.qIdx}`] === item.origQ.ans).length;
+        const wrongCount = session.filter(item => {
+          const a = state.quizAnswers[`${item.subjId}_${item.qIdx}`];
+          return a !== undefined && a !== item.origQ.ans;
+        }).length;
+        const score = Math.round((correct / session.length) * 100);
         return `
+          ${toolbar}
           <div class="quiz-card score-banner">
-            <div style="font-size:13px;font-weight:700;color:var(--muted);">Hasil Kuis ${s.name}</div>
+            <div style="font-size:13px;font-weight:700;color:var(--muted);">Hasil Kuis ${isMixedUTM() ? "Simulasi UTM" : currentSubject().name}</div>
             <div class="score-big">${score}</div>
-            <div style="margin:8px 0 16px;font-size:14px;">Benar <b>${correct}</b> dari <b>${s.quiz.length}</b> soal</div>
-            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-              <button class="btn" onclick="reviewQuiz()">🔍 Lihat Pembahasan</button>
-              <button class="btn btn-primary" onclick="resetQuiz()">🔄 Ulangi Kuis</button>
+            <div style="margin:8px 0 16px;font-size:14px;">Benar <b>${correct}</b> dari <b>${session.length}</b> soal</div>
+            <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap;">
+              <button class="btn" onclick="reviewQuiz()">🔍 Pembahasan</button>
+              ${wrongCount > 0 ? `<button class="btn btn-warn" onclick="retryWrong()">🎯 Ulangi ${wrongCount} Soal Salah</button>` : ""}
+              <button class="btn btn-primary" onclick="resetQuiz()">🔄 Mulai Baru</button>
             </div>
           </div>
         `;
       }
 
-      const q = s.quiz[state.quizIdx];
-      const userAns = state.quizAnswers[`${s.id}_${state.quizIdx}`];
-      const answered = userAns !== undefined;
+      const item = session[state.quizIdx];
+      const key = `${item.subjId}_${item.qIdx}`;
+      const userOrigAns = state.quizAnswers[key];
+      const answered = userOrigAns !== undefined;
+      const isStarred = !!state.starredQ[key];
       const keys = ["A", "B", "C", "D"];
 
       return `
+        ${toolbar}
         <div class="quiz-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <span class="q-num">SOAL ${state.quizIdx + 1} / ${s.quiz.length}</span>
-            <button class="icon-btn" style="font-size:11px;padding:4px 8px;" onclick="resetQuiz()">Reset Skor</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <span class="q-num">SOAL ${state.quizIdx + 1} / ${session.length} ${isMixedUTM() ? `• ${item.subjShort}` : ""}</span>
+            <button class="icon-btn ${isStarred ? "active" : ""}" style="font-size:11.5px;padding:4px 9px;" onclick="toggleStarQ('${key}')">${isStarred ? "★ Ditandai" : "☆ Tandai Sulit"}</button>
           </div>
-          <div class="q-text">${q.q}</div>
+          <div class="q-text">${item.origQ.q}</div>
           <div class="opt-list">
-            ${q.opts.map((opt, idx) => {
+            ${item.displayOpts.map((opt, idx) => {
               let cls = "";
               if (answered) {
-                if (idx === q.ans) cls = "correct";
-                else if (idx === userAns) cls = "wrong";
+                if (opt.isAns) cls = "correct";
+                else if (opt.origIdx === userOrigAns) cls = "wrong";
               }
               return `
-                <button class="opt-btn ${cls}" ${answered ? "disabled" : ""} onclick="answerQuiz(${idx})">
+                <button class="opt-btn ${cls}" ${answered ? "disabled" : ""} onclick="answerQuiz('${key}', ${opt.origIdx})">
                   <span class="opt-key">${keys[idx]}.</span>
-                  <span>${opt}</span>
+                  <span>${opt.text}</span>
                 </button>
               `;
             }).join("")}
           </div>
           ${answered ? `
             <div class="explain-box">
-              <b>${userAns === q.ans ? "✅ Benar!" : "❌ Kurang tepat."}</b> ${q.exp}
+              <b>${userOrigAns === item.origQ.ans ? "✅ Benar!" : "❌ Kurang tepat."}</b> ${item.origQ.exp}
             </div>
           ` : ""}
           <div class="quiz-nav">
-            <button class="btn" ${state.quizIdx === 0 ? "disabled" : ""} onclick="moveQuiz(-1)">← Soal Sebelumnya</button>
-            ${state.quizIdx < s.quiz.length - 1
-              ? `<button class="btn btn-primary" onclick="moveQuiz(1)">Soal Berikutnya →</button>`
-              : `<button class="btn btn-primary" onclick="finishQuiz()">Selesai & Lihat Skor ✓</button>`
+            <button class="btn" ${state.quizIdx === 0 ? "disabled" : ""} onclick="moveQuiz(-1)">← Sebelumnya</button>
+            ${state.quizIdx < session.length - 1
+              ? `<button class="btn btn-primary" onclick="moveQuiz(1)">Berikutnya →</button>`
+              : `<button class="btn btn-primary" onclick="finishQuiz()">Selesai ✓</button>`
             }
           </div>
         </div>
       `;
     }
 
+    function attachSwipe() {
+      const el = document.getElementById("fcCardEl");
+      if (!el) return;
+      let startX = 0;
+      el.addEventListener("touchstart", e => { startX = e.changedTouches[0].screenX; }, { passive: true });
+      el.addEventListener("touchend", e => {
+        const diff = e.changedTouches[0].screenX - startX;
+        if (Math.abs(diff) > 55) moveCard(diff < 0 ? 1 : -1);
+      }, { passive: true });
+    }
+
     function render() {
       updateCountdown();
       renderSubjectBar();
       renderOverview();
-      document.querySelectorAll(".mode-btn").forEach(btn => {
+      document.querySelectorAll(".mode-btn, .bnav-btn").forEach(btn => {
         btn.classList.toggle("active", btn.dataset.mode === state.mode);
-        btn.onclick = () => { state.mode = btn.dataset.mode; state.quizFinished = false; render(); };
+        btn.onclick = () => {
+          state.mode = btn.dataset.mode;
+          state.quizFinished = false;
+          render();
+        };
       });
       const area = document.getElementById("contentArea");
       if (state.mode === "summary") area.innerHTML = renderSummary();
-      else if (state.mode === "flashcard") area.innerHTML = renderFlashcard();
+      else if (state.mode === "cheatsheet") area.innerHTML = renderCheatSheet();
+      else if (state.mode === "flashcard") { area.innerHTML = renderFlashcard(); attachSwipe(); }
       else area.innerHTML = renderQuiz();
     }
 
@@ -1451,15 +1456,22 @@
       state.subjectIdx = i;
       state.fcIdx = 0;
       state.fcFlipped = false;
-      state.quizIdx = 0;
+      state.quizSession = null;
+      state.onlyWrongQuiz = false;
+      state.onlyStarredQuiz = false;
       state.quizFinished = false;
       state.search = "";
+      if (i === "mixed_utm" && (state.mode === "summary" || state.mode === "cheatsheet" || state.mode === "flashcard")) {
+        state.mode = "quiz";
+      }
       render();
     };
     window.onSearch = (val) => { state.search = val; render(); };
+    window.toggleReadiness = (key) => { state.readiness[key] = !state.readiness[key]; saveState(); renderOverview(); };
     window.flipCard = () => { state.fcFlipped = !state.fcFlipped; render(); };
     window.moveCard = (delta) => {
       const deck = getDeck();
+      if (!deck.length) return;
       state.fcIdx = (state.fcIdx + delta + deck.length) % deck.length;
       state.fcFlipped = false;
       render();
@@ -1471,31 +1483,76 @@
       saveState();
       moveCard(1);
     };
-    window.toggleUnlearned = () => { state.fcOnlyUnlearned = !state.fcOnlyUnlearned; state.fcIdx = 0; state.fcFlipped = false; render(); };
-    window.answerQuiz = (optIdx) => {
+    window.toggleStarFC = (origIdx) => {
       const s = currentSubject();
-      state.quizAnswers[`${s.id}_${state.quizIdx}`] = optIdx;
+      const k = `${s.id}_${origIdx}`;
+      if (state.starredFC[k]) delete state.starredFC[k]; else state.starredFC[k] = true;
       saveState();
       render();
     };
+    window.setFCFilter = (f) => { state.fcFilter = f; state.fcIdx = 0; state.fcFlipped = false; render(); };
+    window.toggleStarQ = (key) => {
+      if (state.starredQ[key]) delete state.starredQ[key]; else state.starredQ[key] = true;
+      saveState();
+      render();
+    };
+    window.answerQuiz = (key, origOptIdx) => { state.quizAnswers[key] = origOptIdx; saveState(); render(); };
     window.moveQuiz = (delta) => {
-      const s = currentSubject();
-      state.quizIdx = Math.max(0, Math.min(s.quiz.length - 1, state.quizIdx + delta));
+      state.quizIdx = Math.max(0, Math.min(state.quizSession.length - 1, state.quizIdx + delta));
       render();
     };
-    window.finishQuiz = () => { state.quizFinished = true; render(); };
+    window.finishQuiz = () => { state.quizFinished = true; if (state.timerHandle) { clearInterval(state.timerHandle); state.timerHandle = null; state.timerActive = false; } render(); };
     window.reviewQuiz = () => { state.quizFinished = false; state.quizIdx = 0; render(); };
-    window.resetQuiz = () => {
-      const s = currentSubject();
-      s.quiz.forEach((_, i) => delete state.quizAnswers[`${s.id}_${i}`]);
+    window.toggleShuffleQuiz = () => { state.shuffleQuiz = !state.shuffleQuiz; buildQuizSession(); render(); };
+    window.toggleStarredQuiz = () => { state.onlyStarredQuiz = !state.onlyStarredQuiz; state.onlyWrongQuiz = false; buildQuizSession(); render(); };
+    window.retryWrong = () => {
+      const wrongItems = state.quizSession.filter(item => {
+        const k = `${item.subjId}_${item.qIdx}`;
+        return state.quizAnswers[k] !== undefined && state.quizAnswers[k] !== item.origQ.ans;
+      });
+      if (!wrongItems.length) return;
+      wrongItems.forEach(item => {
+        delete state.quizAnswers[`${item.subjId}_${item.qIdx}`];
+      });
       saveState();
-      state.quizFinished = false;
+      state.quizSession = wrongItems;
       state.quizIdx = 0;
+      state.quizFinished = false;
       render();
+    };
+    window.resetQuiz = () => {
+      if (state.quizSession) {
+        state.quizSession.forEach(item => delete state.quizAnswers[`${item.subjId}_${item.qIdx}`]);
+      }
+      saveState();
+      state.onlyWrongQuiz = false;
+      buildQuizSession();
+      render();
+    };
+    window.toggleTimer = () => {
+      if (state.timerActive) {
+        clearInterval(state.timerHandle);
+        state.timerHandle = null;
+        state.timerActive = false;
+        render();
+      } else {
+        state.timerActive = true;
+        state.timerSec = (state.quizSession ? state.quizSession.length : 20) * 60;
+        state.timerHandle = setInterval(() => {
+          state.timerSec--;
+          if (state.timerSec <= 0) {
+            clearInterval(state.timerHandle);
+            state.timerHandle = null;
+            state.timerActive = false;
+            state.quizFinished = true;
+          }
+          render();
+        }, 1000);
+        render();
+      }
     };
 
     initTheme();
-    updateCountdown();
     render();
   </script>
 </body>
