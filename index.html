@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="UT Prep Hub" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230284c7'/%3E%3Ctext x='32' y='43' font-size='32' text-anchor='middle' fill='white'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E" />
-  <title>UT Prep Hub Ultimate â€” Sains Data UT Bandung (Sem 3)</title>
+  <title>UT Prep Hub Ultimate — Sains Data UT Bandung (Sem 3)</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -549,6 +549,16 @@
       white-space: nowrap;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .q-dots { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; margin-bottom: 8px; }
+    .q-dots::-webkit-scrollbar { display: none; }
+    .q-dot {
+      flex: 0 0 auto; min-width: 28px; height: 28px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--card-2); color: var(--muted);
+      font-size: 11.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .q-dot.cur { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
+    .q-dot.ok { border-color: var(--success); color: var(--success); background: var(--success-bg); }
+    .q-dot.bad { border-color: var(--danger); color: var(--danger); background: var(--danger-bg); }
     @media (max-width: 768px) {
       .stepper { display: none; }
     }
@@ -558,16 +568,16 @@
   <header class="header">
     <div class="header-top">
       <div style="display:flex;align-items:center;gap:9px;">
-        <button class="icon-btn" id="backHomeBtn" style="display:none;" onclick="goHome()">â† Beranda</button>
+        <button class="icon-btn" id="backHomeBtn" style="display:none;" onclick="goHome()">← Beranda</button>
         <div class="brand">
           <h1 id="headerTitle">UT Prep Hub</h1>
-          <p id="headerSub">Sains Data UT Bandung â€¢ Sem 3</p>
+          <p id="headerSub">Sains Data UT Bandung • Sem 3</p>
         </div>
       </div>
       <div class="header-actions">
         <span class="pill-badge" id="countdownBadge">H-3 UTM</span>
-        <button class="icon-btn" onclick="openModal('searchModal')" title="Cari Lintas Matkul">ðŸ”</button>
-        <button class="icon-btn" onclick="openModal('toolsModal')" title="Menu &amp; Alat Belajar">â˜° <span id="pomoMini" style="font-family:ui-monospace,monospace;">25:00</span></button>
+        <button class="icon-btn" onclick="openModal('searchModal')" title="Cari Lintas Matkul">🔍</button>
+        <button class="icon-btn" onclick="openModal('toolsModal')" title="Menu &amp; Alat Belajar">☰ <span id="pomoMini" style="font-family:ui-monospace,monospace;">25:00</span></button>
       </div>
     </div>
   </header>
@@ -578,10 +588,10 @@
   </main>
 
   <nav class="bottom-nav" id="bottomNav" style="display:none;">
-    <button class="bnav-btn active" data-mode="summary"><span class="b-ico">ðŸ“–</span><span>1. Pahami</span></button>
-    <button class="bnav-btn" data-mode="cheatsheet"><span class="b-ico">âš¡</span><span>2. Kuasai</span></button>
-    <button class="bnav-btn" data-mode="flashcard"><span class="b-ico">ðŸƒ</span><span>3. Hafal</span></button>
-    <button class="bnav-btn" data-mode="quiz"><span class="b-ico">ðŸ“</span><span>4. Uji</span></button>
+    <button class="bnav-btn active" data-mode="summary"><span class="b-ico">📖</span><span>1. Pahami</span></button>
+    <button class="bnav-btn" data-mode="cheatsheet"><span class="b-ico">⚡</span><span>2. Kuasai</span></button>
+    <button class="bnav-btn" data-mode="flashcard"><span class="b-ico">🃏</span><span>3. Hafal</span></button>
+    <button class="bnav-btn" data-mode="quiz"><span class="b-ico">📝</span><span>4. Uji</span></button>
   </nav>
 
   <div class="toast" id="toastEl"></div>
@@ -590,8 +600,8 @@
   <div class="modal-backdrop" id="searchModal" onclick="if(event.target===this) closeModal('searchModal')">
     <div class="modal-panel">
       <div class="modal-head">
-        <h2>ðŸ” Pencarian Lintas 6 Matkul</h2>
-        <button class="icon-btn" onclick="closeModal('searchModal')">âœ•</button>
+        <h2>🔍 Pencarian Lintas 6 Matkul</h2>
+        <button class="icon-btn" onclick="closeModal('searchModal')">✕</button>
       </div>
       <input class="input-field" id="globalSearchInput" type="search" placeholder="Ketik istilah (misal: Bayes, Spark, MongoDB, PPKI, RMSE)..." oninput="renderGlobalSearch(this.value)" />
       <div id="globalSearchResults" style="margin-top:12px;"></div>
@@ -602,42 +612,43 @@
   <div class="modal-backdrop" id="toolsModal" onclick="if(event.target===this) closeModal('toolsModal')">
     <div class="modal-panel">
       <div class="modal-head">
-        <h2>â˜° Menu &amp; Alat Belajar</h2>
-        <button class="icon-btn" onclick="closeModal('toolsModal')">âœ•</button>
+        <h2>☰ Menu &amp; Alat Belajar</h2>
+        <button class="icon-btn" onclick="closeModal('toolsModal')">✕</button>
       </div>
 
       <div class="cheat-box" style="margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
-        <div><b>ðŸ… Pomodoro Fokus</b><div id="pomoPhaseLbl" style="font-size:11.5px;color:var(--muted);">25:00 â€¢ Sesi Fokus</div></div>
+        <div><b>🍅 Pomodoro Fokus</b><div id="pomoPhaseLbl" style="font-size:11.5px;color:var(--muted);">25:00 • Sesi Fokus</div></div>
         <div style="display:flex;gap:6px;align-items:center;">
           <span id="pomoBigTime" style="font-weight:800;font-family:ui-monospace,monospace;font-size:16px;margin-right:4px;">25:00</span>
-          <button class="btn btn-primary" style="padding:7px 11px;" id="pomoStartBtn" onclick="togglePomodoro()">â–¶</button>
+          <button class="btn btn-primary" style="padding:7px 11px;" id="pomoStartBtn" onclick="togglePomodoro()">▶</button>
           <button class="icon-btn" onclick="resetPomodoro(25)">25m</button>
           <button class="icon-btn" onclick="resetPomodoro(5)">5m</button>
         </div>
       </div>
 
       <div class="cheat-box" style="margin-bottom:10px;">
-        <h3>ðŸ“ˆ Kalkulator Nilai Akhir UT (Tuton 30% + UAS 70%)</h3>
+        <h3>📈 Kalkulator Nilai Akhir UT (Tuton 30% + UAS 70%)</h3>
         <div class="lab-grid">
-          <div><label style="font-size:11px;">Tuton (0â€“100)</label><input class="input-field" id="calcTuton" type="number" min="0" max="100" value="85" oninput="calcUTGrade()" /></div>
-          <div><label style="font-size:11px;">Target UAS (0â€“100)</label><input class="input-field" id="calcUAS" type="number" min="0" max="100" value="75" oninput="calcUTGrade()" /></div>
+          <div><label style="font-size:11px;">Tuton (0–100)</label><input class="input-field" id="calcTuton" type="number" min="0" max="100" value="85" oninput="calcUTGrade()" /></div>
+          <div><label style="font-size:11px;">Target UAS (0–100)</label><input class="input-field" id="calcUAS" type="number" min="0" max="100" value="75" oninput="calcUTGrade()" /></div>
         </div>
         <div id="calcUTResult" style="font-size:12.5px;"></div>
       </div>
 
       <div class="cheat-box" style="margin-bottom:10px;">
-        <h3>ðŸ”„ Sync Progress (Laptop â†” HP)</h3>
+        <h3>🔄 Sync Progress (Laptop ↔ HP)</h3>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
-          <button class="btn btn-primary" onclick="exportProgress()">ðŸ“¤ Salin Kode</button>
-          <button class="btn" onclick="importProgress()">ðŸ“¥ Tempel &amp; Muat</button>
+          <button class="btn btn-primary" onclick="exportProgress()">📤 Salin Kode</button>
+          <button class="btn" onclick="importProgress()">📥 Tempel &amp; Muat</button>
         </div>
         <textarea id="syncBox" rows="2" placeholder="Tempel kode progress di sini..."></textarea>
         <div id="syncMsg" style="font-size:12px;color:var(--success);margin-top:4px;"></div>
       </div>
 
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn" style="flex:1;" id="themeBtn">â˜€ï¸ / ðŸŒ™ Ganti Tema</button>
-        <button class="btn btn-success" style="flex:1;" onclick="closeModal('toolsModal'); setTimeout(()=>window.print(), 200);">ðŸ–¨ï¸ Cetak / PDF</button>
+        <button class="btn" style="flex:1;" id="themeBtn">☀️ / 🌙 Tema</button>
+        <button class="btn btn-success" style="flex:1;" onclick="closeModal('toolsModal'); setTimeout(()=>window.print(), 200);">🖨️ Cetak / PDF</button>
+        <button class="btn btn-danger" style="flex:1;" id="resetAllBtn" onclick="resetAllProgress()">🗑️ Reset</button>
       </div>
     </div>
   </div>
@@ -650,8 +661,8 @@
         short: "Big Data",
         name: "Analitik Big Data",
         exam: "UTM 28 Nov",
-        icon: "ðŸ“Š",
-        note: "Study Guide (BMP Sementara) â€¢ 5V, Arsitektur, Hadoop/Spark, Clustering, Forecasting, Classification, Medsos.",
+        icon: "📊",
+        note: "Study Guide (BMP Sementara) • 5V, Arsitektur, Hadoop/Spark, Clustering, Forecasting, Classification, Medsos.",
         sections: [
           {
             title: "1. Konsep Dasar Big Data (5V & Jenis Data)",
@@ -666,8 +677,8 @@
             title: "2. Lifecycle & Arsitektur Big Data",
             tag: "Konsep Inti",
             bullets: [
-              "<b>Lifecycle</b>: Collection â†’ Storage (Data Lake/Warehouse) â†’ Processing (Batch/Real-time) â†’ Analysis â†’ Visualization â†’ Decision Making.",
-              "<b>Arsitektur Layer</b>: Sumber Data â†’ <i>Ingestion Layer</i> (Apache Kafka, Flume) â†’ <i>Storage Layer</i> (HDFS / Data Lake vs Amazon Redshift / Data Warehouse) â†’ <i>Processing Layer</i> (Hadoop / Spark) â†’ <i>Analytics Layer</i> (ML/Statistik) â†’ <i>Visualization</i> (Tableau, Power BI)."
+              "<b>Lifecycle</b>: Collection → Storage (Data Lake/Warehouse) → Processing (Batch/Real-time) → Analysis → Visualization → Decision Making.",
+              "<b>Arsitektur Layer</b>: Sumber Data → <i>Ingestion Layer</i> (Apache Kafka, Flume) → <i>Storage Layer</i> (HDFS / Data Lake vs Amazon Redshift / Data Warehouse) → <i>Processing Layer</i> (Hadoop / Spark) → <i>Analytics Layer</i> (ML/Statistik) → <i>Visualization</i> (Tableau, Power BI)."
             ]
           },
           {
@@ -705,7 +716,7 @@
         cheatsheet: [
           { title: "5V Big Data", items: ["<b>Volume</b>: ukuran raksasa", "<b>Velocity</b>: kecepatan real-time", "<b>Variety</b>: terstruktur, semi (JSON/XML), tak terstruktur", "<b>Veracity</b>: akurasi & keandalan", "<b>Value</b>: manfaat bisnis"] },
           { title: "4 Jenis Analytics", items: ["<b>Descriptive</b>: Apa yang terjadi?", "<b>Diagnostic</b>: Mengapa terjadi?", "<b>Predictive</b>: Apa yang akan terjadi?", "<b>Prescriptive</b>: Tindakan apa yang diambil?"] },
-          { title: "Hadoop vs Spark", items: ["<b>HDFS</b>: storage blok terdistribusi + replikasi", "<b>MapReduce</b>: disk-based (Map â†’ Reduce)", "<b>YARN</b>: pengatur resource klaster", "<b>Spark</b>: in-memory + DAG + RDD (immutable)", "<b>Spark Modules</b>: SQL, Streaming, MLlib, GraphX"] },
+          { title: "Hadoop vs Spark", items: ["<b>HDFS</b>: storage blok terdistribusi + replikasi", "<b>MapReduce</b>: disk-based (Map → Reduce)", "<b>YARN</b>: pengatur resource klaster", "<b>Spark</b>: in-memory + DAG + RDD (immutable)", "<b>Spark Modules</b>: SQL, Streaming, MLlib, GraphX"] },
           { title: "Metrik Evaluasi", items: ["<b>Clustering</b>: Silhouette Score, Davies-Bouldin", "<b>Forecasting</b>: MAE, MSE, RMSE", "<b>Classification</b>: Accuracy, Precision, Recall, F1"] }
         ],
         traps: [
@@ -779,14 +790,14 @@
         short: "Pancasila",
         name: "Pendidikan Pancasila",
         exam: "UTM 28 Nov",
-        icon: "ðŸ‡®ðŸ‡©",
-        note: "Modul 1â€“6 Lengkap â€¢ Sejarah BPUPK/PPKI, Dasar Falsafah, Ideologi Negara, Sistem Filsafat, Paradigma IPTEK.",
+        icon: "🇮🇩",
+        note: "Modul 1–6 Lengkap • Sejarah BPUPK/PPKI, Dasar Falsafah, Ideologi Negara, Sistem Filsafat, Paradigma IPTEK.",
         sections: [
           {
             title: "Modul 1: Pengantar Pendidikan Pancasila",
             tag: "Dasar",
             bullets: [
-              "<b>Etimologi</b>: Berasal dari bahasa <b>Sanskerta</b> â€” <i>Panca</i> (lima) dan <i>Sila</i> (asas/dasar/batu sendi).",
+              "<b>Etimologi</b>: Berasal dari bahasa <b>Sanskerta</b> — <i>Panca</i> (lima) dan <i>Sila</i> (asas/dasar/batu sendi).",
               "<b>Tujuan di PT</b>: Membentuk karakter, identitas bangsa, berpikir kritis, dan warga negara yang aktif & partisipatif.",
               "<b>Tantangan Era Global</b>: Benturan norma global, arus informasi/teknologi, pluralitas, ekstremisme, radikalisme, dan intoleransi."
             ]
@@ -806,7 +817,7 @@
             tag: "Konstitusi",
             bullets: [
               "<b>Kedudukan Konstitusional</b>: Tercantum dalam <b>Pembukaan UUD 1945 Alinea IV</b>.",
-              "<b>Staatsfundamentalnorm</b>: Pancasila sebagai norma fundamental negara / <b>sumber dari segala sumber hukum</b> â€” semua peraturan perundang-undangan tidak boleh bertentangan dengan Pancasila.",
+              "<b>Staatsfundamentalnorm</b>: Pancasila sebagai norma fundamental negara / <b>sumber dari segala sumber hukum</b> — semua peraturan perundang-undangan tidak boleh bertentangan dengan Pancasila.",
               "<b>Perjanjian Luhur</b>: Kesepakatan final para pendiri bangsa saat mendirikan NKRI."
             ]
           },
@@ -882,7 +893,7 @@
           { q: "Siapa ketua BPUPK yang menanyakan dasar negara pada sidang pertama?", a: "Dr. Radjiman Wediodiningrat." },
           { q: "Apa makna Pancasila sebagai Staatsfundamentalnorm?", a: "Pancasila adalah norma dasar/fundamental negara yang menjadi sumber dari segala sumber hukum; aturan di bawahnya tidak boleh bertentangan." },
           { q: "Sebutkan 3 tingkatan nilai dalam Pancasila sebagai ideologi terbuka!", a: "1) Nilai Dasar (esensi sila), 2) Nilai Instrumental (UUD/UU/kebijakan), 3) Nilai Praksis (perilaku nyata sehari-hari)." },
-          { q: "Mengapa sila-sila Pancasila disebut sebagai sistem filsafat yang utuh?", a: "Karena sila 1 sampai 5 saling berkaitan, saling menjiwai dan dijiwai secara organisâ€”tidak dapat berdiri sendiri secara parsial." },
+          { q: "Mengapa sila-sila Pancasila disebut sebagai sistem filsafat yang utuh?", a: "Karena sila 1 sampai 5 saling berkaitan, saling menjiwai dan dijiwai secara organis—tidak dapat berdiri sendiri secara parsial." },
           { q: "Apa 3 dimensi landasan filsafat Pancasila dalam pengembangan IPTEK?", a: "Ontologis (hakikat objek/manusia), Epistemologis (cara/sumber pengetahuan), dan Aksiologis (nilai guna/etika bagi manusia)." }
         ],
         quiz: [
@@ -899,7 +910,7 @@
           { q: "Pancasila disebut sebagai 'perjanjian luhur' bangsa Indonesia karena...", opts: ["Dibuat oleh pemerintah kolonial", "Merupakan kesepakatan final para pendiri bangsa saat mendirikan negara", "Hanya berlaku selama masa Orde Baru", "Ditetapkan oleh PBB"], ans: 1, exp: "Perjanjian luhur bermakna kesepakatan bersama para pendiri bangsa (PPKI) yang mewakili seluruh rakyat Indonesia." },
           { q: "Tokoh yang menyatakan bahwa Pancasila sebagai ideologi terbuka dan filsafat bangsa berakar dari kepribadian Indonesia (Modul 4) di antaranya...", opts: ["Ruslan Abdulgani", "Karl Marx", "Adam Smith", "Niccolo Machiavelli"], ans: 0, exp: "Dalam Tes Formatif Modul 4, Ruslan Abdulgani dibahas terkait pemikiran ideologi Pancasila." },
           { q: "Contoh penerapan Nilai Praksis Pancasila di lingkungan kampus adalah...", opts: ["Mengikuti tes masuk UKM sesuai prosedur dan menghormati keberagaman", "Menghafalkan pasal UUD tanpa mengamalkannya", "Menolak kerja bakti karena alasan pribadi", "Memaksakan kehendak saat musyawarah"], ans: 0, exp: "Nilai praksis adalah implementasi nyata dalam perbuatan sehari-hari sesuai aturan dan nilai Pancasila." },
-          { q: "Secara historis, dokumen otentik yang merekam perdebatan perumusan dasar negara pada Meiâ€“Juni 1945 adalah...", opts: ["Risalah Sidang BPUPK", "Naskah Supersemar", "Deklarasi Djuanda", "Traktat London"], ans: 0, exp: "Risalah sidang BPUPK merupakan sumber primer sejarah perumusan Pancasila." },
+          { q: "Secara historis, dokumen otentik yang merekam perdebatan perumusan dasar negara pada Mei–Juni 1945 adalah...", opts: ["Risalah Sidang BPUPK", "Naskah Supersemar", "Deklarasi Djuanda", "Traktat London"], ans: 0, exp: "Risalah sidang BPUPK merupakan sumber primer sejarah perumusan Pancasila." },
           { q: "Pancasila sebagai ideologi terbuka memiliki sifat fleksibel pada...", opts: ["Nilai dasar yang dapat dihapus sewaktu-waktu", "Nilai instrumental dan praksis dalam menjawab tantangan zaman", "Penggantian sila pertama", "Penghapusan Pembukaan UUD 1945"], ans: 1, exp: "Ideologi terbuka mempertahankan nilai dasarnya secara tetap, namun adaptif pada nilai instrumental dan praksisnya." },
           { q: "Asal-usul Pancasila secara kultural (Modul 5) berarti nilai-nilai Pancasila digali dari...", opts: ["Ideologi negara asing", "Realitas budaya, adat, dan kehidupan religius masyarakat Indonesia sendiri", "Teori ekonomi kapitalis", "Peraturan perdagangan internasional"], ans: 1, exp: "Pancasila berakar secara kultural dari realitas nilai luhur yang hidup dalam masyarakat Indonesia." },
           { q: "Kepres RI No. 23 Tahun 2016 (Modul 2) berkaitan dengan...", opts: ["Pembubaran BPUPK", "Penetapan 1 Juni sebagai Hari Lahir Pancasila", "Amandemen UUD 1945", "Pembentukan Mahkamah Konstitusi"], ans: 1, exp: "Keputusan Presiden tersebut berkaitan dengan penetapan Hari Lahir Pancasila 1 Juni." },
@@ -914,8 +925,8 @@
         short: "Pengantar AI",
         name: "Pengantar Kecerdasan Artifisial",
         exam: "UTM 29 Nov",
-        icon: "ðŸ¤–",
-        note: "Study Guide (BMP Sementara) â€¢ 5 Pendekatan AI, Hardware, Expert System & Fuzzy, Bio-Inspired, ML/DL, Vision/Speech.",
+        icon: "🤖",
+        note: "Study Guide (BMP Sementara) • 5 Pendekatan AI, Hardware, Expert System & Fuzzy, Bio-Inspired, ML/DL, Vision/Speech.",
         sections: [
           {
             title: "1. Konsep Dasar, Data & Realita vs Hype AI",
@@ -931,9 +942,9 @@
             tag: "Wajib Hafal",
             bullets: [
               "<b>1) Penalaran Simbolik</b> (aturan logika & simbol).",
-              "<b>2) Koneksi / Connectionist</b> (neuron otak â†’ Jaringan Saraf Tiruan).",
-              "<b>3) Algoritma Evolusioner</b> (evolusi biologis â†’ Algoritma Genetika).",
-              "<b>4) Inferensi Bayesian</b> (probabilitas â†’ <b>NaÃ¯ve Bayes</b>, <b>Jaringan Bayesian</b>).",
+              "<b>2) Koneksi / Connectionist</b> (neuron otak → Jaringan Saraf Tiruan).",
+              "<b>3) Algoritma Evolusioner</b> (evolusi biologis → Algoritma Genetika).",
+              "<b>4) Inferensi Bayesian</b> (probabilitas → <b>Naïve Bayes</b>, <b>Jaringan Bayesian</b>).",
               "<b>5) Belajar dengan Analogi</b> (kemiripan kasus/pola)."
             ]
           },
@@ -968,9 +979,9 @@
           }
         ],
         cheatsheet: [
-          { title: "5 Pendekatan AI", items: ["1. Penalaran Simbolik", "2. Koneksi (Neural Network)", "3. Evolusioner (Genetika)", "4. Inferensi Bayesian (NaÃ¯ve Bayes)", "5. Analogi (kemiripan kasus)"] },
+          { title: "5 Pendekatan AI", items: ["1. Penalaran Simbolik", "2. Koneksi (Neural Network)", "3. Evolusioner (Genetika)", "4. Inferensi Bayesian (Naïve Bayes)", "5. Analogi (kemiripan kasus)"] },
           { title: "Logika & Hardware", items: ["<b>Expert System</b>: Rule-based (IF-THEN)", "<b>Fuzzy Logic</b>: Tangani ambiguitas/ketidakpastian", "<b>GPU & Non-Von Neumann</b>: Komputasi paralel DL"] },
-          { title: "ML & Deep Learning", items: ["<b>Supervised</b>: Data berlabel", "<b>Unsupervised</b>: Tanpa label", "<b>Reinforcement</b>: Reward & penalty", "<b>CNN</b>: Gambar/Vision â€¢ <b>RNN</b>: Sekuensial/Teks", "<b>Backpropagation</b>: Update bobot jaringan"] },
+          { title: "ML & Deep Learning", items: ["<b>Supervised</b>: Data berlabel", "<b>Unsupervised</b>: Tanpa label", "<b>Reinforcement</b>: Reward & penalty", "<b>CNN</b>: Gambar/Vision • <b>RNN</b>: Sekuensial/Teks", "<b>Backpropagation</b>: Update bobot jaringan"] },
           { title: "Etika & Batasan AI", items: ["<b>Nonstarter</b>: AI gagal/salah sasaran", "<b>Mobil Otonom</b>: 6 level otonomi", "<b>Trolley Problem</b>: Dilema etis kecelakaan", "<b>Unggul Manusia</b>: Kreativitas, empati, etika"] }
         ],
         traps: [
@@ -1016,15 +1027,15 @@
         quiz: [
           { q: "Berikut ini yang BUKAN termasuk lima pendekatan utama pembelajaran AI dalam panduan belajar STDA4203 adalah...", opts: ["Penalaran simbolik", "Inferensi Bayesian", "Algoritma evolusioner", "Komputasi kuantum deterministik"], ans: 3, exp: "Lima pendekatan utama adalah: simbolik, koneksi (neuron), evolusioner, Bayesian, dan analogi." },
           { q: "Untuk menangani ketidakpastian dan ambiguitas pada sistem berbasis aturan (rule-based), pendekatan yang digunakan adalah...", opts: ["Logika Boolean klasik", "Fuzzy Logic", "Arsitektur Von Neumann", "Sorting Algorithm"], ans: 1, exp: "Fuzzy logic memungkinkan sistem pakar/AI menangani nilai yang samar atau tidak pasti (ambiguitas)." },
-          { q: "Algoritma yang terinspirasi oleh prinsip-prinsip evolusi biologis untuk menyelesaikan masalah optimasi disebut...", opts: ["NaÃ¯ve Bayes", "Algoritma Genetika / Evolusioner", "Decision Tree", "K-Means"], ans: 1, exp: "Algoritma genetika/evolusioner meniru proses seleksi alam dan evolusi untuk mencari solusi optimal." },
+          { q: "Algoritma yang terinspirasi oleh prinsip-prinsip evolusi biologis untuk menyelesaikan masalah optimasi disebut...", opts: ["Naïve Bayes", "Algoritma Genetika / Evolusioner", "Decision Tree", "K-Means"], ans: 1, exp: "Algoritma genetika/evolusioner meniru proses seleksi alam dan evolusi untuk mencari solusi optimal." },
           { q: "Dalam Deep Learning, algoritma utama yang digunakan untuk memperbarui bobot jaringan saraf berdasarkan error prediksi adalah...", opts: ["Backpropagation", "MapReduce", "Trolley Problem", "Fuzzy Inference"], ans: 0, exp: "Backpropagation menghitung gradien error dari output ke lapisan sebelumnya untuk memperbarui bobot jaringan saraf." },
-          { q: "Arsitektur Deep Learning yang paling efektif untuk mengolah data citra pada Computer Vision adalah...", opts: ["NaÃ¯ve Bayes", "Convolutional Neural Networks (CNN)", "Expert System", "Linear Regression"], ans: 1, exp: "CNN dirancang khusus untuk mengekstrak fitur spasial dari gambar/visual." },
+          { q: "Arsitektur Deep Learning yang paling efektif untuk mengolah data citra pada Computer Vision adalah...", opts: ["Naïve Bayes", "Convolutional Neural Networks (CNN)", "Expert System", "Linear Regression"], ans: 1, exp: "CNN dirancang khusus untuk mengekstrak fitur spasial dari gambar/visual." },
           { q: "Jenis Machine Learning di mana agen belajar melalui interaksi dengan lingkungan menggunakan reward dan penalty disebut...", opts: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Rule-Based AI"], ans: 2, exp: "Reinforcement learning melatih agen mengambil keputusan optimal berdasarkan umpan balik reward/hukuman." },
           { q: "Manakah pernyataan yang tepat mengenai batasan kecerdasan artifisial (AI)?", opts: ["AI selalu lebih baik dari manusia di semua tugas", "AI tidak bergantung pada kualitas data", "AI masih terbatas dalam hal kreativitas, empati, dan keputusan etis", "AI sudah menyamai kecerdasan manusia seutuhnya"], ans: 2, exp: "AI tidak bisa menggantikan kreativitas, empati, dan pertimbangan etis manusia." },
           { q: "Dilema etis klasik yang sering dibahas dalam pengembangan mobil otonom dikenal dengan istilah...", opts: ["Overfitting problem", "Trolley problem", "Cold start problem", "Vanishing gradient"], ans: 1, exp: "Trolley problem membahas dilema moral keputusan otomatis saat menghadapi potensi bahaya jiwa." },
           { q: "Cabang AI yang berfokus pada pemahaman bahasa alami, pembentukan teks, dan penerjemahan mesin adalah...", opts: ["Computer Vision", "Swarm Intelligence", "Natural Language Processing (NLP)", "Expert System"], ans: 2, exp: "NLP mencakup NLU, NLG, dan machine translation." },
           { q: "Perangkat keras yang dirancang khusus untuk mempercepat komputasi paralel matriks pada pelatihan Deep Learning adalah...", opts: ["Floppy Disk", "GPU (Graphics Processing Unit)", "HDD Mekanik", "Modem"], ans: 1, exp: "GPU dan arsitektur non-von Neumann sangat krusial untuk komputasi paralel AI/DL." },
-          { q: "Tiga pendekatan pembelajaran AI yang disoroti sebagai pendekatan yang paling menjanjikan dalam panduan belajar adalah...", opts: ["NaÃ¯ve Bayes, Jaringan Bayesian, dan Pohon Keputusan", "Bubble Sort, Binary Search, dan Hashing", "SQL, NoSQL, dan MapReduce", "HTML, CSS, dan JavaScript"], ans: 0, exp: "Konsep esensial menyebut NaÃ¯ve Bayes, jaringan Bayesian, dan pohon keputusan dibahas lebih mendalam." },
+          { q: "Tiga pendekatan pembelajaran AI yang disoroti sebagai pendekatan yang paling menjanjikan dalam panduan belajar adalah...", opts: ["Naïve Bayes, Jaringan Bayesian, dan Pohon Keputusan", "Bubble Sort, Binary Search, dan Hashing", "SQL, NoSQL, dan MapReduce", "HTML, CSS, dan JavaScript"], ans: 0, exp: "Konsep esensial menyebut Naïve Bayes, jaringan Bayesian, dan pohon keputusan dibahas lebih mendalam." },
           { q: "Teknik Deep Learning yang memanfaatkan model terlatih sebelumnya agar tidak perlu melatih dari nol pada dataset kecil disebut...", opts: ["Transfer Learning", "Hard Clustering", "Rule Pruning", "Von Neumann Bottleneck"], ans: 0, exp: "Transfer learning mentransfer bobot/pengetahuan dari tugas sumber ke tugas target yang baru." },
           { q: "Model Deep Learning yang paling sesuai untuk memproses data sekuensial seperti deret kata dalam kalimat atau sinyal audio adalah...", opts: ["RNN (Recurrent Neural Networks)", "K-Means", "Expert System", "Apriori"], ans: 0, exp: "RNN memiliki memori berulang (recurrent) sehingga cocok untuk urutan waktu/teks." },
           { q: "Istilah 'nonstarter' dalam buku panduan AI merujuk pada...", opts: ["Aplikasi AI yang sukses besar di pasar", "Aplikasi AI yang gagal atau tidak layak diterapkan dibanding kemampuan manusia", "Hardware GPU generasi terbaru", "Algoritma genetika"], ans: 1, exp: "Aplikasi nonstarter adalah penerapan AI yang kurang berhasil atau tidak tepat guna." },
@@ -1042,8 +1053,8 @@
         short: "NoSQL",
         name: "Basis Data NoSQL",
         exam: "UTM 29 Nov",
-        icon: "ðŸ—„ï¸",
-        note: "Study Guide (BMP Sementara) â€¢ 4 Tipe NoSQL (Key-Value, Document, Column-Family, Graph) & Operasional MongoDB.",
+        icon: "🗄️",
+        note: "Study Guide (BMP Sementara) • 4 Tipe NoSQL (Key-Value, Document, Column-Family, Graph) & Operasional MongoDB.",
         sections: [
           {
             title: "1. Gambaran Umum NoSQL vs SQL (RDBMS)",
@@ -1161,20 +1172,20 @@
         short: "Data Mining",
         name: "Data Mining",
         exam: "UO 12 Des",
-        icon: "â›ï¸",
-        note: "Modul 1â€“9 Lengkap (MSIM4403) â€¢ CRISP-DM, Atribut, Preprocessing, Regresi, Klasifikasi, Asosiasi, Klasterisasi, Evaluasi & WEKA.",
+        icon: "⛏️",
+        note: "Modul 1–9 Lengkap (MSIM4403) • CRISP-DM, Atribut, Preprocessing, Regresi, Klasifikasi, Asosiasi, Klasterisasi, Evaluasi & WEKA.",
         sections: [
           {
             title: "Modul 1: Konsep Dasar, CRISP-DM & Tipe Atribut",
             tag: "Fondasi",
             bullets: [
-              "<b>CRISP-DM (6 Fase)</b>: <i>Business Understanding</i> â†’ <i>Data Understanding</i> â†’ <i>Data Preparation</i> â†’ <i>Modeling</i> â†’ <i>Evaluation</i> â†’ <i>Deployment</i>.",
+              "<b>CRISP-DM (6 Fase)</b>: <i>Business Understanding</i> → <i>Data Understanding</i> → <i>Data Preparation</i> → <i>Modeling</i> → <i>Evaluation</i> → <i>Deployment</i>.",
               "<b>Arsitektur & EDA</b>: Data Warehouse (basis data multidimensional / OLAP) & Exploratory Data Analysis (EDA).",
               "<b>Tipe Atribut Data</b>: <b>Nominal</b> (kategori tanpa urutan), <b>Biner</b> (2 nilai), <b>Ordinal</b> (berurutan tanpa jarak pasti), <b>Interval</b> (jarak terukur tanpa nol mutlak), <b>Rasio</b> (punya nol mutlak)."
             ]
           },
           {
-            title: "Modul 2â€“3: Persiapan Data & Konsep Teknik Data Mining",
+            title: "Modul 2–3: Persiapan Data & Konsep Teknik Data Mining",
             tag: "Preprocessing",
             bullets: [
               "<b>Kualitas Data</b>: Akurasi, kelengkapan, konsistensi, ketepatan waktu, <i>believability</i>, dan interpretabilitas.",
@@ -1183,25 +1194,25 @@
             ]
           },
           {
-            title: "Modul 4â€“5: Estimasi (Regresi) & Klasifikasi",
+            title: "Modul 4–5: Estimasi (Regresi) & Klasifikasi",
             tag: "Predictive",
             bullets: [
               "<b>Estimasi (Regresi Linier)</b>: Sederhana <code>Y = a + bX</code> & Berganda <code>Y = a + b<sub>1</sub>X<sub>1</sub> + ...</code>.",
               "<b>Decision Tree</b>: <b>ID3</b> (<i>Information Gain</i>) vs <b>C4.5</b> (<i>Gain Ratio</i>, dukung atribut kontinu & missing value).",
-              "<b>KNN & NaÃ¯ve Bayes</b>: KNN berbasis jarak <i>K</i> tetangga terdekat; NaÃ¯ve Bayes berbasis probabilitas Bayes."
+              "<b>KNN & Naïve Bayes</b>: KNN berbasis jarak <i>K</i> tetangga terdekat; Naïve Bayes berbasis probabilitas Bayes."
             ]
           },
           {
-            title: "Modul 6â€“7: Analisis Asosiasi & Klasterisasi",
+            title: "Modul 6–7: Analisis Asosiasi & Klasterisasi",
             tag: "Descriptive",
             bullets: [
-              "<b>Asosiasi</b>: <b>Support(Xâ†’Y)</b> = proporsi transaksi memuat X & Y; <b>Confidence(Xâ†’Y)</b> = <code>Support(XâˆªY) / Support(X)</code>.",
+              "<b>Asosiasi</b>: <b>Support(X→Y)</b> = proporsi transaksi memuat X & Y; <b>Confidence(X→Y)</b> = <code>Support(X∪Y) / Support(X)</code>.",
               "<b>Apriori</b> (generate kandidat + pruning) vs <b>FP-Growth</b> (pohon <i>FP-Tree</i> tanpa generate kandidat).",
               "<b>Klasterisasi</b>: <b>K-Means</b> (centroid) vs <b>HAC</b> (bottom-up dendrogram)."
             ]
           },
           {
-            title: "Modul 8â€“9: Evaluasi Kinerja & Aplikasi WEKA",
+            title: "Modul 8–9: Evaluasi Kinerja & Aplikasi WEKA",
             tag: "Evaluasi",
             table: {
               headers: ["Teknik", "Metrik / Tool", "Rumus / Catatan"],
@@ -1216,22 +1227,22 @@
         ],
         cheatsheet: [
           { title: "6 Fase CRISP-DM", items: ["1. Business Understanding", "2. Data Understanding", "3. Data Preparation", "4. Modeling", "5. Evaluation", "6. Deployment"] },
-          { title: "Rumus Asosiasi", items: ["<code>Support(Xâ†’Y) = P(X âˆ© Y)</code>", "<code>Confidence(Xâ†’Y) = P(Y|X) = Sup(XâˆªY)/Sup(X)</code>", "<b>Apriori</b>: Candidate gen + min_sup", "<b>FP-Growth</b>: FP-Tree (lebih cepat)"] },
-          { title: "Rumus Confusion Matrix", items: ["<code>Accuracy = (TP+TN)/(TP+TN+FP+FN)</code>", "<code>Precision = TP/(TP+FP)</code>", "<code>Recall = TP/(TP+FN)</code>", "<code>F1 = 2Â·(PrecÂ·Rec)/(Prec+Rec)</code>"] },
-          { title: "Algoritma Inti", items: ["<b>ID3</b>: Info Gain â€¢ <b>C4.5</b>: Gain Ratio", "<b>K-Means</b>: Partisi K centroid", "<b>HAC</b>: Bottom-up (Single/Complete/Avg linkage)", "<b>WEKA</b>: Format <code>.arff</code>"] }
+          { title: "Rumus Asosiasi", items: ["<code>Support(X→Y) = P(X ∩ Y)</code>", "<code>Confidence(X→Y) = P(Y|X) = Sup(X∪Y)/Sup(X)</code>", "<b>Apriori</b>: Candidate gen + min_sup", "<b>FP-Growth</b>: FP-Tree (lebih cepat)"] },
+          { title: "Rumus Confusion Matrix", items: ["<code>Accuracy = (TP+TN)/(TP+TN+FP+FN)</code>", "<code>Precision = TP/(TP+FP)</code>", "<code>Recall = TP/(TP+FN)</code>", "<code>F1 = 2·(Prec·Rec)/(Prec+Rec)</code>"] },
+          { title: "Algoritma Inti", items: ["<b>ID3</b>: Info Gain • <b>C4.5</b>: Gain Ratio", "<b>K-Means</b>: Partisi K centroid", "<b>HAC</b>: Bottom-up (Single/Complete/Avg linkage)", "<b>WEKA</b>: Format <code>.arff</code>"] }
         ],
         traps: [
           { trap: "Precision vs Recall", fix: "<b>Precision</b> = TP/(TP+FP) [fokus kurangi False Alarm / FP]. <b>Recall</b> = TP/(TP+FN) [fokus kurangi kasus positif yang lolos / FN]." },
-          { trap: "Support vs Confidence", fix: "<b>Support(Xâ†’Y)</b> dibagi total SEMUA transaksi. <b>Confidence(Xâ†’Y)</b> dibagi jumlah transaksi yang memuat <b>X</b> saja!" },
+          { trap: "Support vs Confidence", fix: "<b>Support(X→Y)</b> dibagi total SEMUA transaksi. <b>Confidence(X→Y)</b> dibagi jumlah transaksi yang memuat <b>X</b> saja!" },
           { trap: "Atribut NIM / Kode Pos", fix: "Meskipun berisi angka, NIM/Kode Pos adalah <b>Nominal</b> (identitas), bukan Rasio/Interval!" },
           { trap: "ID3 vs C4.5", fix: "<b>ID3</b> hanya pakai Information Gain & butuh diskritisasi fitur kontinu; <b>C4.5</b> pakai Gain Ratio & langsung bisa tangani data kontinu + missing value." }
         ],
         essays: [
           {
-            q: "Diketahui 200 transaksi minimarket: 80 memuat Susu, 60 memuat Roti, dan 40 memuat Susu dan Roti sekaligus. Hitunglah Support(Susu â†’ Roti) dan Confidence(Susu â†’ Roti), lalu jelaskan mengapa FP-Growth lebih efisien daripada Apriori jika datanya jutaan baris!",
+            q: "Diketahui 200 transaksi minimarket: 80 memuat Susu, 60 memuat Roti, dan 40 memuat Susu dan Roti sekaligus. Hitunglah Support(Susu → Roti) dan Confidence(Susu → Roti), lalu jelaskan mengapa FP-Growth lebih efisien daripada Apriori jika datanya jutaan baris!",
             rubric: [
-              "<b>Support(Susu â†’ Roti)</b> = 40 / 200 = <b>0,20 (20%)</b>.",
-              "<b>Confidence(Susu â†’ Roti)</b> = 40 / 80 = <b>0,50 (50%)</b>.",
+              "<b>Support(Susu → Roti)</b> = 40 / 200 = <b>0,20 (20%)</b>.",
+              "<b>Confidence(Susu → Roti)</b> = 40 / 80 = <b>0,50 (50%)</b>.",
               "<b>FP-Growth vs Apriori</b>: Apriori melakukan candidate generation & scan database berulang kali, sedangkan FP-Growth memampatkan data ke dalam struktur <b>FP-Tree</b> sehingga jauh lebih cepat & hemat I/O."
             ]
           },
@@ -1254,7 +1265,7 @@
         ],
         flashcards: [
           { q: "Sebutkan 6 fase CRISP-DM secara berurutan!", a: "1) Business Understanding, 2) Data Understanding, 3) Data Preparation, 4) Modeling, 5) Evaluation, 6) Deployment." },
-          { q: "Apa beda atribut Interval dan Rasio?", a: "Interval memiliki jarak terukur namun tidak punya titik nol mutlak (misal suhu Â°C); Rasio punya titik nol mutlak sehingga perbandingan kali bermakna (misal berat, harga)." },
+          { q: "Apa beda atribut Interval dan Rasio?", a: "Interval memiliki jarak terukur namun tidak punya titik nol mutlak (misal suhu °C); Rasio punya titik nol mutlak sehingga perbandingan kali bermakna (misal berat, harga)." },
           { q: "Apa perbedaan utama algoritma ID3 dan C4.5?", a: "ID3 memakai Information Gain (cenderung bias ke atribut banyak nilai), sedangkan C4.5 memakai Gain Ratio serta mendukung atribut kontinu dan missing value." },
           { q: "Apa perbedaan Apriori dan FP-Growth pada analisis asosiasi?", a: "Apriori melakukan generate kandidat berulang (butuh banyak scan database), sedangkan FP-Growth membangun FP-Tree yang lebih cepat dan hemat memori." },
           { q: "Bagaimana cara kerja Hierarchical Agglomerative Clustering (HAC)?", a: "Pendekatan bottom-up: setiap objek awalnya adalah satu klaster sendiri, lalu secara bertahap digabung berdasarkan jarak terdekat hingga menjadi satu klaster/pohon (dendrogram)." },
@@ -1265,9 +1276,9 @@
         quiz: [
           { q: "Pada metodologi CRISP-DM, fase pembersihan missing value, normalisasi, dan seleksi fitur berada pada tahap...", opts: ["Business Understanding", "Data Preparation", "Modeling", "Deployment"], ans: 1, exp: "Data Preparation mencakup seluruh aktivitas preprocessing sebelum Modeling." },
           { q: "Atribut 'Tingkat Kepuasan' dengan nilai (Sangat Puas, Puas, Cukup, Kurang) termasuk jenis atribut...", opts: ["Nominal", "Biner Simetris", "Ordinal", "Rasio"], ans: 2, exp: "Atribut Ordinal memiliki urutan/tingkatan yang jelas tanpa jarak numerik pasti." },
-          { q: "Manakah pasangan teknik yang termasuk ke dalam kategori Descriptive Data Mining?", opts: ["Klasifikasi dan Estimasi", "Regresi Linier dan C4.5", "Analisis Asosiasi dan Klasterisasi", "NaÃ¯ve Bayes dan KNN"], ans: 2, exp: "Asosiasi dan Klasterisasi termasuk Descriptive Data Mining." },
+          { q: "Manakah pasangan teknik yang termasuk ke dalam kategori Descriptive Data Mining?", opts: ["Klasifikasi dan Estimasi", "Regresi Linier dan C4.5", "Analisis Asosiasi dan Klasterisasi", "Naïve Bayes dan KNN"], ans: 2, exp: "Asosiasi dan Klasterisasi termasuk Descriptive Data Mining." },
           { q: "Algoritma pohon keputusan yang menyempurnakan ID3 dengan menggunakan kriteria Gain Ratio adalah...", opts: ["Apriori", "C4.5", "K-Means", "FP-Growth"], ans: 1, exp: "C4.5 memakai Gain Ratio untuk mengatasi bias Information Gain pada ID3." },
-          { q: "Dari 100 transaksi, 40 transaksi membeli Roti, dan 30 transaksi membeli Roti sekaligus Selai. Nilai Confidence(Roti â†’ Selai) adalah...", opts: ["30%", "40%", "75%", "133%"], ans: 2, exp: "Confidence = 30 / 40 = 0.75 = 75%." },
+          { q: "Dari 100 transaksi, 40 transaksi membeli Roti, dan 30 transaksi membeli Roti sekaligus Selai. Nilai Confidence(Roti → Selai) adalah...", opts: ["30%", "40%", "75%", "133%"], ans: 2, exp: "Confidence = 30 / 40 = 0.75 = 75%." },
           { q: "Keunggulan utama algoritma FP-Growth dibandingkan Apriori adalah...", opts: ["Tidak memerlukan minimum support", "Menghindari candidate generation berulang dengan memakai FP-Tree", "Hanya untuk data numerik", "Menghasilkan dendrogram"], ans: 1, exp: "FP-Growth memampatkan database ke dalam FP-Tree sehingga lebih cepat." },
           { q: "Pendekatan klasterisasi bottom-up yang menggabungkan klaster tunggal secara bertahap adalah...", opts: ["K-Means", "Hierarchical Agglomerative Clustering (HAC)", "Divisive Clustering", "Linear Regression"], ans: 1, exp: "HAC bekerja secara bottom-up hingga membentuk hierarki klaster." },
           { q: "Dalam deteksi penipuan, untuk meminimalkan transaksi penipuan yang lolos tidak terdeteksi (False Negative), metrik yang diutamakan adalah...", opts: ["Recall (Sensitivity)", "Specificity", "RMSE", "Support"], ans: 0, exp: "Recall = TP / (TP + FN); meminimalkan FN akan meningkatkan Recall." },
@@ -1278,7 +1289,7 @@
           { q: "Atribut 'Kode Pos' atau 'Nomor Induk Mahasiswa (NIM)' meskipun berupa angka, secara tipe data mining termasuk atribut...", opts: ["Rasio", "Interval", "Nominal", "Kontinu"], ans: 2, exp: "NIM/Kode Pos hanya berfungsi sebagai label identitas tanpa makna urutan atau operasi aritmetika (Nominal)." },
           { q: "Teknik Data Reduction yang bertujuan meringkas dimensi fitur yang sangat banyak menjadi komponen utama baru yang saling orthogonal adalah...", opts: ["PCA (Principal Component Analysis)", "Apriori", "Oversampling", "One-Hot Encoding"], ans: 0, exp: "PCA adalah teknik reduksi dimensi yang umum dipakai pada tahap Data Preparation." },
           { q: "Dalam algoritma K-Nearest Neighbor (KNN), jika nilai K dipilih terlalu kecil (misalnya K=1), risiko yang muncul adalah...", opts: ["Model menjadi sangat sensitif terhadap noise (overfitting)", "Waktu training menjadi berjam-jam", "Tidak bisa dipakai untuk klasifikasi", "Semua data masuk satu klaster"], ans: 0, exp: "K=1 membuat batas keputusan sangat bergantung pada titik noise terdekat." },
-          { q: "Asumsi utama yang membuat algoritma NaÃ¯ve Bayes disebut 'naÃ¯ve' (naif) adalah...", opts: ["Semua fitur saling independen secara bersyarat terhadap kelas", "Semua data harus berdistribusi seragam", "Tidak memerlukan data latih", "Hanya bekerja untuk regresi"], ans: 0, exp: "NaÃ¯ve Bayes mengasumsikan setiap fitur independen satu sama lain jika kelasnya diketahui." },
+          { q: "Asumsi utama yang membuat algoritma Naïve Bayes disebut 'naïve' (naif) adalah...", opts: ["Semua fitur saling independen secara bersyarat terhadap kelas", "Semua data harus berdistribusi seragam", "Tidak memerlukan data latih", "Hanya bekerja untuk regresi"], ans: 0, exp: "Naïve Bayes mengasumsikan setiap fitur independen satu sama lain jika kelasnya diketahui." },
           { q: "Jika suatu itemset {A, B} memiliki Support = 0,25 dan minimum support yang ditetapkan adalah 0,30, maka dalam algoritma Apriori itemset tersebut akan...", opts: ["Dipangkas (pruned) dan tidak dilanjutkan ke kandidat berikutnya", "Dijadikan aturan asosiasi utama", "Digandakan", "Diubah menjadi klaster"], ans: 0, exp: "Prinsip Apriori (anti-monotone): jika suatu itemset tidak frequent, superset-nya juga tidak mungkin frequent sehingga dipangkas." },
           { q: "Pada Hierarchical Clustering (HAC), metode pengukuran jarak antar-klaster yang mengambil jarak TERDEKAT antara dua anggota dari klaster berbeda disebut...", opts: ["Single Linkage", "Complete Linkage", "Average Linkage", "Ward Method"], ans: 0, exp: "Single linkage memakai jarak minimum; Complete linkage memakai jarak maksimum." },
           { q: "Untuk mengevaluasi apakah jumlah klaster K pada K-Means sudah optimal secara internal (seberapa padat klaster & seberapa jauh antar-klaster), metrik yang digunakan adalah...", opts: ["Silhouette Coefficient", "Cross-Entropy", "F1-Score", "R-Squared"], ans: 0, exp: "Silhouette Coefficient mengukur kohesi dalam klaster dan separasi antar-klaster (rentang -1 hingga +1)." },
@@ -1291,27 +1302,27 @@
         short: "Statmat",
         name: "Statistika Matematis",
         exam: "UO 12 Des",
-        icon: "ðŸ“",
-        note: "Modul 1â€“9 Lengkap (SATS4410) â€¢ Menghitung, Bayes, PDF/CDF, Joint/Marginal, Ekspektasi/MGF, Distribusi Khusus, Transformasi & CLT.",
+        icon: "📐",
+        note: "Modul 1–9 Lengkap (SATS4410) • Menghitung, Bayes, PDF/CDF, Joint/Marginal, Ekspektasi/MGF, Distribusi Khusus, Transformasi & CLT.",
         sections: [
           {
-            title: "Modul 1â€“2: Himpunan, Teknik Menghitung & Probabilitas",
+            title: "Modul 1–2: Himpunan, Teknik Menghitung & Probabilitas",
             tag: "Dasar Peluang",
             bullets: [
-              "<b>Teknik Menghitung</b>: <b>Permutasi</b> (urutan penting): <code>P(n,r) = n! / (nâˆ’r)!</code>; <b>Kombinasi</b> (urutan tak penting): <code>C(n,r) = n! / (r!(nâˆ’r)!)</code>.",
-              "<b>Aksioma</b>: <code>0 â‰¤ P(A) â‰¤ 1</code>, <code>P(S) = 1</code>, <code>P(AâˆªB) = P(A) + P(B) âˆ’ P(Aâˆ©B)</code>.",
-              "<b>Bersyarat & Independensi</b>: <code>P(A|B) = P(Aâˆ©B) / P(B)</code>. Independen jika <code>P(Aâˆ©B) = P(A)Â·P(B)</code>.",
-              "<b>Teorema Bayes</b>: <code>P(B<sub>i</sub>|A) = [P(A|B<sub>i</sub>)Â·P(B<sub>i</sub>)] / âˆ‘ P(A|B<sub>j</sub>)Â·P(B<sub>j</sub>)</code>."
+              "<b>Teknik Menghitung</b>: <b>Permutasi</b> (urutan penting): <code>P(n,r) = n! / (n−r)!</code>; <b>Kombinasi</b> (urutan tak penting): <code>C(n,r) = n! / (r!(n−r)!)</code>.",
+              "<b>Aksioma</b>: <code>0 ≤ P(A) ≤ 1</code>, <code>P(S) = 1</code>, <code>P(A∪B) = P(A) + P(B) − P(A∩B)</code>.",
+              "<b>Bersyarat & Independensi</b>: <code>P(A|B) = P(A∩B) / P(B)</code>. Independen jika <code>P(A∩B) = P(A)·P(B)</code>.",
+              "<b>Teorema Bayes</b>: <code>P(B<sub>i</sub>|A) = [P(A|B<sub>i</sub>)·P(B<sub>i</sub>)] / ∑ P(A|B<sub>j</sub>)·P(B<sub>j</sub>)</code>."
             ]
           },
           {
-            title: "Modul 3â€“4: Variabel Random, CDF & Vektor Random",
+            title: "Modul 3–4: Variabel Random, CDF & Vektor Random",
             tag: "Distribusi",
             bullets: [
-              "<b>PMF vs PDF</b>: Diskrit <code>âˆ‘ p(x) = 1</code>; Kontinu <code>âˆ«<sub>âˆ’âˆž</sub><sup>âˆž</sup> f(x) dx = 1</code>.",
-              "<b>CDF</b>: <code>F<sub>X</sub>(x) = P(X â‰¤ x)</code>; kontinu dari kanan, monoton tak turun. Pada kontinu: <code>f(x) = F'(x)</code>.",
-              "<b>Marginal</b>: <code>f<sub>X</sub>(x) = âˆ‘<sub>y</sub> f(x,y)</code> (diskrit) atau <code>âˆ« f(x,y) dy</code> (kontinu).",
-              "<b>Independensi</b>: X, Y independen â‡” <code>f(x,y) = f<sub>X</sub>(x)Â·f<sub>Y</sub>(y)</code>."
+              "<b>PMF vs PDF</b>: Diskrit <code>∑ p(x) = 1</code>; Kontinu <code>∫<sub>−∞</sub><sup>∞</sup> f(x) dx = 1</code>.",
+              "<b>CDF</b>: <code>F<sub>X</sub>(x) = P(X ≤ x)</code>; kontinu dari kanan, monoton tak turun. Pada kontinu: <code>f(x) = F'(x)</code>.",
+              "<b>Marginal</b>: <code>f<sub>X</sub>(x) = ∑<sub>y</sub> f(x,y)</code> (diskrit) atau <code>∫ f(x,y) dy</code> (kontinu).",
+              "<b>Independensi</b>: X, Y independen ⇔ <code>f(x,y) = f<sub>X</sub>(x)·f<sub>Y</sub>(y)</code>."
             ]
           },
           {
@@ -1319,8 +1330,8 @@
             tag: "Momen",
             bullets: [
               "<b>Ekspektasi</b>: <code>E[aX + b] = aE[X] + b</code>.",
-              "<b>Variansi</b>: <code>Var(X) = E[X<sup>2</sup>] âˆ’ (E[X])<sup>2</sup></code>; <code>Var(aX + b) = a<sup>2</sup>Â·Var(X)</code>.",
-              "<b>Kovariansi</b>: <code>Cov(X,Y) = E[XY] âˆ’ E[X]E[Y]</code>.",
+              "<b>Variansi</b>: <code>Var(X) = E[X<sup>2</sup>] − (E[X])<sup>2</sup></code>; <code>Var(aX + b) = a<sup>2</sup>·Var(X)</code>.",
+              "<b>Kovariansi</b>: <code>Cov(X,Y) = E[XY] − E[X]E[Y]</code>.",
               "<b>MGF</b>: <code>M<sub>X</sub>(t) = E[e<sup>tX</sup>]</code>; Momen ke-k: <code>E[X<sup>k</sup>] = M<sub>X</sub><sup>(k)</sup>(0)</code>."
             ]
           },
@@ -1330,34 +1341,34 @@
             table: {
               headers: ["Distribusi", "Tipe", "E[X]", "Var(X) & Ciri Khas"],
               rows: [
-                ["<b>Binomial(n, p)</b>", "Diskrit", "<code>np</code>", "<code>np(1âˆ’p)</code> â€¢ dengan pengembalian"],
+                ["<b>Binomial(n, p)</b>", "Diskrit", "<code>np</code>", "<code>np(1−p)</code> • dengan pengembalian"],
                 ["<b>Hipergeometrik(n,M,N)</b>", "Diskrit", "<code>n(M/N)</code>", "Tanpa pengembalian"],
                 ["<b>Geometrik(p)</b>", "Diskrit", "<code>1/p</code>", "Menunggu sukses ke-1"],
-                ["<b>Poisson(Î»)</b>", "Diskrit", "<code>Î»</code>", "<code>Î»</code> â€¢ Kejadian langka"],
-                ["<b>Eksponensial(Î»)</b>", "Kontinu", "<code>1/Î»</code>", "<code>1/Î»<sup>2</sup></code> â€¢ Sifat <b>memoryless</b>"],
-                ["<b>Normal(Î¼, Ïƒ<sup>2</sup>)</b>", "Kontinu", "<code>Î¼</code>", "<code>Ïƒ<sup>2</sup></code> â€¢ Simetris lonceng"]
+                ["<b>Poisson(λ)</b>", "Diskrit", "<code>λ</code>", "<code>λ</code> • Kejadian langka"],
+                ["<b>Eksponensial(λ)</b>", "Kontinu", "<code>1/λ</code>", "<code>1/λ<sup>2</sup></code> • Sifat <b>memoryless</b>"],
+                ["<b>Normal(μ, σ<sup>2</sup>)</b>", "Kontinu", "<code>μ</code>", "<code>σ<sup>2</sup></code> • Simetris lonceng"]
               ]
             }
           },
           {
-            title: "Modul 8â€“9: Transformasi Variabel Random & CLT",
+            title: "Modul 8–9: Transformasi Variabel Random & CLT",
             tag: "Lanjutan",
             bullets: [
-              "<b>Metode Jacobian</b>: <code>f<sub>Y</sub>(y) = f<sub>X</sub>(g<sup>âˆ’1</sup>(y)) Â· |dx/dy|</code>.",
-              "<b>Hukum Bilangan Besar</b>: <code>XÌ„<sub>n</sub> â†’ Î¼</code> dalam probabilitas.",
-              "<b>Teorema Limit Pusat (CLT)</b>: Untuk <i>n</i> besar, <code>Z<sub>n</sub> = (XÌ„<sub>n</sub> âˆ’ Î¼)/(Ïƒ/âˆšn)</code> mendekati <b>Normal Standar N(0, 1)</b>."
+              "<b>Metode Jacobian</b>: <code>f<sub>Y</sub>(y) = f<sub>X</sub>(g<sup>−1</sup>(y)) · |dx/dy|</code>.",
+              "<b>Hukum Bilangan Besar</b>: <code>X̄<sub>n</sub> → μ</code> dalam probabilitas.",
+              "<b>Teorema Limit Pusat (CLT)</b>: Untuk <i>n</i> besar, <code>Z<sub>n</sub> = (X̄<sub>n</sub> − μ)/(σ/√n)</code> mendekati <b>Normal Standar N(0, 1)</b>."
             ]
           }
         ],
         cheatsheet: [
-          { title: "Peluang & Bayes", items: ["<code>P(AâˆªB) = P(A)+P(B)âˆ’P(Aâˆ©B)</code>", "<code>P(A|B) = P(Aâˆ©B)/P(B)</code>", "Independen: <code>P(Aâˆ©B) = P(A)P(B)</code>", "<code>P(n,r)=n!/(nâˆ’r)!</code> â€¢ <code>C(n,r)=n!/r!(nâˆ’r)!</code>"] },
-          { title: "Ekspektasi, Var & MGF", items: ["<code>Var(X) = E[XÂ²] âˆ’ (E[X])Â²</code>", "<code>Var(aX+b) = aÂ²Var(X)</code>", "<code>Cov(X,Y) = E[XY] âˆ’ E[X]E[Y]</code>", "<code>M_X(t) = E[e^(tX)]</code>; <code>E[X^k] = M^(k)(0)</code>"] },
-          { title: "Distribusi Khusus", items: ["<b>Bin(n,p)</b>: Î¼=np, ÏƒÂ²=np(1âˆ’p)", "<b>Pois(Î»)</b>: Î¼=Î», ÏƒÂ²=Î»", "<b>Exp(Î»)</b>: Î¼=1/Î», ÏƒÂ²=1/Î»Â² (Memoryless)", "<b>Norm(Î¼,ÏƒÂ²)</b>: simetris"] },
-          { title: "Transformasi & CLT", items: ["<b>CDF</b>: <code>f(x) = F'(x)</code>", "<b>Jacobian</b>: <code>f_Y(y) = f_X(x(y))Â·|dx/dy|</code>", "<b>CLT</b>: <code>(XÌ„âˆ’Î¼)/(Ïƒ/âˆšn) ~ N(0,1)</code>"] }
+          { title: "Peluang & Bayes", items: ["<code>P(A∪B) = P(A)+P(B)−P(A∩B)</code>", "<code>P(A|B) = P(A∩B)/P(B)</code>", "Independen: <code>P(A∩B) = P(A)P(B)</code>", "<code>P(n,r)=n!/(n−r)!</code> • <code>C(n,r)=n!/r!(n−r)!</code>"] },
+          { title: "Ekspektasi, Var & MGF", items: ["<code>Var(X) = E[X²] − (E[X])²</code>", "<code>Var(aX+b) = a²Var(X)</code>", "<code>Cov(X,Y) = E[XY] − E[X]E[Y]</code>", "<code>M_X(t) = E[e^(tX)]</code>; <code>E[X^k] = M^(k)(0)</code>"] },
+          { title: "Distribusi Khusus", items: ["<b>Bin(n,p)</b>: μ=np, σ²=np(1−p)", "<b>Pois(λ)</b>: μ=λ, σ²=λ", "<b>Exp(λ)</b>: μ=1/λ, σ²=1/λ² (Memoryless)", "<b>Norm(μ,σ²)</b>: simetris"] },
+          { title: "Transformasi & CLT", items: ["<b>CDF</b>: <code>f(x) = F'(x)</code>", "<b>Jacobian</b>: <code>f_Y(y) = f_X(x(y))·|dx/dy|</code>", "<b>CLT</b>: <code>(X̄−μ)/(σ/√n) ~ N(0,1)</code>"] }
         ],
         traps: [
-          { trap: "Var(X âˆ’ Y) saat X, Y Independen", fix: "Jangan dikurangi! <code>Var(X âˆ’ Y) = Var(X) + (âˆ’1)Â²Var(Y) = Var(X) + Var(Y)</code>." },
-          { trap: "Cov(X, Y) = 0 â‰  Pasti Independen", fix: "Independen â†’ Cov = 0, tapi Cov = 0 hanya berarti tidak ada hubungan <i>linear</i> (bisa tetap dependen secara kuadratik/non-linear)." },
+          { trap: "Var(X − Y) saat X, Y Independen", fix: "Jangan dikurangi! <code>Var(X − Y) = Var(X) + (−1)²Var(Y) = Var(X) + Var(Y)</code>." },
+          { trap: "Cov(X, Y) = 0 ≠ Pasti Independen", fix: "Independen → Cov = 0, tapi Cov = 0 hanya berarti tidak ada hubungan <i>linear</i> (bisa tetap dependen secara kuadratik/non-linear)." },
           { trap: "Binomial vs Hipergeometrik", fix: "<b>Binomial</b> = pengambilan <i>dengan pengembalian</i> (peluang p konstan). <b>Hipergeometrik</b> = <i>tanpa pengembalian</i> dari populasi terbatas." },
           { trap: "Lupa |dx/dy| pada Metode Jacobian", fix: "Saat transformasi <code>Y = g(X)</code>, wajib kalikan dengan nilai mutlak turunan invers <code>|dx/dy|</code>, dan sesuaikan batas daerah nilai <code>y</code>!" }
         ],
@@ -1365,58 +1376,58 @@
           {
             q: "Diketahui fungsi densitas bersama f(x, y) = 8xy untuk 0 < x < y < 1 (dan 0 selainnya). Tentukan fungsi densitas marginal f_X(x) dan f_Y(y), lalu periksa apakah X dan Y independen!",
             rubric: [
-              "<b>Marginal f_X(x)</b>: Integralkan terhadap y dari x sampai 1 â†’ <code>âˆ«_x^1 8xy dy = 8x[yÂ²/2]_x^1 = 4x(1 âˆ’ xÂ²)</code> untuk 0 < x < 1.",
-              "<b>Marginal f_Y(y)</b>: Integralkan terhadap x dari 0 sampai y â†’ <code>âˆ«_0^y 8xy dx = 8y[xÂ²/2]_0^y = 4yÂ³</code> untuk 0 < y < 1.",
-              "<b>Independensi</b>: Karena <code>f_X(x)Â·f_Y(y) = 16xyÂ³(1âˆ’xÂ²) â‰  8xy</code> (dan daerah definisi segitiga 0 < x < y < 1 bukan persegi panjang), maka X dan Y <b>tidak independen</b>."
+              "<b>Marginal f_X(x)</b>: Integralkan terhadap y dari x sampai 1 → <code>∫_x^1 8xy dy = 8x[y²/2]_x^1 = 4x(1 − x²)</code> untuk 0 < x < 1.",
+              "<b>Marginal f_Y(y)</b>: Integralkan terhadap x dari 0 sampai y → <code>∫_0^y 8xy dx = 8y[x²/2]_0^y = 4y³</code> untuk 0 < y < 1.",
+              "<b>Independensi</b>: Karena <code>f_X(x)·f_Y(y) = 16xy³(1−x²) ≠ 8xy</code> (dan daerah definisi segitiga 0 < x < y < 1 bukan persegi panjang), maka X dan Y <b>tidak independen</b>."
             ]
           },
           {
-            q: "Sebuah mesin rusak mengikuti distribusi Eksponensial dengan rata-rata waktu hidup 5 tahun. Tentukan parameter Î», dan hitung probabilitas mesin tersebut bertahan lebih dari 8 tahun jika diketahui sudah bertahan 3 tahun!",
+            q: "Sebuah mesin rusak mengikuti distribusi Eksponensial dengan rata-rata waktu hidup 5 tahun. Tentukan parameter λ, dan hitung probabilitas mesin tersebut bertahan lebih dari 8 tahun jika diketahui sudah bertahan 3 tahun!",
             rubric: [
-              "<b>Parameter Î»</b>: Mean <code>E[X] = 1/Î» = 5</code> â†’ <code>Î» = 1/5 = 0,2</code>.",
+              "<b>Parameter λ</b>: Mean <code>E[X] = 1/λ = 5</code> → <code>λ = 1/5 = 0,2</code>.",
               "<b>Sifat Memoryless</b>: <code>P(X > 3 + 5 | X > 3) = P(X > 5)</code>.",
-              "<b>Hasil</b>: <code>P(X > 5) = e^(âˆ’Î»Â·5) = e^(âˆ’0,2 Ã— 5) = e^(âˆ’1) â‰ˆ 0,3679</code>."
+              "<b>Hasil</b>: <code>P(X > 5) = e^(−λ·5) = e^(−0,2 × 5) = e^(−1) ≈ 0,3679</code>."
             ]
           },
           {
-            q: "Misalkan X ~ Uniform(0, 1) dengan f(x) = 1 (0 < x < 1). Tentukan fungsi densitas dari Y = âˆ’2 ln(X) menggunakan metode CDF atau Jacobian, dan identifikasi distribusinya!",
+            q: "Misalkan X ~ Uniform(0, 1) dengan f(x) = 1 (0 < x < 1). Tentukan fungsi densitas dari Y = −2 ln(X) menggunakan metode CDF atau Jacobian, dan identifikasi distribusinya!",
             rubric: [
-              "<b>Invers & Jacobian</b>: <code>X = e^(âˆ’y/2)</code>, maka <code>|dx/dy| = (1/2)e^(âˆ’y/2)</code> untuk <code>y > 0</code>.",
-              "<b>Densitas Y</b>: <code>f_Y(y) = 1 Â· (1/2)e^(âˆ’y/2) = (1/2)e^(âˆ’y/2)</code> untuk <code>y > 0</code>.",
-              "<b>Identifikasi</b>: Ini adalah distribusi <b>Eksponensial(Î» = 1/2)</b> atau <b>Chi-Square dengan df = 2</b>."
+              "<b>Invers & Jacobian</b>: <code>X = e^(−y/2)</code>, maka <code>|dx/dy| = (1/2)e^(−y/2)</code> untuk <code>y > 0</code>.",
+              "<b>Densitas Y</b>: <code>f_Y(y) = 1 · (1/2)e^(−y/2) = (1/2)e^(−y/2)</code> untuk <code>y > 0</code>.",
+              "<b>Identifikasi</b>: Ini adalah distribusi <b>Eksponensial(λ = 1/2)</b> atau <b>Chi-Square dengan df = 2</b>."
             ]
           }
         ],
         flashcards: [
-          { q: "Apa syarat dua kejadian A dan B disebut independen?", a: "P(A âˆ© B) = P(A) Â· P(B), atau setara dengan P(A|B) = P(A) jika P(B) > 0." },
-          { q: "Bagaimana rumus praktis menghitung Variansi Var(X)?", a: "Var(X) = E[XÂ²] âˆ’ (E[X])Â², dan sifat skalanya: Var(aX + b) = aÂ² Â· Var(X)." },
+          { q: "Apa syarat dua kejadian A dan B disebut independen?", a: "P(A ∩ B) = P(A) · P(B), atau setara dengan P(A|B) = P(A) jika P(B) > 0." },
+          { q: "Bagaimana rumus praktis menghitung Variansi Var(X)?", a: "Var(X) = E[X²] − (E[X])², dan sifat skalanya: Var(aX + b) = a² · Var(X)." },
           { q: "Bagaimana cara mencari distribusi marginal f_X(x) dari distribusi bersama f(x,y)?", a: "Jumlahkan (diskrit) atau integralkan (kontinu) f(x,y) terhadap semua nilai y." },
           { q: "Apa definisi Fungsi Pembangkit Momen (MGF) dan kegunaannya?", a: "M_X(t) = E[e^(tX)]. Turunan ke-k di t=0 menghasilkan momen ke-k: E[X^k] = M_X^(k)(0), dan MGF menentukan distribusi secara unik." },
           { q: "Distribusi kontinu apa yang memiliki sifat 'memoryless' (tanpa ingatan)?", a: "Distribusi Eksponensial: P(X > a + t | X > a) = P(X > t)." },
           { q: "Apa perbedaan utama distribusi Binomial dan Hipergeometrik?", a: "Binomial untuk pengambilan DENGAN pengembalian (probabilitas p tetap), sedangkan Hipergeometrik untuk pengambilan TANPA pengembalian." },
-          { q: "Apa rumus transformasi densitas (metode Jacobian) untuk Y = g(X) monoton?", a: "f_Y(y) = f_X(gâ»Â¹(y)) Â· |dx/dy|." },
+          { q: "Apa rumus transformasi densitas (metode Jacobian) untuk Y = g(X) monoton?", a: "f_Y(y) = f_X(g⁻¹(y)) · |dx/dy|." },
           { q: "Apa inti dari Teorema Limit Pusat (Central Limit Theorem)?", a: "Untuk ukuran sampel n yang cukup besar, distribusi rata-rata sampel yang distandardisasi akan mendekati Normal Standar N(0, 1)." }
         ],
         quiz: [
-          { q: "Dari 5 orang calon, akan dipilih 3 orang untuk jabatan Ketua, Sekretaris, dan Bendahara. Banyaknya susunan yang mungkin adalah...", opts: ["10", "15", "60", "125"], ans: 2, exp: "Urutan jabatan penting â†’ Permutasi P(5,3) = 5 Ã— 4 Ã— 3 = 60." },
-          { q: "Jika A dan B independen dengan P(A) = 0,4 dan P(B) = 0,5, maka P(A âˆª B) adalah...", opts: ["0,20", "0,70", "0,90", "0,10"], ans: 1, exp: "P(Aâˆ©B) = 0,4 Ã— 0,5 = 0,20. P(AâˆªB) = 0,4 + 0,5 âˆ’ 0,2 = 0,70." },
-          { q: "Diketahui E[X] = 5 dan E[XÂ²] = 29. Nilai dari Var(2X âˆ’ 3) adalah...", opts: ["4", "8", "16", "13"], ans: 2, exp: "Var(X) = 29 âˆ’ 25 = 4. Var(2X âˆ’ 3) = 2Â² Ã— 4 = 16." },
-          { q: "Fungsi distribusi kumulatif (CDF) F(x) dari variabel random kontinu X memenuhi hubungan...", opts: ["f(x) = âˆ« F(x) dx", "f(x) = F'(x)", "F(x) = f'(x)", "F(x) = 1 âˆ’ f(x)"], ans: 1, exp: "Fungsi densitas f(x) adalah turunan pertama dari CDF F(x)." },
-          { q: "Variabel random X dan Y independen jika fungsi densitas bersamanya memenuhi...", opts: ["f(x,y) = f_X(x) + f_Y(y)", "f(x,y) = f_X(x) Â· f_Y(y)", "Cov(X,Y) = 1", "E[X+Y] = E[X] + E[Y]"], ans: 1, exp: "Syarat perlu dan cukup independensi: f(x,y) = f_X(x) Â· f_Y(y)." },
-          { q: "Jika MGF variabel random X adalah M_X(t) = e^(3t + 2tÂ²), maka nilai E[X] adalah...", opts: ["2", "3", "4", "6"], ans: 1, exp: "E[X] = M'_X(0) = (3 + 4t)e^(3t+2tÂ²) pada t=0, hasilnya 3." },
-          { q: "Distribusi diskrit yang memiliki nilai rata-rata dan variansi sama besar (E[X] = Var(X) = Î») adalah...", opts: ["Binomial", "Geometrik", "Poisson", "Hipergeometrik"], ans: 2, exp: "Pada distribusi Poisson(Î»), mean dan variansi sama-sama bernilai Î»." },
+          { q: "Dari 5 orang calon, akan dipilih 3 orang untuk jabatan Ketua, Sekretaris, dan Bendahara. Banyaknya susunan yang mungkin adalah...", opts: ["10", "15", "60", "125"], ans: 2, exp: "Urutan jabatan penting → Permutasi P(5,3) = 5 × 4 × 3 = 60." },
+          { q: "Jika A dan B independen dengan P(A) = 0,4 dan P(B) = 0,5, maka P(A ∪ B) adalah...", opts: ["0,20", "0,70", "0,90", "0,10"], ans: 1, exp: "P(A∩B) = 0,4 × 0,5 = 0,20. P(A∪B) = 0,4 + 0,5 − 0,2 = 0,70." },
+          { q: "Diketahui E[X] = 5 dan E[X²] = 29. Nilai dari Var(2X − 3) adalah...", opts: ["4", "8", "16", "13"], ans: 2, exp: "Var(X) = 29 − 25 = 4. Var(2X − 3) = 2² × 4 = 16." },
+          { q: "Fungsi distribusi kumulatif (CDF) F(x) dari variabel random kontinu X memenuhi hubungan...", opts: ["f(x) = ∫ F(x) dx", "f(x) = F'(x)", "F(x) = f'(x)", "F(x) = 1 − f(x)"], ans: 1, exp: "Fungsi densitas f(x) adalah turunan pertama dari CDF F(x)." },
+          { q: "Variabel random X dan Y independen jika fungsi densitas bersamanya memenuhi...", opts: ["f(x,y) = f_X(x) + f_Y(y)", "f(x,y) = f_X(x) · f_Y(y)", "Cov(X,Y) = 1", "E[X+Y] = E[X] + E[Y]"], ans: 1, exp: "Syarat perlu dan cukup independensi: f(x,y) = f_X(x) · f_Y(y)." },
+          { q: "Jika MGF variabel random X adalah M_X(t) = e^(3t + 2t²), maka nilai E[X] adalah...", opts: ["2", "3", "4", "6"], ans: 1, exp: "E[X] = M'_X(0) = (3 + 4t)e^(3t+2t²) pada t=0, hasilnya 3." },
+          { q: "Distribusi diskrit yang memiliki nilai rata-rata dan variansi sama besar (E[X] = Var(X) = λ) adalah...", opts: ["Binomial", "Geometrik", "Poisson", "Hipergeometrik"], ans: 2, exp: "Pada distribusi Poisson(λ), mean dan variansi sama-sama bernilai λ." },
           { q: "Sifat 'memoryless' P(X > a + t | X > a) = P(X > t) dimiliki oleh distribusi kontinu...", opts: ["Normal", "Beta", "Eksponensial", "Uniform"], ans: 2, exp: "Distribusi Eksponensial adalah satu-satunya distribusi kontinu dengan sifat memoryless." },
-          { q: "Misalkan X ~ Uniform(0, 1) dan Y = 2X + 1. Fungsi densitas dari Y untuk 1 < y < 3 adalah...", opts: ["h(y) = 2", "h(y) = 1/2", "h(y) = 1", "h(y) = y/2"], ans: 1, exp: "x = (yâˆ’1)/2 â†’ |dx/dy| = 1/2 â†’ h(y) = 1 Â· (1/2) = 1/2." },
-          { q: "Berdasarkan Teorema Limit Pusat (CLT), untuk n â†’ âˆž, distribusi (XÌ„ âˆ’ Î¼)/(Ïƒ/âˆšn) mendekati...", opts: ["Poisson(1)", "Eksponensial(1)", "Normal Standar N(0, 1)", "Uniform(0, 1)"], ans: 2, exp: "CLT menjamin rata-rata sampel terstandardisasi konvergen ke Normal Standar N(0,1)." },
-          { q: "Diketahui f(x) = cx untuk 0 < x < 2 (dan 0 selainnya). Agar f(x) merupakan fungsi densitas (PDF) yang sah, nilai c adalah...", opts: ["1/4", "1/2", "1", "2"], ans: 1, exp: "âˆ«â‚€Â² cx dx = cÂ·[xÂ²/2]â‚€Â² = 2c = 1 â†’ c = 1/2." },
-          { q: "Jika X ~ Binomial(n = 10, p = 0,3), maka nilai E[X] dan Var(X) berturut-turut adalah...", opts: ["3 dan 2,1", "3 dan 3", "7 dan 2,1", "0,3 dan 0,21"], ans: 0, exp: "E[X] = np = 10 Ã— 0,3 = 3; Var(X) = np(1âˆ’p) = 3 Ã— 0,7 = 2,1." },
+          { q: "Misalkan X ~ Uniform(0, 1) dan Y = 2X + 1. Fungsi densitas dari Y untuk 1 < y < 3 adalah...", opts: ["h(y) = 2", "h(y) = 1/2", "h(y) = 1", "h(y) = y/2"], ans: 1, exp: "x = (y−1)/2 → |dx/dy| = 1/2 → h(y) = 1 · (1/2) = 1/2." },
+          { q: "Berdasarkan Teorema Limit Pusat (CLT), untuk n → ∞, distribusi (X̄ − μ)/(σ/√n) mendekati...", opts: ["Poisson(1)", "Eksponensial(1)", "Normal Standar N(0, 1)", "Uniform(0, 1)"], ans: 2, exp: "CLT menjamin rata-rata sampel terstandardisasi konvergen ke Normal Standar N(0,1)." },
+          { q: "Diketahui f(x) = cx untuk 0 < x < 2 (dan 0 selainnya). Agar f(x) merupakan fungsi densitas (PDF) yang sah, nilai c adalah...", opts: ["1/4", "1/2", "1", "2"], ans: 1, exp: "∫₀² cx dx = c·[x²/2]₀² = 2c = 1 → c = 1/2." },
+          { q: "Jika X ~ Binomial(n = 10, p = 0,3), maka nilai E[X] dan Var(X) berturut-turut adalah...", opts: ["3 dan 2,1", "3 dan 3", "7 dan 2,1", "0,3 dan 0,21"], ans: 0, exp: "E[X] = np = 10 × 0,3 = 3; Var(X) = np(1−p) = 3 × 0,7 = 2,1." },
           { q: "Dari 10 bola (4 merah, 6 biru), diambil 3 bola sekaligus TANPA pengembalian. Banyaknya bola merah yang terambil mengikuti distribusi...", opts: ["Binomial", "Hipergeometrik", "Poisson", "Geometrik"], ans: 1, exp: "Pengambilan sampel tanpa pengembalian dari populasi terbatas mengikuti distribusi Hipergeometrik." },
-          { q: "Jika X dan Y adalah dua variabel random independen dengan Var(X) = 4 dan Var(Y) = 9, maka nilai Var(X âˆ’ Y) adalah...", opts: ["âˆ’5", "5", "13", "36"], ans: 2, exp: "Karena independen, Cov(X,Y)=0 dan Var(X âˆ’ Y) = Var(X) + (âˆ’1)Â²Var(Y) = 4 + 9 = 13." },
+          { q: "Jika X dan Y adalah dua variabel random independen dengan Var(X) = 4 dan Var(Y) = 9, maka nilai Var(X − Y) adalah...", opts: ["−5", "5", "13", "36"], ans: 2, exp: "Karena independen, Cov(X,Y)=0 dan Var(X − Y) = Var(X) + (−1)²Var(Y) = 4 + 9 = 13." },
           { q: "Nilai kuantil ke-0,5 (p = 0,5) dari suatu distribusi probabilitas juga dikenal sebagai...", opts: ["Modus", "Median", "Variansi", "Skewness"], ans: 1, exp: "Kuantil ke-0,5 membagi distribusi menjadi dua bagian sama besar (50% di bawah, 50% di atas), yaitu Median." },
-          { q: "Jika diketahui P(A) = 0,6, P(B|A) = 0,5, maka nilai P(A âˆ© B) adalah...", opts: ["0,1", "0,3", "0,55", "0,83"], ans: 1, exp: "P(A âˆ© B) = P(B|A) Â· P(A) = 0,5 Ã— 0,6 = 0,3." },
-          { q: "Diketahui MGF M_X(t) = (1 âˆ’ 2t)â»Â¹ untuk t < 1/2. Ini merupakan MGF dari distribusi Eksponensial dengan parameter Î» = ...", opts: ["1/2", "1", "2", "4"], ans: 0, exp: "MGF Exp(Î») adalah Î» / (Î» âˆ’ t) = 1 / (1 âˆ’ t/Î»). Jika 1/(1 âˆ’ 2t), maka 1/Î» = 2 â†’ Î» = 1/2." },
-          { q: "Jika dua variabel random memiliki Cov(X, Y) = 0, apakah keduanya PASTI independen?", opts: ["Ya, selalu pasti independen", "Tidak selalu (independen â†’ Cov=0, namun kebalikannya tidak selalu berlaku)", "Hanya jika diskrit", "Hanya jika variansi nol"], ans: 1, exp: "Independensi menjamin Cov(X,Y)=0, tetapi Cov(X,Y)=0 hanya berarti tidak ada hubungan linear (bisa tetap dependen non-linear)." },
-          { q: "Pada distribusi Uniform diskrit X pada {1, 2, ..., n}, nilai ekspektasi E[X] adalah...", opts: ["n / 2", "(n + 1) / 2", "(n âˆ’ 1) / 2", "nÂ² / 12"], ans: 1, exp: "E[X] = (1 + 2 + ... + n)/n = [n(n+1)/2]/n = (n + 1)/2." },
+          { q: "Jika diketahui P(A) = 0,6, P(B|A) = 0,5, maka nilai P(A ∩ B) adalah...", opts: ["0,1", "0,3", "0,55", "0,83"], ans: 1, exp: "P(A ∩ B) = P(B|A) · P(A) = 0,5 × 0,6 = 0,3." },
+          { q: "Diketahui MGF M_X(t) = (1 − 2t)⁻¹ untuk t < 1/2. Ini merupakan MGF dari distribusi Eksponensial dengan parameter λ = ...", opts: ["1/2", "1", "2", "4"], ans: 0, exp: "MGF Exp(λ) adalah λ / (λ − t) = 1 / (1 − t/λ). Jika 1/(1 − 2t), maka 1/λ = 2 → λ = 1/2." },
+          { q: "Jika dua variabel random memiliki Cov(X, Y) = 0, apakah keduanya PASTI independen?", opts: ["Ya, selalu pasti independen", "Tidak selalu (independen → Cov=0, namun kebalikannya tidak selalu berlaku)", "Hanya jika diskrit", "Hanya jika variansi nol"], ans: 1, exp: "Independensi menjamin Cov(X,Y)=0, tetapi Cov(X,Y)=0 hanya berarti tidak ada hubungan linear (bisa tetap dependen non-linear)." },
+          { q: "Pada distribusi Uniform diskrit X pada {1, 2, ..., n}, nilai ekspektasi E[X] adalah...", opts: ["n / 2", "(n + 1) / 2", "(n − 1) / 2", "n² / 12"], ans: 1, exp: "E[X] = (1 + 2 + ... + n)/n = [n(n+1)/2]/n = (n + 1)/2." },
           { q: "Dalam Teorema Bayes, probabilitas awal sebelum memperoleh bukti/informasi baru P(B_i) disebut probabilitas...", opts: ["Posterior", "Likelihood", "Prior", "Marginal"], ans: 2, exp: "P(B_i) adalah probabilitas prior, sedangkan P(B_i|A) adalah probabilitas posterior setelah melihat kejadian A." }
         ]
       }
@@ -1485,7 +1496,7 @@
         document.documentElement.classList.toggle("light");
         const isLight = document.documentElement.classList.contains("light");
         localStorage.setItem("ut_theme", isLight ? "light" : "dark");
-        showToast(isLight ? "â˜€ï¸ Tema Terang aktif" : "ðŸŒ™ Tema Gelap aktif");
+        showToast(isLight ? "☀️ Tema Terang aktif" : "🌙 Tema Gelap aktif");
       };
     };
 
@@ -1516,23 +1527,23 @@
       if (state.view === "home") {
         backBtn.style.display = "none";
         title.textContent = "UT Prep Hub";
-        sub.textContent = "Sains Data UT Bandung â€¢ Sem 3";
+        sub.textContent = "Sains Data UT Bandung • Sem 3";
         const diff = Math.ceil((new Date("2026-11-28T00:00:00+07:00") - now) / 86400000);
         badge.textContent = diff > 0 ? `H-${diff} UTM` : "UTM Berjalan";
       } else {
         backBtn.style.display = "inline-block";
         if (state.cramMode) {
-          title.textContent = "âš¡ Cramming 5 Menit";
-          sub.textContent = "Soal Salah & Ditandai â­";
+          title.textContent = "⚡ Cramming 5 Menit";
+          sub.textContent = "Soal Salah & Ditandai ⭐";
           badge.textContent = "Mode Kilat";
         } else if (isMixedUTM()) {
-          title.textContent = "ðŸŽ¯ Simulasi UTM";
-          sub.textContent = "Campuran 4 Matkul (28â€“29 Nov)";
+          title.textContent = "🎯 Simulasi UTM";
+          sub.textContent = "Campuran 4 Matkul (28–29 Nov)";
           badge.textContent = "20 Soal Acak";
         } else {
           const s = currentSubject();
           title.textContent = `${s.icon} ${s.short}`;
-          sub.textContent = `${s.code} â€¢ ${s.name}`;
+          sub.textContent = `${s.code} • ${s.name}`;
           let targetStr = "2026-11-28T00:00:00+07:00", label = "UTM";
           if (s.exam.includes("29 Nov")) targetStr = "2026-11-29T00:00:00+07:00";
           else if (s.exam.includes("12 Des")) { targetStr = "2026-12-12T00:00:00+07:00"; label = "UO"; }
@@ -1551,6 +1562,8 @@
 
       const lastIdx = typeof state.subjectIdx === "number" ? state.subjectIdx : 0;
       const lastSubj = DATA[lastIdx];
+      const stepMap = { summary: 1, cheatsheet: 2, flashcard: 3, quiz: 4 };
+      const lastStepNum = stepMap[state.mode] || 1;
 
       const renderCard = (s, i) => {
         const st = getSubjectStats(s);
@@ -1559,15 +1572,15 @@
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
               <div>
                 <div style="font-size:15px;font-weight:800;">${s.icon} ${s.name}</div>
-                <div style="font-size:11.5px;color:var(--muted);">${s.code} â€¢ ${s.exam}</div>
+                <div style="font-size:11.5px;color:var(--muted);">${s.code} • ${s.exam}</div>
               </div>
               <span class="pill-badge" style="background:${st.qPct>=80?'var(--success-bg)':'var(--primary-bg)'};color:${st.qPct>=80?'var(--success)':'var(--primary)'};">Kuis ${st.qPct}%</span>
             </div>
             <div class="lc-dots">
-              <div class="lc-pill ${st.readDone?'done':''}">${st.readDone?'âœ“':'1.'} Materi</div>
-              <div class="lc-pill ${st.formulaDone?'done':''}">${st.formulaDone?'âœ“':'2.'} Rumus</div>
-              <div class="lc-pill ${st.fcDone?'done':''}">${st.fcDone?'âœ“':'3.'} Kartu</div>
-              <div class="lc-pill ${st.quizDone?'done':''}">${st.quizDone?'âœ“':'4.'} Uji</div>
+              <div class="lc-pill ${st.readDone?'done':''}">${st.readDone?'✓':'1.'} Materi</div>
+              <div class="lc-pill ${st.formulaDone?'done':''}">${st.formulaDone?'✓':'2.'} Rumus</div>
+              <div class="lc-pill ${st.fcDone?'done':''}">${st.fcDone?'✓':'3.'} Kartu</div>
+              <div class="lc-pill ${st.quizDone?'done':''}">${st.quizDone?'✓':'4.'} Uji</div>
             </div>
           </div>
         `;
@@ -1577,23 +1590,23 @@
         <div class="hero-card">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
             <div>
-              <div style="font-size:12px;font-weight:800;color:var(--primary);text-transform:uppercase;letter-spacing:0.05em;">Kesiapan UTM (28â€“29 Nov)</div>
+              <div style="font-size:12px;font-weight:800;color:var(--primary);text-transform:uppercase;letter-spacing:0.05em;">Kesiapan UTM (28–29 Nov)</div>
               <div style="font-size:22px;font-weight:800;margin-top:2px;">${utmPct}% Siap Tempur</div>
-              <div style="font-size:12.5px;color:var(--muted);margin-top:2px;">Alur belajar: 1. Pahami â†’ 2. Kuasai â†’ 3. Hafal â†’ 4. Uji Diri</div>
+              <div style="font-size:12.5px;color:var(--muted);margin-top:2px;">Alur belajar: 1. Pahami → 2. Kuasai → 3. Hafal → 4. Uji Diri</div>
             </div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <button class="btn btn-primary" onclick="openSubject(${lastIdx})">â–¶ Lanjut: ${lastSubj.short}</button>
-              <button class="btn btn-warn" onclick="startCramMode()">âš¡ Cram 5 Menit</button>
-              <button class="btn" onclick="startMixedUTM()">ðŸŽ¯ Simulasi UTM</button>
+              <button class="btn btn-primary" onclick="openSubject(${lastIdx})">▶ Lanjut: ${lastSubj.short} • Langkah ${lastStepNum}</button>
+              <button class="btn btn-warn" onclick="startCramMode()">⚡ Cram 5 Menit</button>
+              <button class="btn" onclick="startMixedUTM()">🎯 Simulasi UTM</button>
             </div>
           </div>
           <div class="progress-bar-wrap" style="margin-top:12px;"><div class="progress-bar-fill" style="width:${utmPct}%"></div></div>
         </div>
 
-        <div class="sec-title">ðŸ”¥ Prioritas UTM (28â€“29 November)</div>
+        <div class="sec-title">🔥 Prioritas UTM (28–29 November)</div>
         <div class="subj-grid">${utmList.map((s, i) => renderCard(s, i)).join("")}</div>
 
-        <div class="sec-title">ðŸ“˜ Persiapan UO (12 Desember)</div>
+        <div class="sec-title">📘 Persiapan UO (12 Desember)</div>
         <div class="subj-grid">${uoList.map((s, i) => renderCard(s, i + 4)).join("")}</div>
       `;
     }
@@ -1617,7 +1630,7 @@
         <div class="stepper">
           ${steps.map(sp => `
             <button class="step-btn ${state.mode===sp.id?'active':''} ${sp.done?'done':''}" onclick="setMode('${sp.id}')">
-              <span class="st-num">${sp.done ? "âœ“" : sp.num}</span>
+              <span class="st-num">${sp.done ? "✓" : sp.num}</span>
               <span>${sp.label}</span>
             </button>
           `).join("")}
@@ -1642,14 +1655,14 @@
 
       return `
         <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
-          <input class="input-field" style="margin:0;" type="search" placeholder="ðŸ” Cari topik di ${s.short}..." value="${state.search}" oninput="onSearch(this.value)" />
-          <button class="btn" style="white-space:nowrap;" onclick="speakSummary()">ðŸ”Š Audio</button>
+          <input class="input-field" style="margin:0;" type="search" placeholder="🔍 Cari topik di ${s.short}..." value="${state.search}" oninput="onSearch(this.value)" />
+          <button class="btn" style="white-space:nowrap;" onclick="speakSummary()">🔊 Audio</button>
         </div>
         ${filtered.map((sec, idx) => `
           <div class="acc-item ${idx === 0 || q ? "open" : ""}" id="acc_${idx}">
             <button class="acc-head" onclick="document.getElementById('acc_${idx}').classList.toggle('open')">
               <span><span class="tag">${sec.tag}</span>${sec.title}</span>
-              <span class="acc-chevron">â–¼</span>
+              <span class="acc-chevron">▼</span>
             </button>
             <div class="acc-body">
               ${sec.bullets ? `<ul>${sec.bullets.map(b => `<li>${b}</li>`).join("")}</ul>` : ""}
@@ -1665,7 +1678,7 @@
           </div>
         `).join("")}
         <div class="card" style="margin-top:12px;">
-          <div style="font-size:13px;font-weight:700;margin-bottom:6px;">ðŸ“ Sticky Notes â€” ${s.short}</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px;">📝 Sticky Notes — ${s.short}</div>
           <textarea rows="3" placeholder="Tulis catatan pribadi atau poin penting dari Tuton..." oninput="saveNote('${s.id}', this.value)">${noteVal}</textarea>
         </div>
         <div class="next-cta">
@@ -1673,7 +1686,7 @@
             <div style="font-weight:800;font-size:13.5px;">Langkah 1 Selesai?</div>
             <div style="font-size:12px;color:var(--muted);">Lanjut ke Cheat Sheet rumus &amp; jebakan ujian.</div>
           </div>
-          <button class="btn btn-primary" onclick="completeStep('read', 'cheatsheet')">${readDone ? "Lanjut ke Langkah 2 â†’" : "âœ“ Tandai Paham & Lanjut â†’"}</button>
+          <button class="btn btn-primary" onclick="completeStep('read', 'cheatsheet')">${readDone ? "Lanjut ke Langkah 2 →" : "✓ Tandai Paham & Lanjut →"}</button>
         </div>
       `;
     }
@@ -1701,27 +1714,28 @@
       if (st.type === "binom") {
         const n = Math.max(1, Math.min(20, +st.n || 10)), k = Math.max(0, Math.min(n, +st.k || 0)), p = Math.max(0, Math.min(1, +st.p || 0));
         const prob = (fact(n) / (fact(k) * fact(n - k))) * Math.pow(p, k) * Math.pow(1 - p, n - k);
-        statOut = `P(X = ${k}) = <b>${prob.toFixed(5)}</b> â€¢ E[X] = <b>${(n * p).toFixed(2)}</b> â€¢ Var(X) = <b>${(n * p * (1 - p)).toFixed(3)}</b>`;
+        statOut = `P(X = ${k}) = <b>${prob.toFixed(5)}</b> • E[X] = <b>${(n * p).toFixed(2)}</b> • Var(X) = <b>${(n * p * (1 - p)).toFixed(3)}</b>`;
       } else if (st.type === "poisson") {
         const lam = Math.max(0.01, +st.lam || 1), k = Math.max(0, Math.min(20, +st.k || 0));
         const prob = (Math.pow(lam, k) * Math.exp(-lam)) / fact(k);
-        statOut = `P(X = ${k}) = <b>${prob.toFixed(5)}</b> â€¢ E[X] = Var(X) = <b>${lam}</b>`;
+        statOut = `P(X = ${k}) = <b>${prob.toFixed(5)}</b> • E[X] = Var(X) = <b>${lam}</b>`;
       } else if (st.type === "exp") {
         const lam = Math.max(0.01, +st.lam || 1), x = Math.max(0, +st.x || 0);
         const cdf = 1 - Math.exp(-lam * x);
-        statOut = `P(X â‰¤ ${x}) = <b>${cdf.toFixed(5)}</b> â€¢ P(X > ${x}) = <b>${(1 - cdf).toFixed(5)}</b> â€¢ E[X] = <b>${(1 / lam).toFixed(3)}</b>`;
+        statOut = `P(X ≤ ${x}) = <b>${cdf.toFixed(5)}</b> • P(X > ${x}) = <b>${(1 - cdf).toFixed(5)}</b> • E[X] = <b>${(1 / lam).toFixed(3)}</b>`;
       } else {
         const mu = +st.mu || 0, sd = Math.max(0.01, +st.sd || 1), x = +st.x || 0;
         const z = (x - mu) / sd;
         const cdf = 0.5 * (1 + erfApprox(z / Math.SQRT2));
-        statOut = `Z = <b>${z.toFixed(3)}</b> â€¢ P(X â‰¤ ${x}) = <b>${cdf.toFixed(5)}</b>`;
+        statOut = `Z = <b>${z.toFixed(3)}</b> • P(X ≤ ${x}) = <b>${cdf.toFixed(5)}</b>`;
       }
 
-      const showCM = !s || s.id === "datamining" || s.id === "bigdata" || s.id === "ai";
+      const showCM = s && ["datamining", "bigdata", "ai"].includes(s.id);
+      const showStat = s && ["statmat", "datamining"].includes(s.id);
       return `
         ${showCM ? `
           <div class="card">
-            <h3 style="margin:0 0 6px;font-size:14px;color:var(--primary);">ðŸ§® Confusion Matrix Playground</h3>
+            <h3 style="margin:0 0 6px;font-size:14px;color:var(--primary);">🧮 Confusion Matrix Playground</h3>
             <div class="lab-grid">
               <div><label style="font-size:11px;">TP</label><input class="input-field" type="number" min="0" value="${cm.tp}" oninput="updateCM('tp', this.value)" /></div>
               <div><label style="font-size:11px;">FP</label><input class="input-field" type="number" min="0" value="${cm.fp}" oninput="updateCM('fp', this.value)" /></div>
@@ -1736,8 +1750,9 @@
             </div>
           </div>
         ` : ""}
+        ${showStat ? `
         <div class="card">
-          <h3 style="margin:0 0 8px;font-size:14px;color:var(--primary);">ðŸ“ Kalkulator Distribusi Statmat</h3>
+          <h3 style="margin:0 0 8px;font-size:14px;color:var(--primary);">📐 Kalkulator Distribusi Statmat</h3>
           <div class="seg-ctrl">
             <button class="seg-btn ${st.type==='binom'?'active':''}" onclick="setStatLabType('binom')">Binomial</button>
             <button class="seg-btn ${st.type==='poisson'?'active':''}" onclick="setStatLabType('poisson')">Poisson</button>
@@ -1750,39 +1765,42 @@
               <div><label style="font-size:11px;">p</label><input class="input-field" type="number" step="0.05" min="0" max="1" value="${st.p}" oninput="updateStatLab('p',this.value)" /></div>
               <div><label style="font-size:11px;">k</label><input class="input-field" type="number" min="0" max="20" value="${st.k}" oninput="updateStatLab('k',this.value)" /></div>
             ` : st.type==='poisson' ? `
-              <div><label style="font-size:11px;">Î»</label><input class="input-field" type="number" step="0.1" min="0.1" value="${st.lam}" oninput="updateStatLab('lam',this.value)" /></div>
+              <div><label style="font-size:11px;">λ</label><input class="input-field" type="number" step="0.1" min="0.1" value="${st.lam}" oninput="updateStatLab('lam',this.value)" /></div>
               <div><label style="font-size:11px;">k</label><input class="input-field" type="number" min="0" max="20" value="${st.k}" oninput="updateStatLab('k',this.value)" /></div>
             ` : st.type==='exp' ? `
-              <div><label style="font-size:11px;">Î»</label><input class="input-field" type="number" step="0.1" min="0.05" value="${st.lam}" oninput="updateStatLab('lam',this.value)" /></div>
+              <div><label style="font-size:11px;">λ</label><input class="input-field" type="number" step="0.1" min="0.05" value="${st.lam}" oninput="updateStatLab('lam',this.value)" /></div>
               <div><label style="font-size:11px;">x</label><input class="input-field" type="number" step="0.1" min="0" value="${st.x}" oninput="updateStatLab('x',this.value)" /></div>
             ` : `
-              <div><label style="font-size:11px;">Î¼</label><input class="input-field" type="number" step="0.5" value="${st.mu}" oninput="updateStatLab('mu',this.value)" /></div>
-              <div><label style="font-size:11px;">Ïƒ</label><input class="input-field" type="number" step="0.1" min="0.1" value="${st.sd}" oninput="updateStatLab('sd',this.value)" /></div>
+              <div><label style="font-size:11px;">μ</label><input class="input-field" type="number" step="0.5" value="${st.mu}" oninput="updateStatLab('mu',this.value)" /></div>
+              <div><label style="font-size:11px;">σ</label><input class="input-field" type="number" step="0.1" min="0.1" value="${st.sd}" oninput="updateStatLab('sd',this.value)" /></div>
               <div><label style="font-size:11px;">x</label><input class="input-field" type="number" step="0.1" value="${st.x}" oninput="updateStatLab('x',this.value)" /></div>
             `}
           </div>
           <div class="explain-box" style="margin-top:8px;">${statOut}</div>
         </div>
+        ` : ""}
       `;
     }
 
     function renderCheatSheet() {
       const s = currentSubject();
       const formulaDone = !!state.readiness[`${s.id}_formula`];
+      const hasLab = ["bigdata", "ai", "datamining", "statmat"].includes(s.id);
+      if (!hasLab && state.subModeFormula === "lab") state.subModeFormula = "cheat";
       const seg = `
         <div class="seg-ctrl">
-          <button class="seg-btn ${state.subModeFormula==='cheat'?'active':''}" onclick="state.subModeFormula='cheat'; render();">âš¡ Cheat Sheet</button>
-          <button class="seg-btn ${state.subModeFormula==='traps'?'active':''}" onclick="state.subModeFormula='traps'; render();">âš ï¸ Jebakan Ujian</button>
-          <button class="seg-btn ${state.subModeFormula==='lab'?'active':''}" onclick="state.subModeFormula='lab'; render();">ðŸ§® Mini Lab</button>
+          <button class="seg-btn ${state.subModeFormula==='cheat'?'active':''}" onclick="state.subModeFormula='cheat'; render();">⚡ Cheat Sheet</button>
+          <button class="seg-btn ${state.subModeFormula==='traps'?'active':''}" onclick="state.subModeFormula='traps'; render();">⚠️ Jebakan Ujian</button>
+          ${hasLab ? `<button class="seg-btn ${state.subModeFormula==='lab'?'active':''}" onclick="state.subModeFormula='lab'; render();">🧮 Mini Lab</button>` : ""}
         </div>
       `;
       let body = "";
       if (state.subModeFormula === "traps") {
-        body = s.traps.map(t => `<div class="card"><span class="tag tag-danger">Jebakan</span> <b>${t.trap}</b><div style="margin-top:8px;font-size:13.5px;">ðŸ‘‰ ${t.fix}</div></div>`).join("");
+        body = s.traps.map(t => `<div class="card"><span class="tag tag-danger">Jebakan</span> <b>${t.trap}</b><div style="margin-top:8px;font-size:13.5px;">👉 ${t.fix}</div></div>`).join("");
       } else if (state.subModeFormula === "lab") {
         body = renderMiniLab();
       } else {
-        body = `<div class="grid-2">${s.cheatsheet.map(box => `<div class="cheat-box"><h3>âš¡ ${box.title}</h3><ul>${box.items.map(it => `<li>${it}</li>`).join("")}</ul></div>`).join("")}</div>`;
+        body = `<div class="grid-2">${s.cheatsheet.map(box => `<div class="cheat-box"><h3>⚡ ${box.title}</h3><ul>${box.items.map(it => `<li>${it}</li>`).join("")}</ul></div>`).join("")}</div>`;
       }
       return seg + body + `
         <div class="next-cta">
@@ -1790,7 +1808,7 @@
             <div style="font-weight:800;font-size:13.5px;">Langkah 2 Selesai?</div>
             <div style="font-size:12px;color:var(--muted);">Uji ingatan aktif lewat Flashcard interaktif.</div>
           </div>
-          <button class="btn btn-primary" onclick="completeStep('formula', 'flashcard')">${formulaDone ? "Lanjut ke Langkah 3 â†’" : "âœ“ Tandai Kuasai & Lanjut â†’"}</button>
+          <button class="btn btn-primary" onclick="completeStep('formula', 'flashcard')">${formulaDone ? "Lanjut ke Langkah 3 →" : "✓ Tandai Kuasai & Lanjut →"}</button>
         </div>
       `;
     }
@@ -1819,37 +1837,43 @@
       const isLearned = !!state.learned[key];
       const isStarred = !!state.starredFC[key];
       const smRec = state.sm2[key];
+      const st = getSubjectStats(s);
+      const fcTarget = Math.ceil(st.totalFC * 0.8);
 
       return `
         <div class="fc-controls">
-          <span style="font-size:12.5px;font-weight:700;color:var(--muted);">Kartu ${state.fcIdx + 1}/${deck.length} ${isLearned ? "â€¢ âœ…" : ""} ${smRec ? `â€¢ ${smRec.label}` : ""}</span>
+          <span style="font-size:12.5px;font-weight:700;color:var(--muted);">Kartu ${state.fcIdx + 1}/${deck.length} ${isLearned ? "• ✅" : ""} ${smRec ? `• ${smRec.label}` : ""}</span>
           <div class="seg-ctrl" style="margin:0;">
             <button class="seg-btn ${state.fcFilter === 'all' ? 'active' : ''}" onclick="setFCFilter('all')">Semua</button>
-            <button class="seg-btn ${state.fcFilter === 'due' ? 'active' : ''}" onclick="setFCFilter('due')">ðŸ§  Tempo</button>
-            <button class="seg-btn ${state.fcFilter === 'starred' ? 'active' : ''}" onclick="setFCFilter('starred')">â­</button>
+            <button class="seg-btn ${state.fcFilter === 'due' ? 'active' : ''}" onclick="setFCFilter('due')">🧠 Tempo</button>
+            <button class="seg-btn ${state.fcFilter === 'starred' ? 'active' : ''}" onclick="setFCFilter('starred')">⭐</button>
           </div>
         </div>
         <div class="fc-card ${state.fcFlipped ? "flipped" : ""}" id="fcCardEl" onclick="flipCard()">
           <div class="fc-top-right">
-            <button class="icon-btn" onclick="event.stopPropagation(); speakText('${(state.fcFlipped ? card.a : card.q).replace(/'/g, "\\'")}')">ðŸ”Š</button>
-            <button class="icon-btn ${isStarred ? "active" : ""}" onclick="event.stopPropagation(); toggleStarFC(${card.origIdx})">${isStarred ? "â˜…" : "â˜†"}</button>
+            <button class="icon-btn" onclick="event.stopPropagation(); speakText('${(state.fcFlipped ? card.a : card.q).replace(/'/g, "\\'")}')">🔊</button>
+            <button class="icon-btn ${isStarred ? "active" : ""}" onclick="event.stopPropagation(); toggleStarFC(${card.origIdx})">${isStarred ? "★" : "☆"}</button>
           </div>
           <div class="fc-label">${state.fcFlipped ? "Jawaban" : "Pertanyaan / Konsep"}</div>
           <div class="fc-text">${state.fcFlipped ? card.a : card.q}</div>
-          <div class="fc-hint">${state.fcFlipped ? "Tap balik â€¢ Geser kiri/kanan" : "Tap lihat jawaban â€¢ Geser kiri/kanan"}</div>
+          <div class="fc-hint">${state.fcFlipped ? "Tap balik • Geser kiri/kanan" : "Tap lihat jawaban • Geser kiri/kanan"}</div>
         </div>
         <div class="sm2-row">
           <button class="btn btn-danger" onclick="rateSM2(${card.origIdx}, 0, 'Ulangi')">Lupa</button>
           <button class="btn btn-warn" onclick="rateSM2(${card.origIdx}, 0.5, '12 Jam')">Ragu</button>
           <button class="btn btn-primary" onclick="rateSM2(${card.origIdx}, 1, 'Besok')">Ingat</button>
-          <button class="btn btn-success" onclick="rateSM2(${card.origIdx}, 3, '3 Hari')">Mudah âœ“</button>
+          <button class="btn btn-success" onclick="rateSM2(${card.origIdx}, 3, '3 Hari')">Mudah ✓</button>
+        </div>
+        <div class="quiz-nav" style="margin-top:10px;">
+          <button class="btn" onclick="moveCard(-1)">← Sebelumnya</button>
+          <button class="btn" onclick="moveCard(1)">Berikutnya →</button>
         </div>
         <div class="next-cta">
           <div>
-            <div style="font-weight:800;font-size:13.5px;">Siap Tes Pemahaman?</div>
+            <div style="font-weight:800;font-size:13.5px;">Hafal: ${st.learnedCount}/${st.totalFC} kartu ${st.fcDone ? "✅" : `(butuh ${fcTarget} untuk ✓)`}</div>
             <div style="font-size:12px;color:var(--muted);">Kerjakan 20 soal PG + 3 Studi Kasus HOTS.</div>
           </div>
-          <button class="btn btn-primary" onclick="setMode('quiz')">Lanjut ke Langkah 4 â†’</button>
+          <button class="btn btn-primary" onclick="setMode('quiz')">Lanjut ke Langkah 4 →</button>
         </div>
       `;
     }
@@ -1892,7 +1916,8 @@
         const finalOpts = (state.shuffleQuiz || isMixedUTM() || state.cramMode) ? shuffleArr(optsWithFlag) : optsWithFlag;
         return { ...item, displayOpts: finalOpts };
       });
-      state.quizIdx = 0;
+      const firstUnanswered = state.quizSession.findIndex(item => state.quizAnswers[`${item.subjId}_${item.qIdx}`] === undefined);
+      state.quizIdx = firstUnanswered >= 0 ? firstUnanswered : 0;
       state.quizFinished = false;
     }
 
@@ -1906,11 +1931,11 @@
         const shown = !!state.essayShowRubric[k];
         return `
           <div class="card">
-            <div class="q-num">STUDI KASUS ${idx + 1} / ${s.essays.length} â€¢ HOTS</div>
+            <div class="q-num">STUDI KASUS ${idx + 1} / ${s.essays.length} • HOTS</div>
             <div class="q-text">${es.q}</div>
             <textarea rows="3" placeholder="Ketik poin jawabanmu di sini..." oninput="saveEssay('${k}', this.value)">${draft}</textarea>
             <div style="margin-top:10px;display:flex;justify-content:flex-end;">
-              <button class="btn btn-primary" onclick="state.essayShowRubric['${k}']=!state.essayShowRubric['${k}']; render();">${shown ? "Sembunyikan Rubrik" : "ðŸ‘ï¸ Lihat Poin Kunci"}</button>
+              <button class="btn btn-primary" onclick="state.essayShowRubric['${k}']=!state.essayShowRubric['${k}']; render();">${shown ? "Sembunyikan Rubrik" : "👁️ Lihat Poin Kunci"}</button>
             </div>
             ${shown ? `<div class="explain-box"><b>Poin Kunci:</b><ul style="margin:6px 0 0;padding-left:18px;">${es.rubric.map(r => `<li>${r}</li>`).join("")}</ul></div>` : ""}
           </div>
@@ -1921,8 +1946,8 @@
     function renderQuiz() {
       const subModeBar = !isMixedUTM() && !state.cramMode ? `
         <div class="seg-ctrl" style="margin:0;">
-          <button class="seg-btn ${state.subModeQuiz==='pg'?'active':''}" onclick="state.subModeQuiz='pg'; render();">ðŸ“ Pilihan Ganda (20)</button>
-          <button class="seg-btn ${state.subModeQuiz==='essay'?'active':''}" onclick="state.subModeQuiz='essay'; render();">âœï¸ Studi Kasus (3)</button>
+          <button class="seg-btn ${state.subModeQuiz==='pg'?'active':''}" onclick="state.subModeQuiz='pg'; render();">📝 Pilihan Ganda (20)</button>
+          <button class="seg-btn ${state.subModeQuiz==='essay'?'active':''}" onclick="state.subModeQuiz='essay'; render();">✍️ Studi Kasus (3)</button>
         </div>
       ` : "<div></div>";
       if (state.subModeQuiz === "essay" && !isMixedUTM() && !state.cramMode) return `<div style="margin-bottom:12px;">${subModeBar}</div>` + renderEssays();
@@ -1933,10 +1958,10 @@
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
           ${subModeBar}
           <div style="display:flex;gap:5px;flex-wrap:wrap;">
-            <button class="icon-btn ${state.shuffleQuiz ? "active" : ""}" onclick="toggleShuffleQuiz()">ðŸ”€ Acak</button>
-            <button class="icon-btn ${state.onlyStarredQuiz ? "active" : ""}" onclick="toggleStarredQuiz()">â­</button>
-            <button class="icon-btn ${state.timerActive ? "active" : ""}" onclick="toggleTimer()">â±ï¸ ${state.timerActive ? formatTimer(state.timerSec) : "Timer"}</button>
-            <button class="icon-btn" onclick="resetQuiz()">ðŸ”„</button>
+            <button class="icon-btn ${state.shuffleQuiz ? "active" : ""}" onclick="toggleShuffleQuiz()">🔀 Acak</button>
+            <button class="icon-btn ${state.onlyStarredQuiz ? "active" : ""}" onclick="toggleStarredQuiz()">⭐</button>
+            <button class="icon-btn ${state.timerActive ? "active" : ""}" onclick="toggleTimer()">⏱️ ${state.timerActive ? formatTimer(state.timerSec) : "Timer"}</button>
+            <button class="icon-btn" onclick="resetQuiz()">🔄</button>
           </div>
         </div>
       `;
@@ -1950,13 +1975,13 @@
         return `
           ${toolbar}
           <div class="card score-banner">
-            <div style="font-size:13px;font-weight:700;color:var(--muted);">${score >= 80 ? "ðŸŽ‰ Mantap! Target â‰¥80% Tercapai" : "ðŸ’ª Sedikit Lagi!"}</div>
+            <div style="font-size:13px;font-weight:700;color:var(--muted);">${score >= 80 ? "🎉 Mantap! Target ≥80% Tercapai" : "💪 Sedikit Lagi!"}</div>
             <div class="score-big">${score}</div>
             <div style="margin:6px 0 16px;font-size:14px;">Benar <b>${correct}</b> dari <b>${session.length}</b> soal</div>
             <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap;">
-              <button class="btn" onclick="reviewQuiz()">ðŸ” Pembahasan</button>
-              ${wrongCount > 0 ? `<button class="btn btn-warn" onclick="retryWrong()">ðŸŽ¯ Ulangi ${wrongCount} Salah</button>` : ""}
-              ${score >= 80 && !isMixedUTM() && !state.cramMode ? `<button class="btn btn-primary" onclick="openSubject(${nextIdx})">Lanjut: ${DATA[nextIdx].short} â†’</button>` : `<button class="btn btn-primary" onclick="resetQuiz()">ðŸ”„ Mulai Baru</button>`}
+              <button class="btn" onclick="reviewQuiz()">🔍 Pembahasan</button>
+              ${wrongCount > 0 ? `<button class="btn btn-warn" onclick="retryWrong()">🎯 Ulangi ${wrongCount} Salah</button>` : ""}
+              ${score >= 80 && !isMixedUTM() && !state.cramMode ? `<button class="btn btn-primary" onclick="openSubject(${nextIdx})">Lanjut: ${DATA[nextIdx].short} →</button>` : `<button class="btn btn-primary" onclick="resetQuiz()">🔄 Mulai Baru</button>`}
             </div>
           </div>
         `;
@@ -1969,12 +1994,24 @@
       const isStarred = !!state.starredQ[key];
       const keys = ["A", "B", "C", "D"];
 
+      const dotsHtml = `
+        <div class="q-dots">
+          ${session.map((it, idx) => {
+            const a = state.quizAnswers[`${it.subjId}_${it.qIdx}`];
+            let cls = idx === state.quizIdx ? "cur" : "";
+            if (a !== undefined) cls += (a === it.origQ.ans ? " ok" : " bad");
+            return `<button class="q-dot ${cls}" onclick="jumpQuiz(${idx})">${idx + 1}</button>`;
+          }).join("")}
+        </div>
+      `;
+
       return `
         ${toolbar}
+        ${dotsHtml}
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-            <span class="q-num">SOAL ${state.quizIdx + 1} / ${session.length} ${(isMixedUTM() || state.cramMode) ? `â€¢ ${item.subjShort}` : ""}</span>
-            <button class="icon-btn ${isStarred ? "active" : ""}" style="font-size:11.5px;padding:4px 9px;" onclick="toggleStarQ('${key}')">${isStarred ? "â˜… Ditandai" : "â˜† Tandai"}</button>
+            <span class="q-num">SOAL ${state.quizIdx + 1} / ${session.length} ${(isMixedUTM() || state.cramMode) ? `• ${item.subjShort}` : ""}</span>
+            <button class="icon-btn ${isStarred ? "active" : ""}" style="font-size:11.5px;padding:4px 9px;" onclick="toggleStarQ('${key}')">${isStarred ? "★ Ditandai" : "☆ Tandai"}</button>
           </div>
           <div class="q-text">${item.origQ.q}</div>
           <div class="opt-list">
@@ -1984,10 +2021,10 @@
               return `<button class="opt-btn ${cls}" ${answered ? "disabled" : ""} onclick="answerQuiz('${key}', ${opt.origIdx})"><span class="opt-key">${keys[idx]}.</span><span>${opt.text}</span></button>`;
             }).join("")}
           </div>
-          ${answered ? `<div class="explain-box"><b>${userOrigAns === item.origQ.ans ? "âœ… Benar!" : "âŒ Kurang tepat."}</b> ${item.origQ.exp}</div>` : ""}
+          ${answered ? `<div class="explain-box"><b>${userOrigAns === item.origQ.ans ? "✅ Benar!" : "❌ Kurang tepat."}</b> ${item.origQ.exp}</div>` : ""}
           <div class="quiz-nav">
-            <button class="btn" ${state.quizIdx === 0 ? "disabled" : ""} onclick="moveQuiz(-1)">â† Sebelumnya</button>
-            ${state.quizIdx < session.length - 1 ? `<button class="btn btn-primary" onclick="moveQuiz(1)">Berikutnya â†’</button>` : `<button class="btn btn-primary" onclick="finishQuiz()">Selesai âœ“</button>`}
+            <button class="btn" ${state.quizIdx === 0 ? "disabled" : ""} onclick="moveQuiz(-1)">← Sebelumnya</button>
+            ${state.quizIdx < session.length - 1 ? `<button class="btn btn-primary" onclick="moveQuiz(1)">Berikutnya →</button>` : `<button class="btn btn-primary" onclick="finishQuiz()">Selesai ✓</button>`}
           </div>
         </div>
       `;
@@ -2032,7 +2069,7 @@
       state.readiness[`${s.id}_${stepKey}`] = true;
       state.mode = nextMode;
       saveState();
-      showToast("âœ“ Progres tersimpan! Lanjut langkah berikutnya.");
+      showToast("✓ Progres tersimpan! Lanjut langkah berikutnya.");
       render();
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
@@ -2054,6 +2091,7 @@
     window.setFCFilter = (f) => { state.fcFilter = f; state.fcIdx = 0; state.fcFlipped = false; render(); };
     window.toggleStarQ = (key) => { if (state.starredQ[key]) delete state.starredQ[key]; else state.starredQ[key] = true; saveState(); render(); };
     window.answerQuiz = (key, origOptIdx) => { state.quizAnswers[key] = origOptIdx; saveState(); render(); };
+    window.jumpQuiz = (idx) => { state.quizIdx = idx; render(); };
     window.moveQuiz = (delta) => { state.quizIdx = Math.max(0, Math.min(state.quizSession.length - 1, state.quizIdx + delta)); render(); };
     window.finishQuiz = () => { state.quizFinished = true; if (state.timerHandle) { clearInterval(state.timerHandle); state.timerHandle = null; state.timerActive = false; } render(); };
     window.reviewQuiz = () => { state.quizFinished = false; state.quizIdx = 0; render(); };
@@ -2082,7 +2120,7 @@
       if (!("speechSynthesis" in window)) return showToast("Browser tidak mendukung Audio TTS");
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(txt); u.lang = "id-ID"; u.rate = 1.05; window.speechSynthesis.speak(u);
-      showToast("ðŸ”Š Membacakan...");
+      showToast("🔊 Membacakan...");
     };
     window.speakSummary = () => { const s = currentSubject(); if (s) speakText(s.sections.map(sec => `${sec.title}. ${(sec.bullets || []).join(" ").replace(/<[^>]+>/g, "")}`).join(" ")); };
     window.openModal = (id) => { document.getElementById(id).classList.add("open"); if (id === "toolsModal") calcUTGrade(); if (id === "searchModal") setTimeout(() => document.getElementById("globalSearchInput").focus(), 100); };
@@ -2093,7 +2131,7 @@
       let html = "";
       DATA.forEach((s, si) => s.sections.forEach(sec => {
         const hay = (sec.title + " " + (sec.bullets || []).join(" ")).replace(/<[^>]+>/g, "");
-        if (hay.toLowerCase().includes(term)) html += `<div class="cheat-box" style="margin-bottom:8px;cursor:pointer;" onclick="closeModal('searchModal'); openSubject(${si}); setMode('summary');"><div style="font-size:11.5px;font-weight:700;color:var(--primary);">${s.icon} ${s.short} â€” ${sec.title}</div><div style="font-size:12.5px;color:var(--muted);margin-top:3px;">${hay.slice(0, 140)}...</div></div>`;
+        if (hay.toLowerCase().includes(term)) html += `<div class="cheat-box" style="margin-bottom:8px;cursor:pointer;" onclick="closeModal('searchModal'); openSubject(${si}); setMode('summary');"><div style="font-size:11.5px;font-weight:700;color:var(--primary);">${s.icon} ${s.short} — ${sec.title}</div><div style="font-size:12.5px;color:var(--muted);margin-top:3px;">${hay.slice(0, 140)}...</div></div>`;
       }));
       box.innerHTML = html || `<div style="font-size:13px;color:var(--muted);">Tidak ditemukan hasil untuk "${q}".</div>`;
     };
@@ -2101,14 +2139,14 @@
       const t = formatTimer(state.pomoSec);
       document.getElementById("pomoMini").textContent = t;
       document.getElementById("pomoBigTime").textContent = t;
-      document.getElementById("pomoPhaseLbl").textContent = `${t} â€¢ ${state.pomoPhase === "FOKUS" ? "Sesi Fokus" : "Istirahat"}`;
-      document.getElementById("pomoStartBtn").textContent = state.pomoHandle ? "â¸" : "â–¶";
+      document.getElementById("pomoPhaseLbl").textContent = `${t} • ${state.pomoPhase === "FOKUS" ? "Sesi Fokus" : "Istirahat"}`;
+      document.getElementById("pomoStartBtn").textContent = state.pomoHandle ? "⏸" : "▶";
     }
     window.togglePomodoro = () => {
       if (state.pomoHandle) { clearInterval(state.pomoHandle); state.pomoHandle = null; updatePomoUI(); return; }
       state.pomoHandle = setInterval(() => {
         state.pomoSec--;
-        if (state.pomoSec <= 0) { clearInterval(state.pomoHandle); state.pomoHandle = null; showToast(state.pomoPhase === "FOKUS" ? "â° Fokus selesai! Istirahat 5m." : "â° Lanjut fokus!"); state.pomoPhase = state.pomoPhase === "FOKUS" ? "ISTIRAHAT" : "FOKUS"; state.pomoSec = (state.pomoPhase === "FOKUS" ? 25 : 5) * 60; }
+        if (state.pomoSec <= 0) { clearInterval(state.pomoHandle); state.pomoHandle = null; showToast(state.pomoPhase === "FOKUS" ? "⏰ Fokus selesai! Istirahat 5m." : "⏰ Lanjut fokus!"); state.pomoPhase = state.pomoPhase === "FOKUS" ? "ISTIRAHAT" : "FOKUS"; state.pomoSec = (state.pomoPhase === "FOKUS" ? 25 : 5) * 60; }
         updatePomoUI();
       }, 1000);
       updatePomoUI();
@@ -2120,23 +2158,49 @@
       const eligible = uas >= 30;
       const finalScore = eligible ? (0.3 * tuton + 0.7 * uas) : uas;
       const grade = finalScore >= 80 ? "A" : (finalScore >= 70 ? "B" : (finalScore >= 55 ? "C" : "D/E"));
-      document.getElementById("calcUTResult").innerHTML = `Estimasi: <b>${finalScore.toFixed(1)}</b> (Grade <b>${grade}</b>)${!eligible ? ` â€¢ <span style="color:var(--danger);">UAS &lt; 30: Tuton hangus!</span>` : ""}`;
+      document.getElementById("calcUTResult").innerHTML = `Estimasi: <b>${finalScore.toFixed(1)}</b> (Grade <b>${grade}</b>)${!eligible ? ` • <span style="color:var(--danger);">UAS &lt; 30: Tuton hangus!</span>` : ""}`;
     };
     window.exportProgress = () => {
       const payload = { learned: state.learned, sm2: state.sm2, starredFC: state.starredFC, starredQ: state.starredQ, readiness: state.readiness, notes: state.notes, quizAnswers: state.quizAnswers, essayDrafts: state.essayDrafts };
       const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
       document.getElementById("syncBox").value = code;
       navigator.clipboard?.writeText(code).catch(() => {});
-      showToast("ðŸ“¤ Kode progress disalin!");
+      showToast("📤 Kode progress disalin!");
     };
     window.importProgress = () => {
       try {
         const data = JSON.parse(decodeURIComponent(escape(atob(document.getElementById("syncBox").value.trim()))));
         ["learned","sm2","starredFC","starredQ","readiness","notes","quizAnswers","essayDrafts"].forEach(k => { if (data[k]) state[k] = data[k]; });
-        saveState(); render(); showToast("âœ… Progress dimuat!");
-      } catch (e) { showToast("âŒ Kode tidak valid"); }
+        saveState(); render(); showToast("✅ Progress dimuat!");
+      } catch (e) { showToast("❌ Kode tidak valid"); }
     };
 
+    let resetConfirm = false;
+    window.resetAllProgress = () => {
+      const btn = document.getElementById("resetAllBtn");
+      if (!resetConfirm) {
+        resetConfirm = true;
+        btn.textContent = "Yakin Reset?";
+        setTimeout(() => { resetConfirm = false; if (btn) btn.textContent = "🗑️ Reset"; }, 3000);
+        return;
+      }
+      ["ut_learned","ut_sm2","ut_starred_fc","ut_starred_q","ut_readiness","ut_notes","ut_quiz","ut_essays"].forEach(k => localStorage.removeItem(k));
+      state.learned = {}; state.sm2 = {}; state.starredFC = {}; state.starredQ = {};
+      state.readiness = {}; state.notes = {}; state.quizAnswers = {}; state.essayDrafts = {};
+      state.quizSession = null; state.view = "home";
+      resetConfirm = false;
+      closeModal("toolsModal");
+      render();
+      showToast("🗑️ Semua progress berhasil direset");
+    };
+
+    window.addEventListener("keydown", e => {
+      if (state.view === "study" && state.mode === "flashcard" && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
+        if (e.key === "ArrowRight") moveCard(1);
+        else if (e.key === "ArrowLeft") moveCard(-1);
+        else if (e.key === " ") { e.preventDefault(); flipCard(); }
+      }
+    });
     window.addEventListener("resize", renderStepper);
     initTheme();
     updatePomoUI();
@@ -2144,4 +2208,3 @@
   </script>
 </body>
 </html>
-
