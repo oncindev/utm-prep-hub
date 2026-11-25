@@ -99,55 +99,8 @@
       font-weight: 600;
     }
     .icon-btn.active { border-color: var(--primary); background: var(--primary-bg); color: var(--primary); }
-    .subject-bar {
-      max-width: 960px;
-      margin: 9px auto 0;
-      display: flex;
-      gap: 7px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding-bottom: 2px;
-    }
-    .subject-bar::-webkit-scrollbar { display: none; }
-    .subj-btn {
-      flex: 0 0 auto;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--muted);
-      border-radius: 12px;
-      padding: 7px 11px;
-      cursor: pointer;
-      text-align: left;
-    }
-    .subj-btn.active { border-color: var(--primary); background: var(--primary-bg); color: var(--text); }
-    .subj-btn .s-title { display: block; font-size: 12.5px; font-weight: 700; }
-    .subj-btn .s-meta { display: block; font-size: 10.5px; color: var(--muted); }
-    .subj-btn.active .s-meta { color: var(--primary); }
 
     .container { max-width: 960px; margin: 0 auto; padding: 12px 14px; }
-
-    .mode-tabs {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      margin-bottom: 14px;
-      background: var(--card);
-      padding: 5px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-    }
-    .mode-btn {
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      padding: 9px 6px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .mode-btn.active { background: var(--primary); color: #082f49; }
-    html.light .mode-btn.active { color: #ffffff; }
 
     .bottom-nav {
       display: none;
@@ -577,7 +530,7 @@
       <div class="header-actions">
         <span class="pill-badge" id="countdownBadge">H-3 UTM</span>
         <button class="icon-btn" onclick="openModal('searchModal')" title="Cari Lintas Matkul">🔍</button>
-        <button class="icon-btn" onclick="openModal('toolsModal')" title="Menu &amp; Alat Belajar">☰ <span id="pomoMini" style="font-family:ui-monospace,monospace;">25:00</span></button>
+        <button class="icon-btn" onclick="openModal('toolsModal')" title="Menu &amp; Alat Belajar">☰ <span id="pomoMini" style="display:none;font-family:ui-monospace,monospace;">25:00</span></button>
       </div>
     </div>
   </header>
@@ -1497,6 +1450,8 @@
       timerSec: 0,
       timerHandle: null,
       cramMode: false,
+      isSpeaking: false,
+      fillInputs: JSON.parse(localStorage.getItem("ut_fill") || "{}"),
       pomoSec: 25 * 60,
       pomoPhase: "FOKUS",
       pomoHandle: null,
@@ -1512,6 +1467,7 @@
       localStorage.setItem("ut_readiness", JSON.stringify(state.readiness));
       localStorage.setItem("ut_notes", JSON.stringify(state.notes));
       localStorage.setItem("ut_quiz", JSON.stringify(state.quizAnswers));
+      localStorage.setItem("ut_fill", JSON.stringify(state.fillInputs));
       localStorage.setItem("ut_essays", JSON.stringify(state.essayDrafts));
       if (typeof state.subjectIdx === "number") localStorage.setItem("ut_last_subj", String(state.subjectIdx));
       localStorage.setItem("ut_last_mode", state.mode);
@@ -1692,7 +1648,7 @@
       return `
         <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
           <input class="input-field" style="margin:0;" type="search" placeholder="🔍 Cari topik di ${s.short}..." value="${state.search}" oninput="onSearch(this.value)" />
-          <button class="btn" style="white-space:nowrap;" onclick="speakSummary()">🔊 Audio</button>
+          <button class="btn ${state.isSpeaking ? 'btn-danger' : ''}" style="white-space:nowrap;" onclick="${state.isSpeaking ? 'stopSpeech()' : 'speakSummary()'}">${state.isSpeaking ? '⏹ Stop' : '🔊 Audio'}</button>
         </div>
         ${filtered.map((sec, idx) => `
           <div class="acc-item ${idx === 0 || q ? "open" : ""}" id="acc_${idx}">
@@ -1907,7 +1863,7 @@
         <div class="next-cta">
           <div>
             <div style="font-weight:800;font-size:13.5px;">Hafal: ${st.learnedCount}/${st.totalFC} kartu ${st.fcDone ? "✅" : `(butuh ${fcTarget} untuk ✓)`}</div>
-            <div style="font-size:12px;color:var(--muted);">Kerjakan 20 soal PG + 3 Studi Kasus HOTS.</div>
+            <div style="font-size:12px;color:var(--muted);">Kerjakan 26 soal variasi + 3 Studi Kasus HOTS.</div>
           </div>
           <button class="btn btn-primary" onclick="setMode('quiz')">Lanjut ke Langkah 4 →</button>
         </div>
@@ -1998,15 +1954,18 @@
     }
 
     function renderQuiz() {
+      const curS = currentSubject();
+      const essayFilled = curS ? curS.essays.filter((_, i) => (state.essayDrafts[`${curS.id}_es_${i}`] || "").trim().length > 0).length : 0;
       const subModeBar = !isMixedUTM() && !state.cramMode ? `
         <div class="seg-ctrl" style="margin:0;">
           <button class="seg-btn ${state.subModeQuiz==='pg'?'active':''}" onclick="state.subModeQuiz='pg'; render();">📝 Kuis Variasi (26)</button>
-          <button class="seg-btn ${state.subModeQuiz==='essay'?'active':''}" onclick="state.subModeQuiz='essay'; render();">✍️ Studi Kasus (3)</button>
+          <button class="seg-btn ${state.subModeQuiz==='essay'?'active':''}" onclick="state.subModeQuiz='essay'; render();">✍️ Studi Kasus (${essayFilled}/${curS.essays.length})</button>
         </div>
       ` : "<div></div>";
       if (state.subModeQuiz === "essay" && !isMixedUTM() && !state.cramMode) return `<div style="margin-bottom:12px;">${subModeBar}</div>` + renderEssays();
       if (!state.quizSession) buildQuizSession();
       const session = state.quizSession;
+      const answeredCount = session.filter(it => state.quizAnswers[`${it.subjId}_${it.qIdx}`] !== undefined).length;
 
       const toolbar = `
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
@@ -2015,6 +1974,7 @@
             <button class="icon-btn ${state.shuffleQuiz ? "active" : ""}" onclick="toggleShuffleQuiz()">🔀 Acak</button>
             <button class="icon-btn ${state.onlyStarredQuiz ? "active" : ""}" onclick="toggleStarredQuiz()">⭐</button>
             <button class="icon-btn ${state.timerActive ? "active" : ""}" onclick="toggleTimer()">⏱️ ${state.timerActive ? formatTimer(state.timerSec) : "Timer"}</button>
+            ${!state.quizFinished && answeredCount > 0 ? `<button class="icon-btn active" onclick="finishQuiz()">✓ Selesai</button>` : ""}
             <button class="icon-btn" onclick="resetQuiz()">🔄</button>
           </div>
         </div>
@@ -2036,6 +1996,7 @@
               <button class="btn" onclick="reviewQuiz()">🔍 Pembahasan</button>
               ${wrongCount > 0 ? `<button class="btn btn-warn" onclick="retryWrong()">🎯 Ulangi ${wrongCount} Salah</button>` : ""}
               ${score >= 80 && !isMixedUTM() && !state.cramMode ? `<button class="btn btn-primary" onclick="openSubject(${nextIdx})">Lanjut: ${DATA[nextIdx].short} →</button>` : `<button class="btn btn-primary" onclick="resetQuiz()">🔄 Mulai Baru</button>`}
+              <button class="btn" onclick="goHome()">🏠 Beranda</button>
             </div>
           </div>
         `;
@@ -2085,9 +2046,10 @@
           }).join("")}
         </div>`;
       } else if (qType === "fill") {
+        const savedFill = (state.fillInputs[key] || "").replace(/"/g, "&quot;");
         bodyHtml = `
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <input class="input-field" style="flex:1;min-width:180px;" id="fillInput_${key}" type="text" placeholder="Ketik jawaban di sini..." ${answered ? "disabled" : ""} onkeydown="if(event.key==='Enter') checkFill('${key}')" />
+            <input class="input-field" style="flex:1;min-width:180px;" id="fillInput_${key}" type="text" value="${savedFill}" placeholder="Ketik jawaban di sini..." ${answered ? "disabled" : ""} onkeydown="if(event.key==='Enter') checkFill('${key}')" />
             ${!answered ? `<button class="btn btn-primary" onclick="checkFill('${key}')">Cek Jawaban</button>` : ""}
           </div>
           ${answered && !correctNow ? `<div style="margin-top:8px;font-size:13px;color:var(--success);">Kunci: <b>${item.origQ.accept[0]}</b></div>` : ""}
@@ -2095,6 +2057,8 @@
       } else if (qType === "match") {
         const stM = state.matchTemp || { selLeft: null, pairs: {} };
         const matchedCount = Object.keys(stM.pairs).length;
+        const rightPairNum = {};
+        Object.entries(stM.pairs).forEach(([li, rTxt]) => { rightPairNum[rTxt] = parseInt(li, 10) + 1; });
         bodyHtml = `
           <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Tap item kiri, lalu tap pasangannya di kanan (${matchedCount}/${item.origQ.pairs.length} terpasang):</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
@@ -2102,17 +2066,20 @@
               ${item.origQ.pairs.map((pr, li) => {
                 const isUsed = stM.pairs[li] !== undefined;
                 const isSel = stM.selLeft === li;
-                return `<button class="opt-btn" style="padding:9px;font-size:12.5px;${isSel?'border-color:var(--primary);background:var(--primary-bg);':''}${isUsed?'opacity:0.6;':''}" ${answered ? "disabled" : ""} onclick="pickMatchLeft(${li})">${pr[0]}${isUsed ? " → ✓" : ""}</button>`;
+                return `<button class="opt-btn" style="padding:9px;font-size:12.5px;${isSel?'border-color:var(--primary);background:var(--primary-bg);':''}${isUsed?'border-color:var(--primary);opacity:0.85;':''}" ${answered ? "disabled" : ""} onclick="pickMatchLeft(${li})"><span class="opt-key">[${li + 1}]</span><span>${pr[0]}</span></button>`;
               }).join("")}
             </div>
             <div style="display:flex;flex-direction:column;gap:6px;">
               ${item.rightShuffled.map((rText, ri) => {
-                const usedBy = Object.values(stM.pairs).includes(rText);
-                return `<button class="opt-btn" style="padding:9px;font-size:12.5px;${usedBy?'border-color:var(--primary);background:var(--primary-bg);':''}" ${answered ? "disabled" : ""} onclick="pickMatchRight('${key}', ${ri})">${rText}</button>`;
+                const pNum = rightPairNum[rText];
+                return `<button class="opt-btn" style="padding:9px;font-size:12.5px;${pNum?'border-color:var(--primary);background:var(--primary-bg);':''}" ${answered ? "disabled" : ""} onclick="pickMatchRight('${key}', ${ri})">${pNum ? `<span class="opt-key">[${pNum}]</span>` : ""}<span>${rText}</span></button>`;
               }).join("")}
             </div>
           </div>
-          ${!answered && matchedCount === item.origQ.pairs.length ? `<button class="btn btn-primary" style="margin-top:10px;width:100%;" onclick="submitMatch('${key}')">Cek Pasangan ✓</button>` : ""}
+          ${!answered && matchedCount > 0 ? `<div style="display:flex;gap:8px;margin-top:10px;">
+            <button class="btn" onclick="state.matchTemp=null; render();">↺ Ulang Pasangan</button>
+            ${matchedCount === item.origQ.pairs.length ? `<button class="btn btn-primary" style="flex:1;" onclick="submitMatch('${key}')">Cek Pasangan ✓</button>` : ""}
+          </div>` : ""}
         `;
       } else if (qType === "order") {
         const picked = state.orderTemp || [];
@@ -2214,8 +2181,10 @@
     window.checkFill = (key) => {
       const inp = document.getElementById("fillInput_" + key);
       if (!inp) return;
-      const val = inp.value.trim().toLowerCase();
+      const rawVal = inp.value.trim();
+      const val = rawVal.toLowerCase();
       if (!val) return showToast("Ketik jawaban dulu");
+      state.fillInputs[key] = rawVal;
       const item = state.quizSession[state.quizIdx];
       const ok = item.origQ.accept.some(a => a.toLowerCase() === val);
       answerQuiz(key, ok);
@@ -2261,7 +2230,7 @@
       saveState();
       state.quizSession = wrongItems; state.quizIdx = 0; state.quizFinished = false; render();
     };
-    window.resetQuiz = () => { if (state.quizSession) state.quizSession.forEach(item => delete state.quizAnswers[`${item.subjId}_${item.qIdx}`]); saveState(); buildQuizSession(); render(); };
+    window.resetQuiz = () => { if (state.quizSession) state.quizSession.forEach(item => { const k = `${item.subjId}_${item.qIdx}`; delete state.quizAnswers[k]; delete state.fillInputs[k]; }); saveState(); buildQuizSession(); render(); };
     window.toggleTimer = () => {
       if (state.timerActive) { clearInterval(state.timerHandle); state.timerHandle = null; state.timerActive = false; render(); }
       else {
@@ -2273,10 +2242,21 @@
     window.updateCM = (field, val) => { state.cm[field] = Math.max(0, parseInt(val, 10) || 0); render(); };
     window.setStatLabType = (t) => { state.statLab.type = t; render(); };
     window.updateStatLab = (field, val) => { state.statLab[field] = parseFloat(val); render(); };
+    window.stopSpeech = () => {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      state.isSpeaking = false;
+      render();
+      showToast("⏹ Audio dihentikan");
+    };
     window.speakText = (txt) => {
       if (!("speechSynthesis" in window)) return showToast("Browser tidak mendukung Audio TTS");
       window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(txt); u.lang = "id-ID"; u.rate = 1.05; window.speechSynthesis.speak(u);
+      const u = new SpeechSynthesisUtterance(txt); u.lang = "id-ID"; u.rate = 1.05;
+      state.isSpeaking = true;
+      u.onend = () => { state.isSpeaking = false; render(); };
+      u.onerror = () => { state.isSpeaking = false; render(); };
+      window.speechSynthesis.speak(u);
+      render();
       showToast("🔊 Membacakan...");
     };
     window.speakSummary = () => { const s = currentSubject(); if (s) speakText(s.sections.map(sec => `${sec.title}. ${(sec.bullets || []).join(" ").replace(/<[^>]+>/g, "")}`).join(" ")); };
@@ -2294,7 +2274,9 @@
     };
     function updatePomoUI() {
       const t = formatTimer(state.pomoSec);
-      document.getElementById("pomoMini").textContent = t;
+      const mini = document.getElementById("pomoMini");
+      mini.textContent = t;
+      mini.style.display = state.pomoHandle ? "inline" : "none";
       document.getElementById("pomoBigTime").textContent = t;
       document.getElementById("pomoPhaseLbl").textContent = `${t} • ${state.pomoPhase === "FOKUS" ? "Sesi Fokus" : "Istirahat"}`;
       document.getElementById("pomoStartBtn").textContent = state.pomoHandle ? "⏸" : "▶";
@@ -2341,9 +2323,9 @@
         setTimeout(() => { resetConfirm = false; if (btn) btn.textContent = "🗑️ Reset"; }, 3000);
         return;
       }
-      ["ut_learned","ut_sm2","ut_starred_fc","ut_starred_q","ut_readiness","ut_notes","ut_quiz","ut_essays"].forEach(k => localStorage.removeItem(k));
+      ["ut_learned","ut_sm2","ut_starred_fc","ut_starred_q","ut_readiness","ut_notes","ut_quiz","ut_fill","ut_essays"].forEach(k => localStorage.removeItem(k));
       state.learned = {}; state.sm2 = {}; state.starredFC = {}; state.starredQ = {};
-      state.readiness = {}; state.notes = {}; state.quizAnswers = {}; state.essayDrafts = {};
+      state.readiness = {}; state.notes = {}; state.quizAnswers = {}; state.fillInputs = {}; state.essayDrafts = {};
       state.quizSession = null; state.view = "home";
       resetConfirm = false;
       closeModal("toolsModal");
