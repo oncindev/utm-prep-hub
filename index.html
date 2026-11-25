@@ -1545,7 +1545,7 @@
       const totalFC = s.flashcards.length;
       const learnedCount = s.flashcards.filter((_, idx) => state.learned[`${s.id}_${idx}`]).length;
       const fcDone = learnedCount >= Math.ceil(totalFC * 0.8);
-      const qCorrect = s.quiz.filter((q, idx) => state.quizAnswers[`${s.id}_${idx}`] === q.ans).length;
+      const qCorrect = s.quiz.filter((q, idx) => isQCorrect(q, state.quizAnswers[`${s.id}_${idx}`])).length;
       const qAns = s.quiz.filter((_, idx) => state.quizAnswers[`${s.id}_${idx}`] !== undefined).length;
       const qPct = Math.round((qCorrect / s.quiz.length) * 100);
       const quizDone = qCorrect >= Math.ceil(s.quiz.length * 0.8);
@@ -1923,6 +1923,13 @@
       return a;
     }
 
+    function isQCorrect(q, ans) {
+      if (ans === undefined) return false;
+      const t = q.type || "pg";
+      if (t === "pg") return ans === q.ans;
+      return ans === true;
+    }
+
     function buildQuizSession() {
       let pool = [];
       if (state.cramMode) {
@@ -1930,7 +1937,7 @@
           s.quiz.forEach((q, idx) => {
             const k = `${s.id}_${idx}`;
             const a = state.quizAnswers[k];
-            if (state.starredQ[k] || (a !== undefined && a !== q.ans)) pool.push({ subjId: s.id, subjShort: s.short, qIdx: idx, origQ: q });
+            if (state.starredQ[k] || (a !== undefined && !isQCorrect(q, a))) pool.push({ subjId: s.id, subjShort: s.short, qIdx: idx, origQ: q });
           });
         });
         if (!pool.length) DATA.slice(0, 4).forEach(s => s.quiz.slice(0, 3).forEach((q, idx) => pool.push({ subjId: s.id, subjShort: s.short, qIdx: idx, origQ: q })));
@@ -1948,9 +1955,20 @@
       }
       if (state.shuffleQuiz && !isMixedUTM() && !state.cramMode) pool = shuffleArr(pool);
       state.quizSession = pool.map(item => {
-        const optsWithFlag = item.origQ.opts.map((text, idx) => ({ text, isAns: idx === item.origQ.ans, origIdx: idx }));
-        const finalOpts = (state.shuffleQuiz || isMixedUTM() || state.cramMode) ? shuffleArr(optsWithFlag) : optsWithFlag;
-        return { ...item, displayOpts: finalOpts };
+        const q = item.origQ;
+        const t = q.type || "pg";
+        if (t === "pg") {
+          const optsWithFlag = q.opts.map((text, idx) => ({ text, isAns: idx === q.ans, origIdx: idx }));
+          const finalOpts = (state.shuffleQuiz || isMixedUTM() || state.cramMode) ? shuffleArr(optsWithFlag) : optsWithFlag;
+          return { ...item, displayOpts: finalOpts };
+        }
+        if (t === "match") {
+          return { ...item, rightShuffled: shuffleArr(q.pairs.map(p => p[1])) };
+        }
+        if (t === "order") {
+          return { ...item, orderShuffled: shuffleArr(q.items) };
+        }
+        return { ...item };
       });
       const firstUnanswered = state.quizSession.findIndex(item => state.quizAnswers[`${item.subjId}_${item.qIdx}`] === undefined);
       state.quizIdx = firstUnanswered >= 0 ? firstUnanswered : 0;
@@ -1982,7 +2000,7 @@
     function renderQuiz() {
       const subModeBar = !isMixedUTM() && !state.cramMode ? `
         <div class="seg-ctrl" style="margin:0;">
-          <button class="seg-btn ${state.subModeQuiz==='pg'?'active':''}" onclick="state.subModeQuiz='pg'; render();">📝 Pilihan Ganda (20)</button>
+          <button class="seg-btn ${state.subModeQuiz==='pg'?'active':''}" onclick="state.subModeQuiz='pg'; render();">📝 Kuis Variasi (26)</button>
           <button class="seg-btn ${state.subModeQuiz==='essay'?'active':''}" onclick="state.subModeQuiz='essay'; render();">✍️ Studi Kasus (3)</button>
         </div>
       ` : "<div></div>";
@@ -2003,8 +2021,8 @@
       `;
 
       if (state.quizFinished) {
-        const correct = session.filter(item => state.quizAnswers[`${item.subjId}_${item.qIdx}`] === item.origQ.ans).length;
-        const wrongCount = session.filter(item => { const a = state.quizAnswers[`${item.subjId}_${item.qIdx}`]; return a !== undefined && a !== item.origQ.ans; }).length;
+        const correct = session.filter(item => isQCorrect(item.origQ, state.quizAnswers[`${item.subjId}_${item.qIdx}`])).length;
+        const wrongCount = session.filter(item => { const a = state.quizAnswers[`${item.subjId}_${item.qIdx}`]; return a !== undefined && !isQCorrect(item.origQ, a); }).length;
         const score = Math.round((correct / session.length) * 100);
         const nextIdx = (typeof state.subjectIdx === "number" && state.subjectIdx < DATA.length - 1) ? state.subjectIdx + 1 : 0;
 
@@ -2035,29 +2053,95 @@
           ${session.map((it, idx) => {
             const a = state.quizAnswers[`${it.subjId}_${it.qIdx}`];
             let cls = idx === state.quizIdx ? "cur" : "";
-            if (a !== undefined) cls += (a === it.origQ.ans ? " ok" : " bad");
+            if (a !== undefined) cls += (isQCorrect(it.origQ, a) ? " ok" : " bad");
             return `<button class="q-dot ${cls}" onclick="jumpQuiz(${idx})">${idx + 1}</button>`;
           }).join("")}
         </div>
       `;
+
+      const qType = item.origQ.type || "pg";
+      const typeLabels = { pg: "Pilihan Ganda", tf: "Benar / Salah", fill: "Isian Singkat", match: "Cocokkan Pasangan", order: "Urutkan Langkah" };
+      const correctNow = isQCorrect(item.origQ, userOrigAns);
+      let bodyHtml = "";
+
+      if (qType === "pg") {
+        bodyHtml = `<div class="opt-list">
+          ${item.displayOpts.map((opt, idx) => {
+            let cls = "";
+            if (answered) { if (opt.isAns) cls = "correct"; else if (opt.origIdx === userOrigAns) cls = "wrong"; }
+            return `<button class="opt-btn ${cls}" ${answered ? "disabled" : ""} onclick="answerQuiz('${key}', ${opt.origIdx})"><span class="opt-key">${keys[idx]}.</span><span>${opt.text}</span></button>`;
+          }).join("")}
+        </div>`;
+      } else if (qType === "tf") {
+        const tfAns = item.origQ.ans;
+        bodyHtml = `<div class="opt-list" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          ${[true, false].map(val => {
+            let cls = "";
+            if (answered) {
+              if (val === tfAns) cls = "correct";
+              else if (!correctNow) cls = "wrong";
+            }
+            return `<button class="opt-btn ${cls}" style="justify-content:center;font-weight:700;" ${answered ? "disabled" : ""} onclick="answerQuiz('${key}', ${val === tfAns})">${val ? "✅ BENAR" : "❌ SALAH"}</button>`;
+          }).join("")}
+        </div>`;
+      } else if (qType === "fill") {
+        bodyHtml = `
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input class="input-field" style="flex:1;min-width:180px;" id="fillInput_${key}" type="text" placeholder="Ketik jawaban di sini..." ${answered ? "disabled" : ""} onkeydown="if(event.key==='Enter') checkFill('${key}')" />
+            ${!answered ? `<button class="btn btn-primary" onclick="checkFill('${key}')">Cek Jawaban</button>` : ""}
+          </div>
+          ${answered && !correctNow ? `<div style="margin-top:8px;font-size:13px;color:var(--success);">Kunci: <b>${item.origQ.accept[0]}</b></div>` : ""}
+        `;
+      } else if (qType === "match") {
+        const stM = state.matchTemp || { selLeft: null, pairs: {} };
+        const matchedCount = Object.keys(stM.pairs).length;
+        bodyHtml = `
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Tap item kiri, lalu tap pasangannya di kanan (${matchedCount}/${item.origQ.pairs.length} terpasang):</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              ${item.origQ.pairs.map((pr, li) => {
+                const isUsed = stM.pairs[li] !== undefined;
+                const isSel = stM.selLeft === li;
+                return `<button class="opt-btn" style="padding:9px;font-size:12.5px;${isSel?'border-color:var(--primary);background:var(--primary-bg);':''}${isUsed?'opacity:0.6;':''}" ${answered ? "disabled" : ""} onclick="pickMatchLeft(${li})">${pr[0]}${isUsed ? " → ✓" : ""}</button>`;
+              }).join("")}
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              ${item.rightShuffled.map((rText, ri) => {
+                const usedBy = Object.values(stM.pairs).includes(rText);
+                return `<button class="opt-btn" style="padding:9px;font-size:12.5px;${usedBy?'border-color:var(--primary);background:var(--primary-bg);':''}" ${answered ? "disabled" : ""} onclick="pickMatchRight('${key}', ${ri})">${rText}</button>`;
+              }).join("")}
+            </div>
+          </div>
+          ${!answered && matchedCount === item.origQ.pairs.length ? `<button class="btn btn-primary" style="margin-top:10px;width:100%;" onclick="submitMatch('${key}')">Cek Pasangan ✓</button>` : ""}
+        `;
+      } else if (qType === "order") {
+        const picked = state.orderTemp || [];
+        bodyHtml = `
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Tap item sesuai urutan yang benar (${picked.length}/${item.origQ.items.length}):</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            ${item.orderShuffled.map((txt, oi) => {
+              const pos = picked.indexOf(txt);
+              return `<button class="opt-btn" style="padding:9px 11px;font-size:13px;${pos>=0?'border-color:var(--primary);background:var(--primary-bg);':''}" ${answered || pos >= 0 ? "disabled" : ""} onclick="pickOrderItem('${key}', ${oi})"><span class="opt-key">${pos >= 0 ? pos + 1 : "○"}</span><span>${txt}</span></button>`;
+            }).join("")}
+          </div>
+          ${!answered ? `<div style="display:flex;gap:8px;margin-top:10px;">
+            <button class="btn" onclick="state.orderTemp=[]; render();">↺ Ulang Urutan</button>
+            ${picked.length === item.origQ.items.length ? `<button class="btn btn-primary" style="flex:1;" onclick="submitOrder('${key}')">Cek Urutan ✓</button>` : ""}
+          </div>` : ""}
+        `;
+      }
 
       return `
         ${toolbar}
         ${dotsHtml}
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-            <span class="q-num">SOAL ${state.quizIdx + 1} / ${session.length} ${(isMixedUTM() || state.cramMode) ? `• ${item.subjShort}` : ""}</span>
+            <span class="q-num">SOAL ${state.quizIdx + 1} / ${session.length} • ${typeLabels[qType]} ${(isMixedUTM() || state.cramMode) ? `• ${item.subjShort}` : ""}</span>
             <button class="icon-btn ${isStarred ? "active" : ""}" style="font-size:11.5px;padding:4px 9px;" onclick="toggleStarQ('${key}')">${isStarred ? "★ Ditandai" : "☆ Tandai"}</button>
           </div>
           <div class="q-text">${item.origQ.q}</div>
-          <div class="opt-list">
-            ${item.displayOpts.map((opt, idx) => {
-              let cls = "";
-              if (answered) { if (opt.isAns) cls = "correct"; else if (opt.origIdx === userOrigAns) cls = "wrong"; }
-              return `<button class="opt-btn ${cls}" ${answered ? "disabled" : ""} onclick="answerQuiz('${key}', ${opt.origIdx})"><span class="opt-key">${keys[idx]}.</span><span>${opt.text}</span></button>`;
-            }).join("")}
-          </div>
-          ${answered ? `<div class="explain-box"><b>${userOrigAns === item.origQ.ans ? "✅ Benar!" : "❌ Kurang tepat."}</b> ${item.origQ.exp}</div>` : ""}
+          ${bodyHtml}
+          ${answered ? `<div class="explain-box"><b>${correctNow ? "✅ Benar!" : "❌ Kurang tepat."}</b> ${item.origQ.exp}</div>` : ""}
           <div class="quiz-nav">
             <button class="btn" ${state.quizIdx === 0 ? "disabled" : ""} onclick="moveQuiz(-1)">← Sebelumnya</button>
             ${state.quizIdx < session.length - 1 ? `<button class="btn btn-primary" onclick="moveQuiz(1)">Berikutnya →</button>` : `<button class="btn btn-primary" onclick="finishQuiz()">Selesai ✓</button>`}
@@ -2126,15 +2210,52 @@
     window.toggleStarFC = (origIdx) => { const s = currentSubject(), k = `${s.id}_${origIdx}`; if (state.starredFC[k]) delete state.starredFC[k]; else state.starredFC[k] = true; saveState(); render(); };
     window.setFCFilter = (f) => { state.fcFilter = f; state.fcIdx = 0; state.fcFlipped = false; render(); };
     window.toggleStarQ = (key) => { if (state.starredQ[key]) delete state.starredQ[key]; else state.starredQ[key] = true; saveState(); render(); };
-    window.answerQuiz = (key, origOptIdx) => { state.quizAnswers[key] = origOptIdx; saveState(); render(); };
-    window.jumpQuiz = (idx) => { state.quizIdx = idx; render(); };
-    window.moveQuiz = (delta) => { state.quizIdx = Math.max(0, Math.min(state.quizSession.length - 1, state.quizIdx + delta)); render(); };
+    window.answerQuiz = (key, val) => { state.quizAnswers[key] = val; state.matchTemp = null; state.orderTemp = null; saveState(); render(); };
+    window.checkFill = (key) => {
+      const inp = document.getElementById("fillInput_" + key);
+      if (!inp) return;
+      const val = inp.value.trim().toLowerCase();
+      if (!val) return showToast("Ketik jawaban dulu");
+      const item = state.quizSession[state.quizIdx];
+      const ok = item.origQ.accept.some(a => a.toLowerCase() === val);
+      answerQuiz(key, ok);
+    };
+    window.pickMatchLeft = (li) => {
+      if (!state.matchTemp) state.matchTemp = { selLeft: null, pairs: {} };
+      state.matchTemp.selLeft = li;
+      render();
+    };
+    window.pickMatchRight = (key, ri) => {
+      if (!state.matchTemp || state.matchTemp.selLeft === null) return showToast("Pilih item di sebelah kiri dulu");
+      const item = state.quizSession[state.quizIdx];
+      state.matchTemp.pairs[state.matchTemp.selLeft] = item.rightShuffled[ri];
+      state.matchTemp.selLeft = null;
+      render();
+    };
+    window.submitMatch = (key) => {
+      const item = state.quizSession[state.quizIdx];
+      const ok = item.origQ.pairs.every((pr, li) => state.matchTemp && state.matchTemp.pairs[li] === pr[1]);
+      answerQuiz(key, ok);
+    };
+    window.pickOrderItem = (key, oi) => {
+      const item = state.quizSession[state.quizIdx];
+      if (!state.orderTemp) state.orderTemp = [];
+      state.orderTemp.push(item.orderShuffled[oi]);
+      render();
+    };
+    window.submitOrder = (key) => {
+      const item = state.quizSession[state.quizIdx];
+      const ok = item.origQ.items.every((txt, idx) => state.orderTemp && state.orderTemp[idx] === txt);
+      answerQuiz(key, ok);
+    };
+    window.jumpQuiz = (idx) => { state.quizIdx = idx; state.matchTemp = null; state.orderTemp = null; render(); };
+    window.moveQuiz = (delta) => { state.quizIdx = Math.max(0, Math.min(state.quizSession.length - 1, state.quizIdx + delta)); state.matchTemp = null; state.orderTemp = null; render(); };
     window.finishQuiz = () => { state.quizFinished = true; if (state.timerHandle) { clearInterval(state.timerHandle); state.timerHandle = null; state.timerActive = false; } render(); };
     window.reviewQuiz = () => { state.quizFinished = false; state.quizIdx = 0; render(); };
     window.toggleShuffleQuiz = () => { state.shuffleQuiz = !state.shuffleQuiz; buildQuizSession(); render(); };
     window.toggleStarredQuiz = () => { state.onlyStarredQuiz = !state.onlyStarredQuiz; buildQuizSession(); render(); };
     window.retryWrong = () => {
-      const wrongItems = state.quizSession.filter(item => { const k = `${item.subjId}_${item.qIdx}`; return state.quizAnswers[k] !== undefined && state.quizAnswers[k] !== item.origQ.ans; });
+      const wrongItems = state.quizSession.filter(item => { const k = `${item.subjId}_${item.qIdx}`; return state.quizAnswers[k] !== undefined && !isQCorrect(item.origQ, state.quizAnswers[k]); });
       if (!wrongItems.length) return;
       wrongItems.forEach(item => delete state.quizAnswers[`${item.subjId}_${item.qIdx}`]);
       saveState();
