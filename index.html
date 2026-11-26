@@ -740,7 +740,11 @@
           {"type": "fill", "q": "Pada tahap MapReduce, proses yang bertugas mengubah data mentah menjadi pasangan kunci-nilai (key-value) adalah tahap ____.", "accept": ["map"], "exp": "Tahap Map mengubah input menjadi pasangan key-value, lalu tahap Reduce menggabungkannya."},
           {"type": "fill", "q": "Karakteristik Big Data yang merujuk pada kecepatan aliran dan pemrosesan data secara real-time disebut ____.", "accept": ["velocity"], "exp": "5V: Volume (ukuran), Velocity (kecepatan), Variety (keragaman), Veracity (akurasi), Value (nilai)."},
           {"type": "match", "q": "Cocokkan jenis Big Data Analytics berikut dengan pertanyaan yang dijawabnya:", "pairs": [["Descriptive", "Apa yang telah terjadi?"], ["Diagnostic", "Mengapa hal itu terjadi?"], ["Predictive", "Apa yang mungkin terjadi nanti?"], ["Prescriptive", "Tindakan apa yang harus diambil?"]], "exp": "Descriptive (historis), Diagnostic (akar masalah), Predictive (ramalan), Prescriptive (rekomendasi aksi)."},
-          {"type": "order", "q": "Urutkan tahapan Big Data Lifecycle berikut dari awal hingga akhir:", "items": ["Pengumpulan Data (Collection)", "Penyimpanan Data (Storage)", "Pengolahan Data (Processing)", "Analisis & Visualisasi", "Pengambilan Keputusan"], "exp": "Alur Big Data Lifecycle: Collection → Storage → Processing → Analysis & Visualization → Decision Making."}
+          {"type": "order", "q": "Urutkan tahapan Big Data Lifecycle berikut dari awal hingga akhir:", "items": ["Pengumpulan Data (Collection)", "Penyimpanan Data (Storage)", "Pengolahan Data (Processing)", "Analisis & Visualisasi", "Pengambilan Keputusan"], "exp": "Alur Big Data Lifecycle: Collection → Storage → Processing → Analysis & Visualization → Decision Making."},
+          {"q": "Pada algoritma Support Vector Machines (SVM), teknik yang digunakan untuk memisahkan data non-linear dengan memetakannya ke ruang dimensi lebih tinggi adalah...", "opts": ["Backpropagation", "Kernel Trick", "Bootstrap", "Agglomerative"], "ans": 1, "exp": "Kernel trick memungkinkan SVM menemukan hyperplane pemisah pada data non-linear."},
+          {"q": "Algoritma clustering berbasis kepadatan yang mencari titik kepadatan tinggi di ruang fitur dan TIDAK memerlukan penentuan jumlah klaster di awal adalah...", "opts": ["K-Means", "Mean Shift", "Logistic Regression", "ARIMA"], "ans": 1, "exp": "Mean Shift mencari puncak kepadatan lokal tanpa harus menetapkan jumlah klaster K sebelumnya."},
+          {"q": "Selain Silhouette Score, metrik evaluasi internal yang digunakan untuk menilai kualitas hasil clustering adalah...", "opts": ["Davies-Bouldin Index", "RMSE", "F1-Score", "MAPE"], "ans": 0, "exp": "Davies-Bouldin Index mengukur rasio jarak dalam klaster terhadap jarak antar-klaster (makin kecil makin baik)."},
+          {"type": "tf", "q": "Benar atau Salah: Model ekonometrika dan regresi linier termasuk dalam kategori Causal Forecasting (peramalan kausal).", "ans": true, "exp": "Benar! Causal forecasting memodelkan hubungan sebab-akibat antarvariabel seperti regresi linier dan ekonometrika."}
         ]
       },
       {
@@ -758,6 +762,7 @@
             bullets: [
               "<b>Etimologi</b>: Berasal dari bahasa <b>Sanskerta</b> — <i>Panca</i> (lima) dan <i>Sila</i> (asas/dasar/batu sendi).",
               "<b>Tujuan di PT</b>: Membentuk karakter, identitas bangsa, berpikir kritis, dan warga negara yang aktif & partisipatif.",
+              "<b>Objek Material &amp; Formal</b>: Objek material (kehidupan berbangsa/bernegara &amp; nilai Pancasila); objek formal (sudut pandang filosofis, yuridis, historis, sosiologis, politis).",
               "<b>Tantangan Era Global</b>: Benturan norma global, arus informasi/teknologi, pluralitas, ekstremisme, radikalisme, dan intoleransi."
             ]
           },
@@ -768,7 +773,7 @@
               "<b>Hakikat</b>: <i>Philosofische Grondslag</i> (dasar filsafat negara) dan <i>Weltanschauung</i> (pandangan hidup bangsa).",
               "<b>Sidang BPUPK I</b>: Ketua <b>Dr. Radjiman Wediodiningrat</b> meminta gagasan dasar negara. <b>1 Juni 1945</b> diperingati sebagai Hari Lahir Pancasila (Kepres RI No. 23 Tahun 2016).",
               "<b>Panitia Sembilan</b>: Merumuskan Piagam Jakarta (rancangan Pembukaan UUD).",
-              "<b>Pengesahan</b>: <b>18 Agustus 1945</b> oleh <b>PPKI</b> (bersamaan dengan UUD 1945)."
+              "<b>Pengesahan &amp; Dinamika</b>: <b>18 Agustus 1945</b> oleh <b>PPKI</b> (bersamaan UUD 1945), serta kembali ke NKRI pada <b>17 Agustus 1950</b>."
             ]
           },
           {
@@ -881,7 +886,11 @@
           {"type": "fill", "q": "Secara etimologis, kata Pancasila berasal dari bahasa ____ yang berarti lima asas/dasar.", "accept": ["sanskerta", "sansekerta"], "exp": "Pancasila berasal dari bahasa Sanskerta: Panca (lima) dan Sila (asas/dasar)."},
           {"type": "fill", "q": "Rumusan resmi Pancasila sebagai dasar negara tercantum dalam Pembukaan UUD 1945 alinea ke-____ (tulis angka romawi atau angka).", "accept": ["iv", "4", "empat"], "exp": "Rumusan sila-sila Pancasila tercantum sah pada Pembukaan UUD 1945 Alinea IV."},
           {"type": "match", "q": "Cocokkan istilah dan landasan Pancasila berikut dengan artinya:", "pairs": [["Philosofische Grondslag", "Dasar filsafat negara"], ["Weltanschauung", "Pandangan hidup bangsa"], ["Staatsfundamentalnorm", "Sumber segala sumber hukum"], ["Nilai Instrumental", "Penjabaran dlm UUD/UU"]], "exp": "Keempat istilah ini adalah konsep kunci pada Modul 2, 3, dan 4 MKWN4110."},
-          {"type": "order", "q": "Urutkan peristiwa sejarah perumusan Pancasila berikut secara kronologis:", "items": ["Sidang BPUPK I (Pidato Soekarno 1 Juni)", "Perumusan Piagam Jakarta oleh Panitia Sembilan (22 Juni)", "Proklamasi Kemerdekaan RI (17 Agustus)", "Pengesahan UUD 1945 & Pancasila oleh PPKI (18 Agustus)"], "exp": "Urutan historis: 1 Juni (BPUPK) → 22 Juni (Panitia Sembilan) → 17 Agt (Proklamasi) → 18 Agt 1945 (PPKI)."}
+          {"type": "order", "q": "Urutkan peristiwa sejarah perumusan Pancasila berikut secara kronologis:", "items": ["Sidang BPUPK I (Pidato Soekarno 1 Juni)", "Perumusan Piagam Jakarta oleh Panitia Sembilan (22 Juni)", "Proklamasi Kemerdekaan RI (17 Agustus)", "Pengesahan UUD 1945 & Pancasila oleh PPKI (18 Agustus)"], "exp": "Urutan historis: 1 Juni (BPUPK) → 22 Juni (Panitia Sembilan) → 17 Agt (Proklamasi) → 18 Agt 1945 (PPKI)."},
+          {"q": "Dalam Pendidikan Pancasila (Modul 1), sudut pandang khusus seperti historis, yuridis, sosiologis, dan filosofis yang digunakan untuk membahas Pancasila disebut...", "opts": ["Objek Material", "Objek Formal", "Nilai Praksis", "Paradigma Eksperimental"], "ans": 1, "exp": "Objek material adalah sasaran materinya (Pancasila & kehidupan bangsa), sedangkan objek formal adalah sudut pandang keilmuannya."},
+          {"q": "Memahami Pancasila dengan menelusuri keterkaitannya dengan peraturan perundang-undangan dan ketatanegaraan Indonesia merupakan pendekatan...", "opts": ["Pendekatan Sosiologis", "Pendekatan Yuridis", "Pendekatan Estetis", "Pendekatan Matematis"], "ans": 1, "exp": "Pendekatan yuridis menelaah Pancasila dari aspek hukum dan konstitusi negara."},
+          {"q": "Dalam Tes Formatif Modul 2, tanggal 17 Agustus 1950 tercatat sebagai peristiwa penting dalam lintasan sejarah bangsa, yaitu...", "opts": ["Pembubaran BPUPK", "Kembalinya Indonesia ke bentuk Negara Kesatuan Republik Indonesia (NKRI)", "Lahirnya Orde Baru", "Sidang pertama PPKI"], "ans": 1, "exp": "Pada 17 Agustus 1950, Republik Indonesia Serikat (RIS) resmi kembali menjadi NKRI."},
+          {"type": "tf", "q": "Benar atau Salah: Berbeda dengan ideologi Liberalisme (yang menekankan kebebasan individu mutlak) dan Komunisme (yang meniadakan hak milik individu), Pancasila menempatkan keseimbangan individu dan masyarakat.", "ans": true, "exp": "Benar! Pancasila memandang manusia sebagai makhluk individu sekaligus makhluk sosial (monopluralis)."}
         ]
       },
       {
@@ -919,6 +928,7 @@
             bullets: [
               "<b>Perangkat Keras Khusus</b>: <b>GPU</b> dan arsitektur <b>non-von Neumann</b> untuk komputasi paralel AI.",
               "<b>Expert System</b>: Sistem berbasis aturan (<i>rule-based</i>) meniru pakar manusia.",
+              "<b>Planning, Scheduling &amp; Optimization</b>: Pendekatan AI untuk menyusun rencana aksi berurutan, penjadwalan sumber daya, dan mencari solusi optimal.",
               "<b>Fuzzy Logic</b>: Menangani <b>ketidakpastian dan ambiguitas</b> dengan derajat keanggotaan (vs logika klasik 0/1)."
             ]
           },
@@ -928,7 +938,7 @@
             bullets: [
               "<b>Bio-Inspired</b>: Jaringan Saraf Tiruan (ANN), Algoritma Genetika, dan <i>Swarm Intelligence</i>.",
               "<b>3 Paradigma ML</b>: <b>Supervised</b> (berlabel), <b>Unsupervised</b> (tanpa label), <b>Reinforcement Learning</b> (reward & penalty).",
-              "<b>Deep Learning</b>: Arsitektur berlapis dengan <b>backpropagation</b>; teknik <i>Online learning</i>, <i>Transfer learning</i>, <i>End-to-end learning</i>.",
+              "<b>Deep Learning</b>: Arsitektur berlapis dengan <b>backpropagation</b>; <b>Online learning</b> (belajar bertahap dari aliran data baru), <b>Transfer learning</b> (pakai bobot model terlatih), <b>End-to-end learning</b> (latih langsung dari input mentah ke output).",
               "<b>CNN vs RNN</b>: <b>CNN</b> unggul untuk citra/Computer Vision; <b>RNN</b> unggul untuk data sekuensial (teks/suara)."
             ]
           },
@@ -939,7 +949,8 @@
               "<b>Computer Vision</b>: Diagnosis medis & mobil otonom.",
               "<b>Speech Recognition</b>: Interaksi manusia-komputer via suara.",
               "<b>NLP</b>: NLU (pemahaman), NLG (pembentukan teks), penerjemahan mesin.",
-              "<b>Mobil Otonom</b>: <b>6 tingkat otonomi</b> & dilema etis <b>masalah trolley (trolley problem)</b>."
+              "<b>Mobil Otonom</b>: <b>6 tingkat otonomi</b> &amp; dilema etis <b>masalah trolley (trolley problem)</b>.",
+              "<b>Robotika, Drone &amp; Luar Angkasa</b>: Mencakup hukum robotika, regulasi drone (militer/nonmiliter), serta AI untuk observasi alam semesta &amp; eksplorasi luar angkasa."
             ]
           }
         ],
@@ -1015,7 +1026,11 @@
           {"type": "fill", "q": "Arsitektur Deep Learning yang paling unggul untuk mengekstrak fitur spasial gambar pada Computer Vision adalah ____ (singkatan 3 huruf).", "accept": ["cnn"], "exp": "CNN (Convolutional Neural Networks) adalah arsitektur utama untuk pemrosesan citra/Computer Vision."},
           {"type": "fill", "q": "Dilema etis klasik pada mobil otonom saat menghadapi kecelakaan tak terhindarkan dikenal dengan istilah ____ problem.", "accept": ["trolley"], "exp": "Trolley problem membahas dilema moral keputusan otomatis pada kendaraan otonom."},
           {"type": "match", "q": "Cocokkan pendekatan/paradigma AI berikut dengan ciri khasnya:", "pairs": [["Supervised Learning", "Belajar dari data berlabel"], ["Unsupervised Learning", "Cari pola tanpa label"], ["Reinforcement Learning", "Belajar lewat reward & penalty"], ["Transfer Learning", "Pakai bobot model terlatih"]], "exp": "Keempat paradigma ini adalah fondasi Machine Learning & Deep Learning di Modul AI."},
-          {"type": "order", "q": "Urutkan alur kerja standar sistem Machine Learning berikut:", "items": ["Pengumpulan Data Berkualitas", "Preprocessing & Analisis Data", "Pelatihan Model (Training)", "Evaluasi & Validasi Model", "Implementasi (Deployment)"], "exp": "Alur ML: Kumpulkan data → Preprocessing → Training → Evaluasi → Implementasi."}
+          {"type": "order", "q": "Urutkan alur kerja standar sistem Machine Learning berikut:", "items": ["Pengumpulan Data Berkualitas", "Preprocessing & Analisis Data", "Pelatihan Model (Training)", "Evaluasi & Validasi Model", "Implementasi (Deployment)"], "exp": "Alur ML: Kumpulkan data → Preprocessing → Training → Evaluasi → Implementasi."},
+          {"q": "Capaian pembelajaran AI yang berfokus pada penyusunan urutan tindakan untuk mencapai tujuan tertentu serta alokasi sumber daya secara efisien adalah...", "opts": ["Speech Recognition", "Planning, Scheduling, dan Optimization", "Computer Vision", "Fuzzy Inference"], "ans": 1, "exp": "Planning, scheduling, dan optimization digunakan untuk merencanakan urutan aksi dan mengoptimalkan jadwal/sumber daya."},
+          {"q": "Teknik pembelajaran mesin di mana model terus diperbarui secara bertahap setiap kali ada data baru yang masuk secara berurutan disebut...", "opts": ["Online Learning", "Batch Offline Learning", "Hard Clustering", "Rule Pruning"], "ans": 0, "exp": "Online learning memperbarui model secara inkremental dari aliran data baru, berbeda dengan end-to-end learning yang melatih seluruh pipeline dari input mentah ke output."},
+          {"q": "Dalam pembahasan aplikasi AI pada robotika dan drone di modul STDA4203, tantangan non-teknis yang disoroti untuk penggunaan drone sipil maupun militer adalah...", "opts": ["Ukuran kabel LAN", "Regulasi dan etika penggunaan drone", "Warna baling-baling", "Format file CSV"], "ans": 1, "exp": "Modul menekankan tantangan regulasi, keamanan, dan etika dalam pemanfaatan drone."},
+          {"type": "tf", "q": "Benar atau Salah: Menurut panduan belajar STDA4203, AI dapat berkontribusi dalam observasi alam semesta, pencarian planet baru, dan penambangan luar angkasa.", "ans": true, "exp": "Benar! Eksplorasi luar angkasa dibahas sebagai salah satu sektor kontribusi besar AI."}
         ]
       },
       {
@@ -1032,7 +1047,7 @@
             tag: "Konsep Dasar",
             bullets: [
               "<b>NoSQL (Non-Relational)</b>: Untuk data tidak terstruktur/semiterstruktur, skema fleksibel, komputasi terdistribusi (MapReduce), dan <b>kecepatan lebih tinggi</b> dibanding SQL tradisional.",
-              "<b>4 Model Utama</b>: Key-Value, Document-Oriented, Column-Family (Wide Column), dan Graph Database."
+              "<b>4 Model Utama</b>: Key-Value (memori <i>in-memory</i> super cepat seperti Redis vs <i>persistent/disk-backed</i>), Document-Oriented, Column-Family, dan Graph Database."
             ]
           },
           {
@@ -1053,6 +1068,7 @@
             tag: "MongoDB",
             bullets: [
               "<b>Relasi Dokumen</b>: <b>Embedded Document</b> (bersarang di dokumen induk) vs <b>Referenced Document</b> (simpan ID referensi).",
+              "<b>Query Transaksional &amp; Logika</b>: Operator perbandingan (<code>$gt</code>, <code>$lt</code>, <code>$in</code>) &amp; logika (<code>$and</code>, <code>$or</code>) untuk menyaring dokumen secara presisi.",
               "<b>Aggregation Pipeline</b>: <code>$match</code> (filter), <code>$project</code> (pilih/ubah field), <code>$sort</code> (urutkan), <code>$limit</code> (batasi), <code>$skip</code> (lewati), <code>$unwind</code> (pecah array menjadi dokumen terpisah)."
             ]
           },
@@ -1140,7 +1156,11 @@
           {"type": "fill", "q": "Operator Aggregation Pipeline MongoDB yang berfungsi memecah elemen array menjadi dokumen terpisah adalah $____.", "accept": ["unwind", "$unwind"], "exp": "$unwind mendekomposisi field array menjadi dokumen-dokumen tersendiri."},
           {"type": "fill", "q": "Utilitas command-line resmi MongoDB untuk membuat cadangan (backup) database dalam format biner adalah ____.", "accept": ["mongodump"], "exp": "mongodump digunakan untuk backup data MongoDB (dan mongorestore untuk memulihkannya)."},
           {"type": "match", "q": "Cocokkan 4 tipe basis data NoSQL berikut dengan contoh software-nya:", "pairs": [["Key-Value Store", "Redis / DynamoDB"], ["Document-Oriented", "MongoDB"], ["Column-Family", "Apache Cassandra / HBase"], ["Graph Database", "Neo4j / Memgraph"]], "exp": "Empat pilar NoSQL: Key-Value (Redis), Document (MongoDB), Column-Family (Cassandra), Graph (Neo4j)."},
-          {"type": "order", "q": "Urutkan tahapan Aggregation Pipeline MongoDB yang efisien untuk filter, urut, dan pagination:", "items": ["$match (Filter dokumen)", "$sort (Urutkan hasil)", "$skip (Lewati N dokumen)", "$limit (Batasi jumlah output)"], "exp": "Best practice pipeline: $match dulu untuk perkecil data → $sort → $skip → $limit."}
+          {"type": "order", "q": "Urutkan tahapan Aggregation Pipeline MongoDB yang efisien untuk filter, urut, dan pagination:", "items": ["$match (Filter dokumen)", "$sort (Urutkan hasil)", "$skip (Lewati N dokumen)", "$limit (Batasi jumlah output)"], "exp": "Best practice pipeline: $match dulu untuk perkecil data → $sort → $skip → $limit."},
+          {"q": "Dalam query transaksional MongoDB, operator logika yang digunakan untuk memastikan dokumen memenuhi SEMUA kondisi sekaligus adalah...", "opts": ["$or", "$and", "$unwind", "$skip"], "ans": 1, "exp": "$and mengharuskan seluruh ekspresi kondisi bernilai benar, sedangkan $or cukup salah satu."},
+          {"q": "Basis data Key-Value seperti Redis sangat cepat dalam proses caching dan manajemen session karena umumnya beroperasi menggunakan...", "opts": ["Penyimpanan in-memory (RAM)", "Tape magnetik", "Join multi-tabel SQL", "File XML bertingkat"], "ans": 0, "exp": "Redis menyimpan data di memori utama (in-memory) sehingga latensi baca/tulis sangat rendah."},
+          {"type": "fill", "q": "Pada MongoDB, operator perbandingan untuk mencari nilai field yang lebih besar dari (greater than) angka tertentu adalah $____.", "accept": ["gt", "$gt"], "exp": "$gt = greater than, $lt = less than, $in = cocok dengan salah satu nilai dalam array."},
+          {"type": "tf", "q": "Benar atau Salah: Pada basis data Key-Value, satu key dapat dimiliki oleh beberapa value yang berbeda secara duplikat dalam bucket yang sama.", "ans": false, "exp": "Salah! Pada Key-Value Store, setiap key harus bersifat unik."}
         ]
       },
       {
@@ -1276,7 +1296,11 @@
           {"type": "fill", "q": "Diketahui Confusion Matrix: TP = 30, FP = 10, FN = 20, TN = 40. Hitunglah nilai Accuracy (%) = ____ (tulis angkanya saja).", "accept": ["70", "70%"], "exp": "Accuracy = (TP + TN) / Total = (30 + 40) / 100 = 70%."},
           {"type": "fill", "q": "Dari 50 transaksi, 25 membeli Kopi dan 15 membeli Kopi sekaligus Gula. Nilai Confidence(Kopi → Gula) dalam persen (%) adalah ____.", "accept": ["60", "60%"], "exp": "Confidence(Kopi → Gula) = 15 / 25 = 0.60 = 60%."},
           {"type": "match", "q": "Cocokkan algoritma Data Mining berikut dengan kategori tugasnya:", "pairs": [["C4.5 / ID3", "Klasifikasi (Decision Tree)"], ["Regresi Linier", "Estimasi nilai kontinu"], ["FP-Growth / Apriori", "Analisis Asosiasi"], ["K-Means / HAC", "Klasterisasi (Clustering)"]], "exp": "Klasifikasi & Estimasi = Predictive; Asosiasi & Klasterisasi = Descriptive."},
-          {"type": "order", "q": "Urutkan 6 fase metodologi CRISP-DM secara berurutan:", "items": ["Business Understanding", "Data Understanding", "Data Preparation", "Modeling", "Evaluation", "Deployment"], "exp": "6 fase CRISP-DM: Business → Data Understanding → Data Preparation → Modeling → Evaluation → Deployment."}
+          {"type": "order", "q": "Urutkan 6 fase metodologi CRISP-DM secara berurutan:", "items": ["Business Understanding", "Data Understanding", "Data Preparation", "Modeling", "Evaluation", "Deployment"], "exp": "6 fase CRISP-DM: Business → Data Understanding → Data Preparation → Modeling → Evaluation → Deployment."},
+          {"type": "fill", "q": "Dalam algoritma K-Means, hitunglah jarak Euclidean antara titik data (1, 2) dan centroid (4, 6) = ____.", "accept": ["5", "5.0"], "exp": "d = √((4−1)² + (6−2)²) = √(3² + 4²) = √(9 + 16) = √25 = 5."},
+          {"type": "fill", "q": "Diketahui persamaan regresi linier sederhana ŷ = 10 + 2x. Jika x = 5, maka nilai prediksi ŷ = ____.", "accept": ["20", "20.0"], "exp": "ŷ = 10 + 2(5) = 10 + 10 = 20."},
+          {"q": "Diketahui Confusion Matrix: TN = 45, FP = 5, TP = 40, FN = 10. Berapakah nilai Specificity model tersebut?", "opts": ["80%", "85%", "90%", "95%"], "ans": 2, "exp": "Specificity = TN / (TN + FP) = 45 / (45 + 5) = 45 / 50 = 90%."},
+          {"q": "Kurva yang memplot True Positive Rate (Recall) terhadap False Positive Rate pada berbagai threshold klasifikasi disebut...", "opts": ["Dendrogram", "Kurva ROC", "Scatter Plot", "Histogram"], "ans": 1, "exp": "Kurva ROC (dan nilai AUC di bawahnya) digunakan untuk mengevaluasi performa classifier biner."}
         ]
       },
       {
@@ -1305,6 +1329,7 @@
               "<b>PMF vs PDF</b>: Diskrit <code>∑ p(x) = 1</code>; Kontinu <code>∫<sub>−∞</sub><sup>∞</sup> f(x) dx = 1</code>.",
               "<b>CDF</b>: <code>F<sub>X</sub>(x) = P(X ≤ x)</code>; kontinu dari kanan, monoton tak turun. Pada kontinu: <code>f(x) = F'(x)</code>.",
               "<b>Marginal</b>: <code>f<sub>X</sub>(x) = ∑<sub>y</sub> f(x,y)</code> (diskrit) atau <code>∫ f(x,y) dy</code> (kontinu).",
+              "<b>Distribusi Bersyarat</b>: <code>f(x|y) = f(x,y) / f<sub>Y</sub>(y)</code> (dengan <code>f<sub>Y</sub>(y) &gt; 0</code>).",
               "<b>Independensi</b>: X, Y independen ⇔ <code>f(x,y) = f<sub>X</sub>(x)·f<sub>Y</sub>(y)</code>."
             ]
           },
@@ -1329,7 +1354,9 @@
                 ["<b>Geometrik(p)</b>", "Diskrit", "<code>1/p</code>", "Menunggu sukses ke-1"],
                 ["<b>Poisson(λ)</b>", "Diskrit", "<code>λ</code>", "<code>λ</code> • Kejadian langka"],
                 ["<b>Eksponensial(λ)</b>", "Kontinu", "<code>1/λ</code>", "<code>1/λ<sup>2</sup></code> • Sifat <b>memoryless</b>"],
-                ["<b>Normal(μ, σ<sup>2</sup>)</b>", "Kontinu", "<code>μ</code>", "<code>σ<sup>2</sup></code> • Simetris lonceng"]
+                ["<b>Normal(μ, σ<sup>2</sup>)</b>", "Kontinu", "<code>μ</code>", "<code>σ<sup>2</sup></code> • Simetris lonceng"],
+                ["<b>Binomial Negatif(r,p)</b>", "Diskrit", "<code>r(1−p)/p</code>", "Jumlah gagal sebelum sukses ke-r"],
+                ["<b>Gamma(α, β) &amp; Beta(α, β)</b>", "Kontinu", "Gamma: <code>αβ</code>", "Beta terdefinisi pada selang <code>(0, 1)</code>"]
               ]
             }
           },
@@ -1338,7 +1365,7 @@
             tag: "Lanjutan",
             bullets: [
               "<b>Metode Jacobian</b>: <code>f<sub>Y</sub>(y) = f<sub>X</sub>(g<sup>−1</sup>(y)) · |dx/dy|</code>.",
-              "<b>Hukum Bilangan Besar</b>: <code>X̄<sub>n</sub> → μ</code> dalam probabilitas.",
+              "<b>Ketaksamaan Chebyshev &amp; LLN</b>: <code>P(|X − μ| ≥ kσ) ≤ 1/k<sup>2</sup></code>; menjamin <code>X̄<sub>n</sub> → μ</code> dalam probabilitas (Hukum Bilangan Besar).",
               "<b>Teorema Limit Pusat (CLT)</b>: Untuk <i>n</i> besar, <code>Z<sub>n</sub> = (X̄<sub>n</sub> − μ)/(σ/√n)</code> mendekati <b>Normal Standar N(0, 1)</b>."
             ]
           }
@@ -1417,7 +1444,11 @@
           {"type": "fill", "q": "Diketahui X ~ Binomial(n = 20, p = 0,4). Nilai ekspektasi E[X] = ____.", "accept": ["8", "8.0", "8,0"], "exp": "Untuk distribusi Binomial(n, p), E[X] = n · p = 20 × 0,4 = 8."},
           {"type": "fill", "q": "Diketahui MGF dari variabel random X adalah M_X(t) = e^(5t + 3t²). Nilai E[X] = ____.", "accept": ["5"], "exp": "E[X] = M'_X(0). Turunan M'_X(t) = (5 + 6t)e^(5t+3t²), pada t = 0 bernilai 5."},
           {"type": "match", "q": "Cocokkan distribusi probabilitas berikut dengan ciri khasnya:", "pairs": [["Poisson(λ)", "E[X] = Var(X) = λ"], ["Eksponensial(λ)", "Sifat memoryless kontinu"], ["Hipergeometrik", "Sampel tanpa pengembalian"], ["Normal Standar", "Mean 0 dan Variansi 1"]], "exp": "Keempat distribusi ini sering muncul di soal pilihan ganda & uraian SATS4410."},
-          {"type": "order", "q": "Urutkan langkah mencari fungsi densitas Y = g(X) dengan Metode CDF:", "items": ["Tuliskan F_Y(y) = P(Y ≤ y) = P(g(X) ≤ y)", "Nyatakan pertidaksamaan dalam X (invers g⁻¹)", "Hitung integral f_X(x) untuk memperoleh F_Y(y)", "Turunkan F_Y(y) terhadap y untuk mendapat f_Y(y)"], "exp": "Metode CDF: Definisi F_Y(y) → ubah ke X → hitung F_Y(y) → turunkan jadi f_Y(y)."}
+          {"type": "order", "q": "Urutkan langkah mencari fungsi densitas Y = g(X) dengan Metode CDF:", "items": ["Tuliskan F_Y(y) = P(Y ≤ y) = P(g(X) ≤ y)", "Nyatakan pertidaksamaan dalam X (invers g⁻¹)", "Hitung integral f_X(x) untuk memperoleh F_Y(y)", "Turunkan F_Y(y) terhadap y untuk mendapat f_Y(y)"], "exp": "Metode CDF: Definisi F_Y(y) → ubah ke X → hitung F_Y(y) → turunkan jadi f_Y(y)."},
+          {"q": "Variabel random diskrit X yang menyatakan banyaknya percobaan gagal sebelum memperoleh sukses ke-r pada percobaan Bernoulli independen mengikuti distribusi...", "opts": ["Binomial Negatif NB(r, p)", "Hipergeometrik", "Poisson", "Uniform"], "ans": 0, "exp": "Binomial Negatif NB(r, p) memodelkan banyaknya kegagalan sebelum sukses ke-r (Modul 6 Contoh 6.4)."},
+          {"q": "Distribusi kontinu yang didefinisikan pada selang (0, 1) dengan dua parameter bentuk α dan β (sering dipakai memodelkan proporsi/peluang) adalah distribusi...", "opts": ["Poisson", "Beta", "Geometrik", "Cauchy"], "ans": 1, "exp": "Definisi 6.8 Modul 6 menyatakan distribusi Beta(α, β) terdefinisi pada 0 < x < 1."},
+          {"q": "Jika f(x, y) adalah fungsi densitas bersama dan f_Y(y) > 0 adalah densitas marginal Y, maka fungsi densitas bersyarat X diketahui Y = y adalah...", "opts": ["f(x, y) · f_Y(y)", "f(x, y) / f_Y(y)", "f_X(x) + f_Y(y)", "f(x, y) − f_Y(y)"], "ans": 1, "exp": "Densitas bersyarat didefinisikan sebagai f(x|y) = f(x, y) / f_Y(y)."},
+          {"type": "tf", "q": "Benar atau Salah: Ketaksamaan Chebyshev memberikan batas atas probabilitas penyimpangan variabel random dari rata-ratanya sebesar P(|X − μ| ≥ kσ) ≤ 1/k².", "ans": true, "exp": "Benar! Ketaksamaan Chebyshev berlaku untuk distribusi apa pun dengan variansi berhingga dan mendasari Hukum Bilangan Besar."}
         ]
       }
     ];
@@ -1863,7 +1894,7 @@
         <div class="next-cta">
           <div>
             <div style="font-weight:800;font-size:13.5px;">Hafal: ${st.learnedCount}/${st.totalFC} kartu ${st.fcDone ? "✅" : `(butuh ${fcTarget} untuk ✓)`}</div>
-            <div style="font-size:12px;color:var(--muted);">Kerjakan 26 soal variasi + 3 Studi Kasus HOTS.</div>
+            <div style="font-size:12px;color:var(--muted);">Kerjakan ${s.quiz.length} soal variasi + 3 Studi Kasus HOTS.</div>
           </div>
           <button class="btn btn-primary" onclick="setMode('quiz')">Lanjut ke Langkah 4 →</button>
         </div>
@@ -1958,7 +1989,7 @@
       const essayFilled = curS ? curS.essays.filter((_, i) => (state.essayDrafts[`${curS.id}_es_${i}`] || "").trim().length > 0).length : 0;
       const subModeBar = !isMixedUTM() && !state.cramMode ? `
         <div class="seg-ctrl" style="margin:0;">
-          <button class="seg-btn ${state.subModeQuiz==='pg'?'active':''}" onclick="state.subModeQuiz='pg'; render();">📝 Kuis Variasi (26)</button>
+          <button class="seg-btn ${state.subModeQuiz==='pg'?'active':''}" onclick="state.subModeQuiz='pg'; render();">📝 Kuis Variasi (${curS ? curS.quiz.length : 26})</button>
           <button class="seg-btn ${state.subModeQuiz==='essay'?'active':''}" onclick="state.subModeQuiz='essay'; render();">✍️ Studi Kasus (${essayFilled}/${curS.essays.length})</button>
         </div>
       ` : "<div></div>";
